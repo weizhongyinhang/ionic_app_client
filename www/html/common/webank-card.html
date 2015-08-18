@@ -1,0 +1,53 @@
+<ion-view>
+    <div class="set">
+
+        <ion-header-bar>
+            <div class="menu-ba">
+                <header class="menu"><span class="menu-return" ng-click="back()"></span>微众卡<span class="menu-wd" ng-click="nClickQuery()">交易查询</span></header>
+            </div>
+        </ion-header-bar>
+        
+        <ion-content class="has-header">
+            <div class="wb-card-new">
+                <div class="wb-card-wrap" >
+                    <div class="inner">
+                        <p class="g-a">微众卡</p>
+                        <div class="g-b">
+                            <span class="l" ng-bind="webankCardNum | splitAccountNumber"></span>
+                            <span class="r"  ng-click="onClickCopy()" style="text-decoration:none;padding: 0 5 0 30;">复制</span>
+                        </div>
+                        <p class="g-c" ><i ng-click="nClickQuery()" ng-bind="webankCardAmount | number:2"></i> 元</p>
+                    </div>
+                </div>
+                <div class="g-d" ng-if="data.isNeedActive">
+                    <span class="l" ng-if="data.freezAmount>0">您有<i>{{data.freezAmount}}</i>元的工资不可使用</span>
+                    <span class="l" ng-if="data.freezAmount<=0">代发工资账户还不可使用</span>
+                    <span class="r" ng-if="data.freezAmount>0" ng-click="onClickActiveAccount()">人脸验证解冻</span>
+                    <span class="r" ng-if="data.freezAmount<=0" ng-click="onClickActiveAccount()">人脸验证激活</span>
+                </div>
+            </div>
+
+            <img ng-if="0" src="../img/slice/index_banner_2.png" class="card-g">
+
+            <!-- 收起加off -->
+            <div class="bx">
+                <div class="{{classStr}}" ng-click="onClickItem()" style="margin-top:10px;">
+                    <div class="t px-a" style="font-size:14px;">如何从他行转账汇款至微众卡？</div>
+                    <div class="t-con">
+                        <p style="font-size:14px;color:#b1b9ce;line-height:20px;">您可以通过包括“工农中建交”在内的全国共1600余家银行的柜面、网银向微众银行进行转账汇款。转账时，请准确填写转账金额、您本人的姓名和微众卡号（在首页点击左上角个人头像即可查看），并注意选择开户行：深圳前海微众银行。从他行网银转账选择开户行时，常见问题中的“如何从他行转账汇款至微众银行”介绍了部分银行的操作指引，可供参考。如您通过他行转账时，无法找到我行信息，可随时与我行客服联系，电话400-999-8877。</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ph"></div>
+        </ion-content>
+        <ion-footer-bar class="bar bar-footer" style="height:50px;">
+            <div class="hj-by-wrap flex">
+                <div class="item" ng-if="!onIfShowOut()" style="background-color: #c0c0c0" ng-click="onClickTurnOut()">转出</div>
+                <div class="item" ng-if="onIfShowOut()" ng-click="onClickTurnOut()">转出</div>
+                <div class="item" ng-click="onClickTurnIn()">转入</div>
+            </div>
+        </ion-footer-bar>
+    </div>
+
+</ion-view>

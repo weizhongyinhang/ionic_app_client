@@ -1,0 +1,117 @@
+<ion-view>
+    <div class="idx p-c-blue">
+        <ion-header-bar>
+            <div class="menu-ba">
+                <header class="menu">
+                    <span class="menu-user" ng-click="func.onClickSettingsBtn()">
+                        <span class="avatar"><img ng-src="{{data.avatarUrl}}" alt="用户名"></span>
+                        <span class="reddot" ng-if="data.showMsgDot"></span>
+                    </span>
+                    微众银行
+                    <span class="menu-wd" ng-click="func.onClickTransLog()">交易查询</span>
+                </header>
+            </div>
+        </ion-header-bar>
+        <ion-content has-bouncing="false" class="has-header" style="bottom: 54px;" >
+            <section class="asset-overview p-bgc-blue">
+                <ul class="assets">
+                    <li class="title p-c-lblue"><span>总资产(元)</span></li>
+                    <li class="sum num p-c-fff">{{data.totalAmount}}</li>
+                    <li class="profit flex p-c-lblue" ng-click="func.onClickMyIncomes()">
+                        <div>昨日收益<br><span class="num">{{data.yesterdayTotalIncome}}</span></div>
+                        <div>累计收益<br><span class="num">{{data.accumulatedTotalIncome}}</span></div>
+                    </li>
+                </ul>
+
+                <!--圆环-->
+                <div class="meter"
+                     highcharts
+                     show-chart='func.showWealthChart'
+                     chart-options="data.wealthChartOption"
+                     ng-if="false">
+                </div>
+            </section>
+
+            <section class="banner mg10" ng-click="func.onClickHomeMiddleBanner()" ng-if='false'>
+                <img src="../img/slice/index_banner_1.png" alt="">
+            </section>
+
+            <section class="product-overview p-bgc-fff">
+                <ul class="products">
+                    <!--微众卡-->
+                    <li class="wcard flex px-b" ng-if="data.showWeBankCard" ng-click="func.onClickWeBankCard()">
+                        <div class="item left">微众卡</div>
+                        <div class="item right has1row num">{{data.weBankCardAmount}}</div>
+                    </li>
+
+                    <!--货基已购买-->
+                    <li class="cplus flex px-b" ng-if="data.hasHJ" ng-click="func.onClickViewMyHJProducts()">
+                        <div class="item left"><i class="cplus">活期+</i></div>
+                        <div class="item right has2rows">
+                            <span class="p-c-lgray"><span>昨日</span><span class="num">{{data.yesterdayHJIncome}}</span></span>
+                            <span class="num">{{data.HJAmount}}</span>
+                        </div>
+                    </li>
+
+                    <!--货基未购买-->
+                    <li class="cplus flex px-b" ng-if="!data.hasHJ">
+                        <div class="item left" ng-click="func.onClickViewMyHJProducts()"><i class="cplus">活期+</i></div>
+                        <div class="item right allow-enter">
+                            <span class="p-c-lgray" ng-click="func.onClickViewMyHJProducts()">年化收益<span class="p-c-lorange num">{{data.HJIncomeRate}}%</span></span>
+                        </div>
+                    </li>
+
+                    <!--保险已购买-->
+                    <li class="dplus flex px-b" ng-if="data.hasBX"  ng-click="func.onClickViewMyInsurance()">
+                        <div class="item left"><i class="dplus">定期+</i></div>
+                        <div class="item right has2rows">
+                            <span class="p-c-lgray"><span>昨日</span><span class="num">{{data.yesterdayBXIncome}}</span></span>
+                            <span class="num">{{data.BXAmount}}</span>
+                        </div>
+                    </li>
+
+                    <!--保险未购买-->
+                    <li class="dplus flex px-b" ng-if="!data.hasBX" ng-click="func.onClickPurchaseInsurance()">
+                        <div class="item left"><i class="dplus">定期+</i></div>
+                        <div class="item right allow-enter">
+                            <span class="p-c-lgray">精选最优产品</span>
+                        </div>
+                    </li>
+
+                    <!--股基已购买-->
+                    <li class="fund flex px" ng-if="data.hasGJ" ng-click="func.onClickViewMyStockProducts()">
+                        <div class="item left">股票基金</div>
+                        <div class="item right has2rows">
+                            <span class="p-c-lgray"><span>昨日</span><span class="num">{{data.yesterdayGJIncome}}</span></span>
+                            <span class="num">{{data.GJAmount}}</span>
+                        </div>
+                    </li>
+
+                    <!--股基未购买-->
+                    <li class="fund flex px" ng-if="!data.hasGJ" ng-click="func.onClickPurchaseStockProducts()">
+                        <div class="item left">股票基金</div>
+                        <div class="item right allow-enter" ng-if="data.showStockButton">
+                            <span class="p-c-lgray">追求更高收益</span>
+                        </div>
+                        <div class="item right pending" ng-if="!data.showStockButton">
+                            <span class="p-c-lgray">敬请期待...</span>
+                        </div>
+                    </li>
+
+                </ul>
+            </section>
+        </ion-content>
+        <div class="main-nav-wrap">
+            <ul class="main-nav flex">
+                <li class="item i-a i-on">首页</li>
+                <li class="item i-b" ng-click="func.onClickFinancialTab()">理财</li>
+                <li class="item i-c" ng-click="func.onClickTransferTab()">转账</li>
+            </ul>
+        </div>
+    </div>
+
+    <loading show-loading="data.showLoading"></loading>
+
+    <div pop-confirm out-value="data.outValue"></div>
+
+</ion-view>

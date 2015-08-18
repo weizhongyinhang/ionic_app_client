@@ -1,0 +1,133 @@
+<ion-view>
+    <div class="trf p-c-blue">
+        <ion-header-bar>
+            <div class="menu-ba">
+                <header class="menu">
+                    <span class="menu-user" ng-if="data.isLogin" ng-click="func.onClickSettingsBtn()">
+                        <span class="avatar">
+                            <img ng-src="{{data.avatarUrl}}" alt="用户名">
+                        </span>
+                        <span class="reddot" ng-if="data.showMsgDot"></span>
+                    </span>
+                    <span class="menu-info" ng-if="!data.isLogin" ng-click="func.onClickSettingsBtn()"></span>
+                    转账
+                    <span class="menu-wd" ng-if="data.isHasAccount" ng-click="func.onClickTransLog()">交易查询</span>
+                </header>
+            </div>
+        </ion-header-bar>
+
+        <ion-content has-bouncing="false" class="has-header" style="bottom: 54px;" >
+            <!--未登录或者未开户-->
+            <div ng-if="!func.isUserRegistered()">
+                <ul class="mainfunc p-bgc-fff px-a">
+                    <li class="trf-out" ng-click="func.onClickLoginRegin()">
+                        <h3>转出</h3>
+                        <!--<p class="p-c-lgray">实时到账</p>-->
+                    </li>
+                    <li class="trf-in p-line-l" ng-click="func.onClickLoginRegin()">
+                        <h3>转入</h3>
+                        <!--<p class="p-c-lgray">活期+收益到达5.4%</p>-->
+                    </li>
+                </ul>
+                <dl class="plans p-bgc-fff px-a">
+                    <dt class="p-bgc-lgray px-a" ng-click="func.onClickLoginRegin()">存取计划</dt>
+                    <dd class="px-a" ng-click="func.onClickLoginRegin()">
+                        <h4 class="plan-in-1">存工资</h4>
+                        <p class="p-c-lgray">工资到账立即理财</p>
+                    </dd>
+                    <dd class="px-a" ng-click="func.onClickLoginRegin()">
+                        <h4 class="plan-out-1">还房贷</h4>
+                        <p class="p-c-lgray">制定计划自动还贷</p>
+                    </dd>
+                    <dd ng-click="func.onClickLoginRegin()">
+                        <h4 class="plan-custom">自定义计划</h4>
+                    </dd>
+                </dl>
+            </div>
+
+            <!--已登录且已开户-->
+            <div ng-if="func.isUserRegistered()">
+                <ul class="mainfunc p-bgc-fff px-a">
+                    <li class="trf-out" ng-click="func.onClickTransferOut()">
+                        <h3>转出</h3>
+                        <!--<p class="p-c-lgray">实时到账</p>-->
+                    </li>
+                    <li class="trf-in p-line-l" ng-click="func.onClickTransferIn()">
+                        <h3>转入</h3>
+                        <!--<p class="p-c-lgray">活期+收益到达5.4%</p>-->
+                    </li>
+                </ul>
+                <!--尚无计划-->
+                <dl class="plans p-bgc-fff px-a">
+                    <dt class="p-bgc-lgray px-a">存取计划</dt>
+                    <dd class="px-a" ng-click="func.onClickSalaryPlan()" ng-if="data.salaryPlan.planInfo == null">
+                        <h4 class="plan-in-1">存工资</h4>
+                        <p class="p-c-lgray">工资到账，立即理财</p>
+                    </dd>
+                    <dd class="px-a" ng-click="func.onClickModifySalaryPlan(data.salaryPlan.planInfo)" ng-if="data.salaryPlan.planInfo != null">
+                        <h4 class="plan-in-1">存工资</h4>
+                        <p class="item p-c-lgray has2rows">{{data.salaryPlan.dateDesc}}<br>{{data.salaryPlan.amountDesc}}</p>
+                    </dd>
+                    <dd class="px-a" ng-click="func.onClickMortgagePlan()" ng-if="data.mortgage.planInfo == null">
+                        <h4 class="plan-out-1">还房贷</h4>
+                        <p class="p-c-lgray">制定计划，自动还贷</p>
+                    </dd>
+                    <dd class="px-a" ng-click="func.onClickModifyMortgagePlan(data.mortgage.planInfo)" ng-if="data.mortgage.planInfo != null">
+                        <h4 class="plan-out-1">还房贷</h4>
+                        <p class="item p-c-lgray has2rows">{{data.mortgage.dateDesc}}<br>{{data.mortgage.amountDesc}}</p>
+                    </dd>
+                    </dd>
+                    <dd class="flex px-a" ng-repeat="plan in data.commonPlanList" ng-click="func.onClickCommonPlan(plan)">
+                        <h4 class="item plan-out-2">{{plan.name}}</h4>
+                        <p class="item p-c-lgray has2rows">{{plan.dateDesc}}<br>{{plan.typeDesc}}</p>
+                    </dd>
+                    <dd>
+                        <h4 class="plan-custom" ng-click="func.onClickMakePlan()">自定义计划</h4>
+                    </dd>
+                </dl>
+
+                <!--&lt;!&ndash;已有计划&ndash;&gt;-->
+                <!--<dl class="plans p-bgc-fff px-a" ng-if="false">-->
+                    <!--<dt class="p-bgc-lgray px-a">存取计划</dt>-->
+                    <!--<dd class="px-a">-->
+                        <!--<h4 class="plan-in-1">定期存工资</h4>-->
+                        <!--<p class="p-c-lgray">工资到账立即理财</p>-->
+                    <!--</dd>-->
+                    <!--<dd class="px-a">-->
+                        <!--<h4 class="plan-out-1">定期还房贷</h4>-->
+                        <!--<p class="p-c-lgray">制定计划自动还贷</p>-->
+                    <!--</dd>-->
+                    <!--<dd>-->
+                        <!--<h4 class="plan-custom">自定义计划</h4>-->
+                        <!--&lt;!&ndash;<p class="p-c-lgray has2row>每月5日<br>转入2000元</p>&ndash;&gt;-->
+                    <!--</dd>-->
+                <!--</dl>-->
+
+
+                <dl class="cards p-bgc-fff px-a">
+                    <dt class="p-bgc-lgray px-a">
+                        <i class="menu-addcard p-c-bblue" ng-click="func.onClickBindNewCard()">+添加</i>管理银行卡({{data.cardList.length + data.mainCard.num}}张)
+                    </dt>
+                    <dd class="allow-enter p-c-lgray px-a" ng-if="data.mainCard.num" ng-click="onClickMainCard()">
+                        <!--<img src="../img/bankHead/yh-308584000013@2x.png" alt="招商银行"><i class="p-c-blue">招商银行</i> 储蓄卡 (1667)-->
+                        <img ng-src="{{data.mainCard.bankImg}}" alt=""><i class="p-c-blue">{{data.mainCard.bankName}}</i>
+                    </dd>
+                    <dd class="allow-enter p-c-lgray px-a" ng-repeat="card in data.cardList" ng-click="onClickViewCardInfoBtn(card)">
+                        <!--<img src="../img/bankHead/yh-308584000013@2x.png" alt="招商银行"><i class="p-c-blue">招商银行</i> 储蓄卡 (1667)-->
+                        <img ng-src="{{card.bankImg}}" alt=""><i class="p-c-blue">{{card.bankName}}</i> {{card.cardType+' '}}{{card.number|abridgeAccountNumber}}
+                    </dd>
+                </dl>
+                <p style="height:20px;"></p>
+            </div>
+        </ion-content>
+        <div class="main-nav-wrap">
+            <ul class="main-nav flex">
+                <li class="item i-a" ng-click="func.onClickAssetTab()">首页</li>
+                <li class="item i-b" ng-click="func.onClickFinancialTab()">理财</li>
+                <li class="item i-c i-on">转账</li>
+                <!--li class="item i-d" ng-click="func.onClickCommunity()">话题</li-->
+            </ul>
+        </div>
+    </div>
+    <loading show-loading="data.showLoading"></loading>
+</ion-view>

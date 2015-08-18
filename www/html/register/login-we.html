@@ -1,0 +1,29 @@
+<ion-view>
+    <ion-header-bar>
+        <div class="menu-ba">
+            <header class="menu"><span class="menu-return" ng-if="!data.isHideBack" ng-click="back()"></span></header>
+        </div>
+    </ion-header-bar>
+    <ion-content class="has-header" has-bouncing="false">
+        <div class="login">
+            <div class="login-bg">
+                <!-- <div class="we-return" ng-click="back()"></div> -->
+                <div class="logo"></div>
+                <div class="kiss" ng-if="data.isInReview">
+                    <div class="k-box">
+                        <span class="phone"><label>手机号</label><input type="number" number-keyboard-input pattern="[0-9]*" out-value="data.phoneNumber" placeholder="请填写手机号" ng-model="data.placePhoneNumber" class="phone-i"></span>
+                        <span class="password"><label>验证码</label><input type="number" number-keyboard-input pattern="[0-9]*" out-value="data.otpNumber" placeholder="请填写验证码" ng-model="data.placeOtpNumber" class="wd-i"><i class={{OtpButtonController}} ng-if="!checkTimeoutInfo" ng-click="getOtp()">获取验证码</i><i class="i-s" ng-if="checkTimeoutInfo">{{checkNumTimeout}}</i></span>
+                        <span class={{loginButtonController}} ng-click="login_phone()">手机登录</span>
+                        <i ng-click="login_qq()" style="display:block;text-align:right;margin-top:15px;font-size:14px;color:#acb2c1;">使用QQ登录</i>
+                    </div>
+                </div>
+                <div class="op-wrap" ng-if="!data.isInReview">
+                    <div class="login-btn a" ng-show="data.isWXInstalled" ng-click="login_wx()"><i></i>微信登录</div>
+                    <div class="login-btn b" ng-click="login_qq()"><i></i>QQ登录</div>
+                </div>
+            </div>
+        </div>
+    </ion-content>
+
+    <loading show-loading="data.showLoading"></loading>
+</ion-view>

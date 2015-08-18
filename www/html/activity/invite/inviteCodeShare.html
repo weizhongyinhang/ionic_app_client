@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html><!--  manifest="js/cache.appcache" -->
+<head>
+<meta  charset="utf-8" />
+<title>微众银行</title>
+<meta name="description" content="WeBank" />
+<meta name="keywords" content="微众银行" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0" />
+<meta name="format-detection" content="telephone=no" />
+<link rel="stylesheet" type="text/css" href="../css/invitation_code/style.css" />
+
+</head>
+<body>
+<div class="menu-ba">
+        <header class="menu"><span class="menu-return" ng-click="back()"></span>分享</header>
+    </div>
+<div class="wrap">
+
+	<div class="con_wrap con_wrap_1 wrap_show">
+    	
+        <div class="logo_wrap">
+        	<div class="logo_area">
+                <h1 class="logo_title">众当家</h1>
+                <div class="logo_img"></div>
+                <div class="logo_flection"></div>
+            </div>
+            <div class="main_title">
+            	<h3 class="title">微众银行首款APP出炉</h3>
+                <p class="txt">快邀请你的小伙伴抢先体验</p>
+            </div>
+        </div>
+        
+        <div class="share_wrap">
+        	<div class="share_row">
+            	<div class="code_area">
+                    <div class="scratch_area_wrap scratch_out"><!-- scratch_out -->
+                        <div class="scratch_area scratch_area_1"></div>
+                        <div class="scratch_area scratch_area_2"></div>
+                        <div class="scratch_area scratch_area_3"></div>
+                        <div class="scratch_area scratch_area_4"></div>
+                        <div class="scratch_area scratch_area_5"></div>
+                    </div>
+                    <p class="txt">{{data.inviteCode1}}</p>
+                </div>
+        		<a ng-if="!data.inviteCodeUsed1" ng-click="share1()" href="#" class="btn btn_share_code">分享邀请码</a>
+                <a ng-if="data.inviteCodeUsed1" href="#" class="btn btn_shared">已分享</a>
+            </div>
+            <div class="share_row">
+            	<div class="code_area">
+                    <div class="scratch_area_wrap scratch_out"><!-- scratch_out -->
+                        <div class="scratch_area scratch_area_1"></div>
+                        <div class="scratch_area scratch_area_2"></div>
+                        <div class="scratch_area scratch_area_3"></div>
+                        <div class="scratch_area scratch_area_4"></div>
+                        <div class="scratch_area scratch_area_5"></div>
+                    </div>
+                    <p class="txt">{{data.inviteCode2}}</p>
+                </div>
+                <a ng-if="!data.inviteCodeUsed2" ng-click="share2()" href="#" class="btn btn_share_code">分享邀请码</a>
+        		<a ng-if="data.inviteCodeUsed2" href="#" class="btn btn_shared">已分享</a>
+            </div>
+        </div>
+        
+        <div class="bg_wrap">
+        	<div class="meteor_wrap">
+            	<div class="meteor_1"></div>
+                <div class="meteor_2"></div>
+                <div class="meteor_3"></div>
+            </div>
+            <div class="star_wrap">
+            	<div class="star star_1"></div>
+                <div class="star star_2"></div>
+                <div class="star star_3"></div>
+                <div class="star star_4"></div>
+                <div class="star star_5"></div>
+                <div class="star star_6"></div>
+                <div class="star star_7"></div>
+            </div>
+        </div>
+        
+    </div>
+
+</div>
+
+</body>
+</html>

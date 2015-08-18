@@ -1,0 +1,51 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>货基购买结果页</title>
+    <meta name="description" content="">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+</head>
+<body>
+<div class="oti">
+    <div class="menu-ba">
+        <header class="menu">转出</header>
+    </div>
+
+    <div class="into-logo ok" ng-if="isSuccShow">
+        <p class="a">转出成功</p>
+        <!--<p class="b" ng-if="isProcessing && countDown >= 1">稍等{{countDown}}秒，可在首页总资产查看</p>-->
+        <p class="b" ng-if="!useWebankCard">资金已转出至{{bankName}}{{cardNo | abridgeAccountNumber}}</p>
+        <p class="b" ng-if="useWebankCard">资金已转出至微众银行卡</p>
+    </div>
+
+    <div class="into-logo ok" ng-if="isProcessing">
+        <p class="a">交易已受理</p>
+        <!--<p class="b" ng-if="isProcessing && countDown >= 1">稍等{{countDown}}秒，可在首页总资产查看取出结果</p>-->
+    </div>
+
+    <div class="into-logo fall" ng-if="!isSuccShow && !isProcessing">
+        <p class="a">转出失败</p>
+        <p class="b" ng-if="failReason">原因：{{failReason}}</p>
+    </div>
+
+    <!--<div class="btn-wrap mgt20"><button class="btn-c" ng-click="onClickMakePlan()">定期取出</button></div>-->
+    <!--<div class="btn-wrap mgt20"><button class="tph"   ng-click="onClickBackHome()">返回首页</button></div>-->
+    <!--<p style="text-align:right;color:#6298e2;font-size:12px;padding:30px 15% 0 0;" ng-click="onClickMakePlan()">每月都想定期取出</p>-->
+    <!--成功-->
+    <div class="btn-wrap mgt20"><button class="btn-c" ng-if="isSuccShow" ng-click="onClickBackHome()">返回首页</button></div>
+    <div class="btn-wrap mgt20"><button class="tph"   ng-if="isSuccShow" ng-click="onClickContinue()">继续理财</button></div>
+
+    <!--处理中-->
+    <div class="btn-wrap mgt20"><button class="btn-c" ng-if="isProcessing" ng-click="onClickViewProcess()">查看处理进度</button></div>
+    <div class="btn-wrap mgt20"><button class="tph"   ng-if="isProcessing" ng-click="onClickContinue()">继续理财</button></div>
+
+    <!--失败-->
+    <div class="btn-wrap mgt20"><button class="btn-c" ng-if="!isSuccShow && !isProcessing" ng-click="onClickContinue()">继续理财</button></div>
+    <div class="btn-wrap mgt20"><button class="tph"   ng-if="!isSuccShow && !isProcessing" ng-click="onClickBackHome()">返回首页</button></div>
+
+</div>
+</body>
+</html>

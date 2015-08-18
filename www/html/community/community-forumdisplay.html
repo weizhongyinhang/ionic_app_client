@@ -1,0 +1,22 @@
+<ion-view>
+    <div class="cty">
+        <div class="menu-ba"><header class="menu"><span class="menu-return" ng-click="back()"></span>所有话题</header></div>
+        <loading show-loading="showLoading"></loading>
+        <ion-content class="has-header">
+            <div class="main" ng-if="!showLoading">
+
+                <ul>
+                    <li ng-click="onClickViewThread(forumInfo.fid,forumInfo.tid)" ng-repeat="forumInfo in forumData.forumlist" class="hp-wrap" ng-style="{'background-image': 'url('+forumInfo.backgroundImage +')'}">
+                        <div class="tt">
+                            <p class="p-a">{{forumInfo.articleTitle}}</p>
+                            <p class="p-b" ng-bind-html="forumInfo.articleContext"></p>
+                            <p class="p-c"><span class="l">{{forumInfo.commentCount}}条评论</span><span class="r">{{forumInfo.time}}</span></p>
+                        </div>
+                    </li>
+                </ul>
+
+            </div>
+        </ion-content>
+
+    </div>
+</ion-view>

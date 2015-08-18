@@ -1,0 +1,33 @@
+
+<div class="set">
+    <ion-header-bar>
+        <div class="menu-ba">
+            <header class="menu"><span class="menu-return" ng-click="back()"></span>个人信息</header>
+        </div>
+    </ion-header-bar>
+
+    <ion-content class="has-header">
+        <ul class="set-list mgt20">
+            <!--li ng-click="onClickBindAccount()" ng-hide="isInReview || !platInfo.plat"><span class="a" ng-bind="::platInfo.plat">QQ帐号</span><span class="b" ng-bind="::platInfo.name"></span></li-->
+            <li ng-click="onClickBindAccount('qq')" ng-if="showQQ() && !isInReview">
+                <span class="a" >QQ</span><span class="b" ng-bind="::weixinQQ.qq.str"></span>
+            </li>
+            <li ng-click="onClickBindAccount('weixin')" ng-if="showWeixin()">
+                <span class="a" >微信</span><span class="b" ng-bind="::weixinQQ.weixin.str"></span>
+            </li>
+            <!--li><span class="a">微信帐号</span><span class="b">未绑定</span></li-->
+            <li ng-click="onClickPhone()">
+                <span class="a">手机号</span><span class="b">{{bindPhoneNumber | formatPhoneMask}}</span>
+            </li>
+        </ul>
+    </ion-content>
+
+</div>
+<div pwd-input
+     ng-model="vm.formData.confirmPassword"
+     is-pwd-show="isPwdShow"
+     sig-on-pwd-commit="sigOnPwdCommit"
+     pwd-sub-title="pwdSubTitle"
+     >
+</div>
+<div pop-confirm out-value="outValue"></div>

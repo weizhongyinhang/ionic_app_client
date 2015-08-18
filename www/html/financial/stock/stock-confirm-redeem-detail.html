@@ -1,0 +1,73 @@
+
+<ion-view>
+    <div class="stock">
+        <ion-header-bar>
+            <div class="menu-ba">
+                <header class="menu"><span class="menu-return" ng-click="back()"></span>详情</header>
+            </div>
+        </ion-header-bar>
+
+        <ion-content class="has-header" has-bouncing="false">
+            <div ng-repeat="obj in data.list">
+                <h2 class="tip">预计{{obj.finishDate | formatDateObjToCNString}}完成</h2>
+                <ul class="xq px">
+                    <li>
+                        <span class="l">产品名称</span>
+                        <span class="r">{{data.productDetail.onSaleDesc}}</span>
+                    </li>
+                    <li>
+                        <span class="l">赎回时间</span>
+                        <span class="r">{{obj.redeemDate | formatDateObjToString}} {{obj.redeemTime.substr(0,2)}}:{{obj.redeemTime.substr(2,2)}}:{{obj.redeemTime.substr(4,2)}}</span>
+                    </li>
+                    <li>
+                        <span class="l">赎回至</span>
+                        <span class="r" ng-if="obj.pay_flag!=2">{{obj.bank_name}} {{obj.card_type}}({{obj.acct_no | lastFewChars:4}})</span>
+                        <span class="r" ng-if="obj.pay_flag==2">活期+</span>
+                    </li>
+                    <li>
+                        <span class="l">当前状态</span>
+                        <span class="r">资金取出中，预计{{obj.finishDate | formatDateObjToCNString}}到账</span>
+                    </li>
+                    <li>
+                        <span class="l">单位净值</span>
+                        <span class="r">以赎回净值为准，{{obj.showValueDate | formatDateObjToCNString}}可查看</span>
+                    </li>
+                    <li>
+                        <span class="l">赎回金额</span>
+                        <span class="r" ng-if="obj.amount==0">以基金公司实际确认为准</span>
+                        <span class="r o" ng-if="obj.amount!=0">{{obj.amount}}<i>元</i></span>
+                    </li>
+                    <!--<li>-->
+                        <!--<span class="l">赎回费用</span>-->
+                        <!--<span class="r">赎回金额 x 费率</span>-->
+                    <!--</li>-->
+                    <!--<li>-->
+                        <!--<span class="l">到账金额</span>-->
+                        <!--<span class="r">赎回金额 - 赎回费用</span>-->
+                    <!--</li>-->
+                    <li>
+                        <span class="l">赎回份额</span>
+                        <span class="r o">{{obj.vol}}<i>份</i></span>
+                    </li>
+                    <li class="has-btn">
+                        <div class="btn-wrap" ng-click="onClickCancel(obj)" ng-if="obj.showCancel"><button class="btn-c">撤销赎回</button></div>
+                        <p class="z" ng-if="obj.showCancel">{{obj.cancelDate | formatDateObjToCNString}}15:00前可以撤销赎回</p>
+                    </li>
+                </ul>
+            </div>
+        </ion-content>
+
+        <div pwd-input
+             ng-model="vm.formData.confirmPassword"
+             is-pwd-show="data.isPwdShow"
+             sig-on-pwd-commit="data.sigOnPwdCommit"
+             pwd-sub-title="data.pwdSubTitle"
+             pwd-trans-desc="data.pwdTransDesc"
+             pay-way-desc="data.payWayDesc"
+             on-click-change-pay-way="onSelectPayWay"
+                >
+        </div>
+
+        <div pop-confirm out-value = "data.outValue"></div>
+    </div>
+</ion-view>

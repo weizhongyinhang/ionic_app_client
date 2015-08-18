@@ -1,0 +1,21 @@
+<ion-view>
+  <link rel="stylesheet" href="../help.css">
+    <ion-header-bar>
+      <div class="menu-ba">
+          <header class="menu"><span class="menu-return" ng-click="back()"></span>帮助中心</header>
+      </div>
+    </ion-header-bar>
+
+  <ion-content class="has-header">
+	<div class="hp_describe">
+      <div class="hp_desc_inner">
+        <div class="hp_desc_title">
+          <h2 ng-bind="detail.title"></h2>
+        </div>
+      </div>
+      <div class="hp_desc_con" ng-repeat="item in detail.detail">
+        <p  ng-bind-html="item | toTrusted"></p>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>

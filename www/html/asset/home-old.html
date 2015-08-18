@@ -1,0 +1,72 @@
+<ion-view>
+    <div class="index">
+
+        <div class="index-wrap-hd">
+            <div class="title-wrap">
+                <!-- class加msg显示小红点 -->
+                <span class="title-avatar" ng-class="classRedPoint" ng-click="onClickSettingsBtn()"><i class="title-avatar-tip"></i></span>
+                <span class="title-con" ng-click="onClickIncome()">昨日收益(元)</span>
+                <i class="line-a"></i>
+            </div>
+        </div>
+
+        <div id="home-scroll-wrapper" style="height: 100%;overflow-y:hidden;">
+            <div id="home-scroller" style="height: 105%">
+
+                <div class="index-wrap-num" >
+                    <div class="num" ng-if="hasYesterdayIncome && !isInitState" ng-click="onClickIncome()">{{yesterdayTotalIncome}}</div>
+                    <div class="income" ng-if="hasYesterdayIncome && !isInitState" ng-click="onClickIncome()">累计&nbsp;{{accumulatedTotalIncome}}</div>
+                    <div class="no-wd" ng-if="!hasYesterdayIncome && isInitState">快去挑选产品<br>叫醒沉睡的钞票</div>
+                    <div class="no-wd" ng-if="!hasYesterdayIncome && !isInitState"><span style="display: inline-block;padding: 15px 0;">即将产生收益，请期待</span></div>
+                </div>
+
+                <div class="cc-wrap" ng-click="func.onClickViewMyFinancialProducts()">
+                    <div class="cc-box" highcharts show-chart='showWealthChart' chart-options="wealthChartOption"></div>
+                    <p class="sy"><span>Webank<br>理财资产</span></p>
+                    <!--<div class="process-wd">Webank<br>总资产</div>-->
+                    <p class="num" ng-click="func.onClickViewMyFinancialProducts()">{{totalAmount}}</p>
+                </div>
+
+                <div class="pr-wrap flex">
+
+                    <div class="item" >
+                        <div highcharts show-chart='showHJChart'
+                             chart-options="HJchartOptions" class="circle dq"></div>
+                        <span>货基</span>
+                    </div>
+
+
+                    <div class="item" >
+                        <div highcharts show-chart='showBXChart'
+                             chart-options="BXchartOptions" class="circle dq"></div>
+                        <span>定期</span>
+                    </div>
+                    <div class="item" >
+                        <div highcharts show-chart='showGJChart'
+                             chart-options="GJchartOptions" class="circle dq"></div>
+                        <span>股基</span>
+                    </div>
+
+                </div>
+
+
+                <div class="hd-btn"  ng-if="!isInitState" ng-click="onClickViewMyProduct()">
+                    <i></i>
+                    <span>查看已购产品</span>
+                </div>
+                <div class="add-btn" ng-if="isInitState"  ng-click="onClickBuyProduct()"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="main-nav-wrap" style="position:fixed">
+        <ul class="main-nav flex">
+            <li class="item i-a i-on">总览</li>
+            <li class="item i-b" ng-click="onClickFinancialTab()">理财</li>
+            <li class="item i-a" ng-click="onClickTransferTab()">转账</li>
+            <!--li class="item i-c" ng-click="onClickCommunity()">话题</li-->
+        </ul>
+    </div>
+    <div pop-confirm out-value="outValue"></div>
+    <loading show-loading="showLoading"></loading>
+</ion-view>

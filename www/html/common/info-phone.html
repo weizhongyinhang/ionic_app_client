@@ -1,0 +1,35 @@
+<ion-view>
+    <div class="set">
+        <ion-header-bar>
+            <div class="menu-ba">
+                <header class="menu"><span class="menu-return" ng-click="back()"></span>绑定手机号</header>
+            </div>
+        </ion-header-bar>
+
+        <ion-content class="has-header">
+            <div style="margin:100px auto 0;">
+                <img src="../img/a-77@3x.png" alt="" style="width:73px;height:76px;display:block;margin:0 auto;">
+                <p  style="width:80%;text-align:center;padding-top:20px;margin:0 auto;font-size: 14px;" >绑定手机号：{{showText | formatPhoneMask}}</p>
+            </div>
+
+            <div class="bt-box" >
+                <div class="btn-wrap" style="margin-top: 60px;">
+                    <button class="btn-c" ng-click="onClickChange()">更换绑定号码</button>
+                </div>
+            </div>
+        </ion-content>
+
+
+
+    </div>
+
+    <div pwd-input
+         ng-model="vm.formData.confirmPassword"
+         is-pwd-show="isPwdShow"
+         sig-on-pwd-commit="sigOnPwdCommit"
+         pwd-sub-title="pwdSubTitle"
+            >
+    </div>
+
+    <div pop-confirm out-value="outValue"></div>
+</ion-view>

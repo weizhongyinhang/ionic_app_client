@@ -1,0 +1,24 @@
+
+<div class="set rg">
+    <ion-header-bar>
+        <div class="menu-ba">
+            <header class="menu"><span class="menu-return" ng-click="back()"></span>验证手机号</header>
+        </div>
+    </ion-header-bar>
+    <ion-content class="has-header">
+        <!--手机号码-->
+        <div>
+            <div class="wrap px-b" style="margin-top:20px;">
+                <ul class="yz-list">
+                    <li style="font-size:12px;">验证码已发往绑定手机<em ng-bind="phoneNumber | formatPhoneMask"></em>，请注意查收</li>
+                    <li class="yzm"><span>验证码</span><input type="text" number-keyboard-input pattern="[0-9]*" out-value="data.otp" ng-model="data.placeOtp">
+                        <button class={{otpButtonController}}  ng-show="otpTimeOutShow" ng-click="onGetOTP()">获取验证码</button><span class="y-c" ng-show="!otpTimeOutShow">重新获取({{checkNumTimeout}})</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="btn-wrap mg20"><button class='btn-c' ng-click="onClickNext()">下一步</button></div>
+        </div>
+    </ion-content>
+
+
+</div>

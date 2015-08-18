@@ -1,0 +1,155 @@
+<ion-view>
+    <div class="lc">
+        <ion-header-bar>
+            <div class="menu-ba">
+                <header class="menu"><span class="menu-return" ng-click="func.back()"></span>转入</header>
+            </div>
+        </ion-header-bar>
+        <ion-content has-bouncing="false" class="has-header">
+            <!--<p class="cy-j">您可以将绑定银行卡中的资金转入到活期+或微众卡中，获得更高收益</p>-->
+            <!--<p class="cy-j">{{data.transDesc}}</p>-->
+            <section class="path-money p-bgc-blue">
+                <div class="white-box flex">
+                    <!--未知支付账户-->
+                    <span class="item iconcard" ng-if="func.getPayAccount() == data.ACCOUNT_TYPE.INVALID_TYPE">
+                        <i>绑定卡</i>
+                    </span>
+                    <!--他行卡支付-->
+                    <span class="item card" ng-if="func.getPayAccount() == data.ACCOUNT_TYPE.OTHER_BANK_CARD">
+                        {{data.payAccountData.otherBankAccount.cardInfo.bankName}}
+                        <br>{{data.payAccountData.otherBankAccount.cardInfo.cardType}}
+                        {{data.payAccountData.otherBankAccount.cardInfo.cardNo | abridgeAccountNumber}}
+                    </span>
+                    <!--活期+支付-->
+                    <span class="item plus" ng-if="func.getPayAccount() == data.ACCOUNT_TYPE.CURRENT_PLUS">
+                        <i class="cplus">活期+</i>
+                    </span>
+                    <!--微众卡支付-->
+                    <span class="item iconcard" ng-if="func.getPayAccount() == data.ACCOUNT_TYPE.WEBANK_CARD">
+                        <i class="wcard">微众卡</i>
+                    </span>
+
+                    <span class="item toright p-c-gray">
+                        <span ng-if="!data.amount">金额</span>
+                        <span class="p-c-lorange num" ng-if="data.amount">{{data.amount}}元</span><br>
+                        <span>实时到帐</span>
+                    </span>
+                    <!--未知收款账户-->
+                    <span class="item bank" ng-if="func.getRecvAccount() == data.ACCOUNT_TYPE.INVALID_TYPE">
+                        <i class="wbank">微众银行</i>
+                    </span>
+                    <!--活期+收款-->
+                    <span class="item plus" ng-if="func.getRecvAccount() == data.ACCOUNT_TYPE.CURRENT_PLUS">
+                        <i class="cplus">活期+</i>
+                    </span>
+                    <!--微众卡收款-->
+                    <span class="item iconcard" ng-if="func.getRecvAccount() == data.ACCOUNT_TYPE.WEBANK_CARD">
+                        <i class="wcard">微众卡</i>
+                    </span>
+                </div>
+            </section>
+            <div class="cy-wrap mgt20">金额
+                <div class="po"><input type="number" placeholder="{{func.getAmountPlaceHolder()}}" class="it" ng-model="data.amount" ng-change="checkInputAmount()"></div>
+                <span style="color:#3399eb;font-size:12px;" ng-click="func.onClickTransAll()"
+                        ng-if="func.getPayAccount() == data.ACCOUNT_TYPE.WEBANK_CARD || func.getPayAccount() == data.ACCOUNT_TYPE.CURRENT_PLUS">全部转入</span>
+            </div>
+
+            <!--付款账户-->
+            <div class="cy-wrap-a mgt20" ng-click="func.onSelectPayWay()">
+                <span class="t-l">从　</span>
+                <p class="t-m" ng-if="func.getPayAccount() == data.ACCOUNT_TYPE.CURRENT_PLUS">
+                    <img class="hq_icon" src="../img/slice/hq@3x.png">
+                </p>
+                <p class="t-m" ng-if="func.getPayAccount() == data.ACCOUNT_TYPE.WEBANK_CARD">
+                    微众卡
+                </p>
+                <p class="t-m" ng-if="func.getPayAccount() == data.ACCOUNT_TYPE.OTHER_BANK_CARD">
+                    {{data.payAccountData.otherBankAccount.cardInfo.bankName + ' ' }}
+                    {{data.payAccountData.otherBankAccount.cardInfo.cardType}}
+                    {{data.payAccountData.otherBankAccount.cardInfo.cardNo | abridgeAccountNumber}}
+                </p>
+                <i class="k"></i>
+            </div>
+            <p class="tip-k mgb10" ng-if="(func.getCurrentBankLimit() != -1) && func.getPayAccount() == data.ACCOUNT_TYPE.OTHER_BANK_CARD">
+                &nbsp;
+                <!--该卡本次最多可转入{{func.getCurrentBankLimit()}}元-->
+            </p>
+            <p class="tip-k mgb10" ng-if="func.getPayAccount() == data.ACCOUNT_TYPE.CURRENT_PLUS">
+                {{data.currentPlusRedeemLimitDesc}}<span ng-click="func.onClickCurrentPlusDetails()" class="p-c-bblue">详细介绍</span>
+            </p>
+            <p class="mgt20" ng-if="func.getPayAccount() != data.ACCOUNT_TYPE.OTHER_BANK_CARD &&
+                    func.getPayAccount() != data.ACCOUNT_TYPE.CURRENT_PLUS">
+            </p>
+
+            <!--收款账户-->
+            <div class="cy-wrap-a " ng-click="func.onSelectReceiveWay()">
+                <span class="t-l">到　</span>
+
+                <p class="t-m" ng-if="func.getRecvAccount() == data.ACCOUNT_TYPE.CURRENT_PLUS">
+                    <img class="hq_icon" src="../img/slice/hq@3x.png">
+                </p>
+                <p class="t-m" ng-if="func.getRecvAccount() == data.ACCOUNT_TYPE.WEBANK_CARD">
+                    微众卡
+                </p>
+                <p class="t-m" ng-if="func.getRecvAccount() == data.ACCOUNT_TYPE.OTHER_BANK_CARD">
+                    {{data.payAccountData.otherBankAccount.cardInfo.bankName + ' ' }}
+                    {{data.payAccountData.otherBankAccount.cardInfo.cardType}}
+                    {{data.payAccountData.otherBankAccount.cardInfo.cardNo | abridgeAccountNumber}}
+                </p>
+                <i class="k" ng-if="func.isRecvAccountShown()"></i>
+            </div>
+            <p class="tip-k" ng-if="func.getRecvAccount() == data.ACCOUNT_TYPE.CURRENT_PLUS">
+                {{data.currentPlusPurchaseLimitDesc}}<span ng-click="func.onClickCurrentPlusDetails()" class="p-c-bblue">详细介绍</span>
+            </p>
+            <p class="tip-k" ng-if="func.getRecvAccount() == data.ACCOUNT_TYPE.CURRENT_PLUS">预计收益到账时间
+                <span>{{data.currentPlusAccountDesc}}</span>
+            </p>
+            <div class="mt-a " ng-if="func.getRecvAccount() == data.ACCOUNT_TYPE.CURRENT_PLUS">
+                <user-agreement
+                        agreement-code = "data.agreementCode"
+                        agreement-desc ="data.agreementDesc"
+                        is-agreed="data.isAgreed">
+                </user-agreement>
+            </div>
+
+            <!--p class="tip-k" ng-if="func.getRecvAccount() == data.ACCOUNT_TYPE.WEBANK_CARD"></p-->
+
+            <div class="pd20 pd25h">
+                <button ng-class="func.checkConfirmBtnState()" ng-click="func.onClickConfirmTransIn()" class="p-btn p-btn-block">立即转入</button>
+            </div>
+        </ion-content>
+    </div>
+
+    <!--收款账户-->
+    <account-selector
+            hide-amount=300
+            account-data="data.recvAccountData"
+            show="func.showReceivableAccountSelector"
+            hide="func.hideReceivableAccountSelector"
+            >
+    </account-selector>
+
+    <!--付款账户-->
+    <account-selector
+            account-data="data.payAccountData"
+            show="func.showPaymentAccountSelector"
+            hide="func.hideReceivableAccountSelector"
+            bind-card="func.bindCard"
+            on-account-selected="func.onPayAccountSelected"
+            >
+    </account-selector>
+
+    <div pwd-input
+         ng-model="vm.formData.confirmPassword"
+         is-pwd-show="data.isPwdShow"
+         sig-on-pwd-commit="sigOnPwdCommit"
+         pwd-sub-title="data.pwdSubTitle"
+         pwd-trans-desc="data.pwdTransDesc"
+         pay-way-desc="data.payWayDesc"
+         can-change-pay-way="data.canPwdFrameChangePayWay"
+         on-click-change-pay-way="func.onPwdSelectPayWay">
+    </div>
+
+    <loading show-loading="data.showLoading"></loading>
+    <div pop-confirm out-value="data.outValue"></div>
+</ion-view>

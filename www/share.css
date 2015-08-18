@@ -1,0 +1,87 @@
+﻿.share-s{height:100%;background-image: url(image/star-bg.jpg);-webkit-background-size: cover;background-size: cover;}
+
+.share-s .hide{display: none;}
+
+.share-s .hd{height: 50px;width:260px;text-align: left;color: #fff;margin: 25px auto 0;}
+.share-s .hd span{display: inline-block;}
+.share-s .d-a{-webkit-animation:word-move 1s;animation:word-move 1s;position: relative;}
+.share-s .p-a .s-a{width: 54px;height:17px;background-image: url(image/slice/wd-1.png);}
+.share-s .p-a .s-b{font-size: 14px;padding-left: 15px;vertical-align: 4px;}
+.share-s .p-b{margin-top: 8px;}
+.share-s .p-b .s-a{width: 78px;height:16px;background-image: url(image/slice/wd-2.png);}
+.share-s .p-b .s-b{font-size: 14px;padding:0 5px;vertical-align: 2px;color: #ff8863;}
+.share-s .p-b .s-c{width: 93px;height:16px;background-image: url(image/slice/wd-12.png);}
+.share-s .p-c{margin-top: 18px;}
+.share-s .p-c .s-a{font-size: 14px;padding-right: 10px;vertical-align: 2px;}
+.share-s .p-c .s-b{width: 59px;height:16px;background-image: url(image/slice/wd-13.png);}
+.share-s .p-c .s-c{font-size: 14px;padding:0 5px;vertical-align: 2px;color: #ff8863;}
+.share-s .p-c .s-d{width: 93px;height:16px;background-image: url(image/slice/wd-12.png);}
+.share-s .photo-wrap{width: 312px;height: 177px;margin: 20px auto 0;overflow: hidden;position: relative;
+
+	opacity: 0;
+	-webkit-animation:word-move 1s linear .6s forwards;
+	animation:word-move 1s linear .6s forwards;
+}
+.share-s .photo-wrap .avatar{width: 203px;height: 141px;background-image: url(image/slice/avatar-box.png);overflow: hidden;
+	position: absolute;left: 50%;top: 0;margin-left: -101px;
+	-webkit-animation:word-hide 1s ease 3s forwards;
+	animation:word-hide 1s ease 3s forwards;
+}
+.share-s .photo-wrap .avatar img{display: block;width: 109px;height: 109px;margin: 11px 0 0 46px;}
+.share-s .photo-wrap .wall{
+	width: 312px;height: 177px;position: absolute;left: 50%;top: 0;margin-left: -156px;
+	opacity: 0;
+	-webkit-animation:word-show 1s ease 3.5s forwards;
+	animation:word-show 1s ease 3.5s forwards;
+}
+.share-s .wd-wrap{width: 277px;height: 204px;margin: 10px auto 0;background-image: url(image/slice/wd-bg.png);
+	position: relative;
+	opacity: 0;
+	-webkit-animation:word-move 1s linear .6s forwards;
+	animation:word-move 1s linear .6s forwards;
+}
+.share-s .wd-wrap .v-a{width: 164px;height:16px;background-image: url(image/slice/wd-3.png);}
+.share-s .wd-wrap .v-b{width: 136px;height:16px;background-image: url(image/slice/wd-4.png);margin-top: 15px;}
+.share-s .wd-wrap .v-c{width: 168px;height:16px;background-image: url(image/slice/wd-5.png);margin-top: 15px;}
+.share-s .pig{display: block;width: 66px;height: 72px;background-image: url(image/slice/pig.png);margin: 10px 0 0 55px;}
+.share-s .wd-wrap .v-d{width: 223px;height:16px;background-image: url(image/slice/wd-6.png);}
+.share-s .wd-wrap .v-e{width: 196px;height:16px;background-image: url(image/slice/wd-7.png);margin-top: 15px;}
+.share-s .wd-wrap .v-f{width: 125px;height:16px;background-image: url(image/slice/wd-8.png);margin-top: 15px;}
+.share-s .wd-wrap .v-g{width: 142px;height:16px;background-image: url(image/slice/wd-9.png);margin-top: 15px;}
+.share-s .wd-wrap .v-h{width: 88px;height:16px;background-image: url(image/slice/wd-10.png);}
+.share-s .wd-wrap .v-i{width: 149px;height:16px;background-image: url(image/slice/wd-11.png);margin-top: 15px;}
+.share-s .hj{display: block;width: 133px;height: 78px;background-image: url(image/slice/hj.png);margin: 2px 0 0 50px;}
+.share-s .sar{display: block;width: 156px;height: 80px;background-image: url(image/slice/share.png);margin: 30px 0 0 35px;}
+.share-s .sar span{display: block;line-height:38px;width:150px;text-align:center;color: #fff;font-weight: bold;}
+
+.share-s .dv-a{
+	position: absolute;left: 25px;top: 25px;
+	-webkit-animation:word-hide 1s ease 3s forwards;
+	animation:word-hide 1s ease 3s forwards;
+}
+.share-s .dv-b{
+	position: absolute;left: 25px;top: 25px;
+	opacity: 0;
+	-webkit-animation:word-show 1s ease 3.5s forwards;
+	animation:word-show 1s ease 3.5s forwards;
+}
+
+.share-s .dv-c{
+	position: absolute;left: 25px;top: 25px;
+}
+
+@-webkit-keyframes word-move{
+	0%{top:-10px;opacity:0}
+	100%{top:0;opacity:1}
+}
+
+@-webkit-keyframes word-hide{
+	0%{opacity:1}
+	100%{opacity:0}
+}
+
+@-webkit-keyframes word-show{
+	0%{opacity:0}
+	100%{opacity:1}
+}
+

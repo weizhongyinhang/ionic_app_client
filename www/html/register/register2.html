@@ -1,0 +1,40 @@
+<ion-view>
+    <div class="rg">
+        <ion-header-bar>
+            <div class="menu-ba">
+                <header class="menu"><span class="menu-return" ng-click="back()"></span>开户</header>
+            </div>
+        </ion-header-bar>
+
+        <ion-content class="has-header" has-bouncing="false">
+            <ol class="register-order flex">
+                <li class="item i-r on"><div class="od"><i class="t">1</i><span>填写基本资料</span></div></li>
+                <li class="item i-q on"><div class="od"><i class="t">2</i><span>设置交易密码</span></div></li>
+                <li class="item i-l"><div class="od"><i class="t">3</i><span>绑卡验证</span></div></li>
+            </ol>
+
+            <!-- 设置交易密码 -->
+            <div class="code-box" ng-if="data.step == 1">
+                <p class="wd">请设置交易密码</p>
+                <ol class="code"><li ng-repeat="str in data.pwdDisplay track by $index">{{str}}</li></ol>
+            </div>
+
+            <!--请再次设置交易密码-->
+            <div class="code-box" ng-if="data.step == 2">
+                <p class="wd">请再次输入</p>
+                <ol class="code"><li ng-repeat="str in data.pwdDisplay track by $index">{{str}}</li></ol>
+            </div>
+
+        </ion-content>
+
+        <div pwd-input
+             ng-model="vm.formData.confirmPassword"
+             is-pwd-show="data.isPwdShow"
+             is-pwd-keyboard-show="data.isPwdKeyboardShow"
+             sig-on-pwd-commit="data.sigOnPwdCommit"
+             pwd-display= 'data.pwdDisplay'
+             is-factor-needed="data.isFactorNeeded"
+                >
+        </div>
+    </div>
+</ion-view>

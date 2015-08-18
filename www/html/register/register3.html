@@ -1,0 +1,23 @@
+<ion-view>
+    <div class="rg">
+        <ion-header-bar>
+            <div class="menu-ba">
+                <header class="menu"><span class="menu-return" ng-click="back()"></span>开户</header>
+            </div>
+        </ion-header-bar>
+
+        <ion-content class="has-header" has-bouncing="false">
+            <div class="gzk-bg"></div>
+
+            <p style="padding:20px 0 50px;text-align:center;line-height:20px;">你在线下开的代发工资账户<br>需要通过以下步骤后才能使用</p>
+
+            <div class="yz-wrap">
+                <div class="k"><span class="x">1</span>人脸验证<i class="rgt" ng-show="data.faceChecked"></i></div>
+                <div class="ko">●<br>●<br>●<br>●</div>
+                <div class="k"><span class="x">2</span>修改交易密码</div>
+            </div>
+
+            <div class="btn-wrap" style="margin-top:50px;"><button class="btn-c" ng-click="onClickNext()">下一步</button></div>
+        </ion-content>
+    </div>
+</ion-view>

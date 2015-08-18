@@ -1,0 +1,23 @@
+<ion-view>
+    <div class="bx">
+        <ion-header-bar>
+            <div class="menu-ba">
+                <header class="menu"><span class="menu-return" ng-click="back()"></span>历史净值</header>
+
+            </div>
+        </ion-header-bar>
+
+        <ion-content class="has-header" has-bouncing="false">
+            <div class="hs-wrap">
+                <ul class="hs-list tj">
+                    <li class="flex" ng-repeat="info in incomeHistory">
+                        <span class="item">{{info.date | formatYYYYMMDDString}}</span>
+                        <span class="item">{{info.realValue}}</span>
+                        <span ng-class="info.class">{{info.diffRate}}%</span>
+                    </li>
+                </ul>
+            </div>
+        </ion-content>
+
+    </div>
+</ion-view>

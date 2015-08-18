@@ -1,0 +1,45 @@
+<ion-view>
+    <div class="oti">
+        <ion-header-bar>
+            <div class="menu-ba">
+                <header class="menu" >购买</header>
+            </div>
+        </ion-header-bar>
+
+        <ion-content class="has-header" has-bouncing="false">
+            <div class="into-logo ok" ng-if="data.isProcessing">
+                <p class="a">购买申请已受理</p>
+            </div>
+
+            <div class="into-logo ok" ng-if="data.isSuccShow">
+                <p class="a">购买申请已受理</p>
+            </div>
+
+            <div class="into-logo fall" ng-if="data.isFailedShow">
+                <p class="a">购买申请未受理</p>
+                <p class="c">原因：{{data.resultMsg}}</p>
+                <!--<p class="b">资金已返还到您的微众基础账户</p>-->
+            </div>
+            
+            <div class="date-list-wrap">
+                <ul class="date-list" ng-if="data.isSuccShow">
+                    <li class="o"><i></i>{{data.today.getMonth()+1}}-{{data.today.getDate()}} 今天 申购{{data.amount}}元</li>
+                    <li class="sx o"><i></i></li>
+                    <li><i></i>{{data.confirmDay.getMonth()+1}}-{{data.confirmDay.getDate()}} {{data.confirmDay | formatWeekdayFormDate}} 可查看确认的份额</li>
+                    <li class="sx"><i></i></li>
+                    <li><i></i>{{data.checkDay.getMonth()+1}}-{{data.checkDay.getDate()}} {{data.checkDay | formatWeekdayFormDate}} 可查看首笔盈亏</li>
+                </ul>
+            </div>
+
+            <div class="btn-wrap mgt20"><button class="btn-c" ng-if="data.isSuccShow" ng-click="onClickDetail()">查看已购详情</button></div>
+            <div class="btn-wrap mgt20"><button class="tph"   ng-if="data.isSuccShow" ng-click="onClickRecom()">继续理财</button></div>
+
+            <div class="btn-wrap mgt20"><button class="btn-c"   ng-if="data.isProcessing" ng-click="onClickViewProcess()">查看处理进度</button></div>
+            <div class="btn-wrap mgt20"><button class="tph"   ng-if="data.isProcessing" ng-click="onClickRecom()">继续理财</button></div>
+
+            <div class="btn-wrap mgt20"><button class="btn-c"   ng-if="!data.isSuccShow && !data.isProcessing" ng-click="onClickRecom()">继续理财</button></div>
+            <div class="btn-wrap mgt20"><button class="tph"   ng-if="!data.isSuccShow && !data.isProcessing" ng-click="onClickHome()">返回首页</button></div>
+        </ion-content>
+
+    </div>
+</ion-view>

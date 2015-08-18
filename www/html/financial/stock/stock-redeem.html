@@ -1,0 +1,77 @@
+<ion-view>
+    <div class="lc">
+        <ion-header-bar>
+            <div class="menu-ba">
+                <header class="menu"><span class="menu-return" ng-click="back()"></span>赎回</header>
+            </div>
+        </ion-header-bar>
+
+        <ion-content class="has-header" has-bouncing="false">
+            <p class="cy-wd">最多可赎回{{data.productWealthData.share}}份<i ng-click="onClickShare()"></i></p>
+
+            <div class="cy-wrap">份额&#12288;<div class="po"><input type="number" placeholder="{{data.productDetail.redeemMinVol}}份起" class="it" ng-model="data.share" ng-blur="blurInput()" ng-focus="focusInput()"></div><span class="all" ng-click="onClickRedeemAll()">全部赎回</span></div>
+            <p class="cy-tip" ng-if="data.showInputAmountTips">{{data.inputAmountTipsContent}}</p>
+
+            <div class="cy-wrap-a" ng-click="onSelectPayWay()" style="margin-top:20px;">
+                <span class="t-l">赎回至</span>
+                <p class="t-m" ng-if="isCurrentPlus()">
+                    <img class="hq_icon" src="../img/slice/hq@3x.png">
+                </p>
+                <p class="t-m" ng-if="isWeBankAccount()">
+                    <img class="hq_ib" src="../img/bankHead/yh-0@2x.png">微众卡
+                </p>
+                <i class="k"></i>
+            </div>
+
+            <!-- <p class="tip-k">注：本次赎回申请按{{data.today | formatDateObjToCNString}}单位净值计算金额，并收取相应手续费，15:00后算下一交易日</p> -->
+
+            <dl class="sm-k" style="padding-top:15px;">
+                <dt>说明</dt>
+                <dd ng-if="data.showTipsFlag == 0">15:00前赎回，按{{data.realValueDate | formatDateObjToCNString}}单位净值计算金额，并收取相应手续费</dd>
+                <dd ng-if="data.showTipsFlag == 1">15:00后赎回，按{{data.realValueDate | formatDateObjToCNString}}单位净值计算金额，并收取相应手续费</dd>
+                <dd ng-if="data.showTipsFlag == 2">按{{data.realValueDate | formatDateObjToCNString}}单位净值计算金额，并收取相应手续费</dd>
+                <dd>赎回资金预计{{data.redeemDay}}个工作日到账，节假日顺延</dd>
+            </dl>
+            <p style="color:#3399eb;font-size:12px;padding:10px 0 0 40px;" ng-click="onClickRules()"><span>更多申购及赎回规则</span></p>
+
+            <div class="btn-wrap pd20">
+                <button ng-class="data.redeemButtonClass" ng-click="onClickRedeem()">赎回</button>
+            </div>
+
+        </ion-content>
+
+        <account-selector
+                account-data="data.AccountData"
+                show="showAccountSelector"
+                hide="hideAccountSelector"
+                on-account-selected="onAccountSelected"
+                hide-amount="data.hideAmount"
+                >
+        </account-selector>
+
+        <div pwd-input
+             ng-model="vm.formData.confirmPassword"
+             is-pwd-show="data.isPwdShow"
+             sig-on-pwd-commit="data.sigOnPwdCommit"
+             pwd-sub-title="data.pwdSubTitle"
+             pwd-trans-desc="data.pwdTransDesc"
+             pay-way-desc="data.payWayDesc"
+                >
+        </div>
+
+        <loading show-loading="data.showLoading"></loading>
+
+        <div pop-confirm out-value = "data.outValue"></div>
+
+        <!--遮罩层start-->
+        <div ng-class="data.maskClass">
+            <h2>{{data.maskTitle}}</h2>
+            <p>{{data.maskDetail}}</p>
+            <p>{{data.maskDetail2}}</p>
+            <p>{{data.maskDetail3}}</p>
+            <p>{{data.maskDetail4}}</p>
+            <div class="funcs" ng-click="onClickCancelMask()"><span class="clz">×</span></div>
+        </div>
+        <!--遮罩层end-->
+    </div>
+</ion-view>

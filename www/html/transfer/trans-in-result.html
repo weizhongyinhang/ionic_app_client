@@ -1,0 +1,69 @@
+<ion-view>
+    <div class="oti">
+        <ion-header-bar>
+            <div class="menu-ba">
+                <header class="menu">转入</header>
+            </div>
+        </ion-header-bar>
+
+        <ion-content class="has-header" has-bouncing="false">
+            <div class="into-logo ok" ng-if="data.state == data.TRANS_STATE.SUCCESS">
+                <p class="a">转入成功</p>
+            </div>
+
+            <div class="into-logo fall" ng-if="data.state == data.TRANS_STATE.PROCESS">
+                <p class="a">交易处理中</p>
+                <p class="b">请勿重新操作<br>处理结果可在<span class="link" ng-click="func.onClickTransLog()">交易记录</span>中查询</p>
+            </div>
+
+            <div class="white-box flex mgt20" ng-if="data.state == data.TRANS_STATE.SUCCESS">
+                <!--他行卡支付-->
+                    <span class="item card" ng-if="func.getPayAccount() == data.ACCOUNT_TYPE.OTHER_BANK_CARD">
+                        {{data.payAccountData.otherBankAccount.cardInfo.bankName}}
+                        <br>{{data.payAccountData.otherBankAccount.cardInfo.cardType}}
+                        {{data.payAccountData.otherBankAccount.cardInfo.cardNo | abridgeAccountNumber}}
+                    </span>
+                <!--活期+支付-->
+                    <span class="item plus" ng-if="func.getPayAccount() == data.ACCOUNT_TYPE.CURRENT_PLUS">
+                        <i class="cplus">活期+</i>
+                    </span>
+                <!--微众卡支付-->
+                    <span class="item iconcard" ng-if="func.getPayAccount() == data.ACCOUNT_TYPE.WEBANK_CARD">
+                        <i class="wcard">微众卡</i>
+                    </span>
+
+                    <span class="item toright p-c-gray">
+                        <span ng-if="!data.transAmount">金额</span>
+                        <span class="p-c-lorange num" ng-if="data.transAmount">{{data.transAmount}}元</span><br>
+                        <span>实时到帐</span>
+                        <!--<span>每月1日</span>-->
+                    </span>
+                <!--未知收款账户-->
+                    <span class="item bank" ng-if="func.getRecvAccount() == data.ACCOUNT_TYPE.INVALID_TYPE">
+                        <i class="wbank">微众银行</i>
+                    </span>
+                <!--活期+收款-->
+                    <span class="item plus" ng-if="func.getRecvAccount() == data.ACCOUNT_TYPE.CURRENT_PLUS">
+                        <i class="cplus">活期+</i>
+                    </span>
+                <!--微众卡收款-->
+                    <span class="item iconcard" ng-if="func.getRecvAccount() == data.ACCOUNT_TYPE.WEBANK_CARD">
+                        <i class="wcard">微众卡</i>
+                    </span>
+            </div>
+
+            <div class="date-list-wrap">
+                <ul class="date-list" ng-if="data.state == data.TRANS_STATE.SUCCESS && data.showPlus">
+                    <li class="o"><i></i>{{data.today|formatDateWithoutYear}} 今天 转到活期+{{' ' + data.transAmount}}元</li>
+                    <li class="sx o"><i></i></li>
+                    <li><i></i>{{data.valueDate|formatDateWithoutYear}} {{data.valueDate|formatWeekdayFormDate}} 开始产生收益</li>
+                    <li class="sx"><i></i></li>
+                    <li><i></i>{{data.arrivalDate|formatDateWithoutYear}} {{data.arrivalDate|formatWeekdayFormDate}} 收益到账</li>
+                </ul>
+            </div>
+            <div class="p-clear"></div>
+            <div class="btn-wrap mgt20"><button class="btn-c" ng-click="func.onClickFinish()">完成</button></div>
+            <div style="height:20px;"></div>
+        </ion-content>
+    </div>
+</ion-view>

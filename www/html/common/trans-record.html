@@ -1,0 +1,90 @@
+<ioa-view>
+    <div class="record">
+        <ion-header-bar>
+            <div class="menu-ba">
+                <header class="menu"><span class="menu-return" ng-click="back()"></span>交易查询</header>
+            </div>
+        </ion-header-bar>
+        <ion-content class="has-header" has-bouncing="false">
+            <!--头部tab-->
+            <div class="subnav flex px-a" ng-if="0">
+                <div ng-class="onClassMainTab('all')" ng-click="onClikcMainTab('all')">总资产</div>
+                <div ng-class="onClassMainTab('financial')" ng-click="onClikcMainTab('financial')">理财资产</div>
+                <div ng-class="onClassMainTab('deposit')" ng-click="onClikcMainTab('deposit')">活期</div>
+                <div ng-class="onClassMainTab('depositPlus')" ng-click="onClikcMainTab('depositPlus')">
+                    <!-- 选中加act -->
+                    <span ng-class="onClassPlus('depositPlus')" ><span class="hq-a">活期</span><span class="hq-b">+</span></span>
+                </div>
+            </div>
+            <!--头部操作-->
+            <div class="record-op-wrap" >
+                <div class="record-op-menu ls px">
+                    <div class="time-select-wrap">
+                        <span class="time-box" ng-click="onClickTime('start')">{{data.dtStart | formatDateObjToString}}</span>
+                        <i class="r-i">-</i>
+                        <span class="time-box" ng-click="onClickTime('end')">{{data.dtEnd | formatDateObjToString}}</span>
+                        <!--span ng-class="onClassOption('time')" ng-click="onClickOption('time')">
+                        <i class="r-j"></i-->
+                        <!--/span-->
+                    </div>
+                    <!-- <div ng-class="onClassOption('operation')" ng-click="onClickOption('operation')">
+                        <span ng-bind="onBindMenuText()">全部操作</span><i class="r-j"></i>
+                    </div> -->
+                    
+                    <div class="record-sure" ng-click="onClickTimeSubmit()">确定</div>
+
+                </div>
+                
+                <div class="opt-list-b px-a">
+                    <ul class="flex">
+                        <li class="item"><span ng-class="onClassTimeSelect('week')" ng-click="onClickTimeSelect('week')">近一周</span></li>
+                        <li class="item"><span ng-class="onClassTimeSelect('month')" ng-click="onClickTimeSelect('month')">近一月</span></li>
+                        <li class="item"><span ng-class="onClassTimeSelect('month3')" ng-click="onClickTimeSelect('month3')">近三月</span></li>
+                    </ul>
+                </div>
+
+                <ul class="opt-list" ng-if="onShowMenu()">
+
+                    <li ng-repeat="item in data.downMenuArr" ng-class="onClassMenu($index)" ng-bind="item" ng-click="onClickSubMenu($index)"></li>
+
+                </ul>
+            </div>
+        </ion-content>
+        <ion-content style="top:150px;" delegate-handle="myScroll">
+            <div class="px" ng-if="data.renderList.length">
+                <ul class="record-list">
+                    <li ng-repeat="item in data.renderList" ng-class="onClassItem(item)">
+                        <div>
+                            <span class="name" ng-bind="item.remark"></span>
+                            <span class="num"><em ng-if="showFix()">{{item.preFix}}</em>{{item.amountStr}}</span>
+                        </div>
+                        <div class="v">
+                            <span class="time">{{item.dateStr}}</span>
+                            <span ng-class="onClassStatus(item)" ng-click="onClickItem(item)">{{item.status}}<i class="r-j" ng-if="onIfDown(item)"></i></span>
+                        </div>
+                        <div ng-if="onIfItem1(item)" class="error-o px-b">
+                            <span>{{item.errLog}}</span>
+                        </div>
+                        <ol class="record-error-list" ng-if="onIfItem(item)">
+                            <li class="px-b" ng-repeat="jtem in item.subList">
+                                <p><span class="name">{{jtem.remark}}</span><span class="num">{{jtem.amount}}</span></p>
+                                <p><span class="time">{{jtem.dateStr}}</span><span class="po">{{jtem.status}}</span></p>
+                            </li>
+                        </ol>
+                    </li>
+                    <li class="record-mask" ng-if="onShowMenu()"></li>
+
+                </ul>
+
+            </div>
+            <img ng-if="!data.renderList.length" src="../img/jy-more@2x.png" alt="" style="display: block;width: 146px;height: 96px;margin: 40px auto 0;">
+        </ion-content>
+        <loading show-loading="data.showLoading"></loading>
+    </div>
+    <!--div pop-confirm out-value="loginDialog"></div-->
+    <!--div pop-confirm out-value="regDialog"></div-->
+
+
+
+
+</ioa-view>

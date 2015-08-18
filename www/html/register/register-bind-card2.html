@@ -1,0 +1,31 @@
+<ion-view>
+    <div class="rg">
+        <ion-header-bar>
+            <div class="menu-ba">
+                <header class="menu"><span class="menu-return" ng-click="back()"></span>开户</header>
+            </div>
+        </ion-header-bar>
+
+        <ion-content class="has-header" has-bouncing="false">
+        <section class="wrap-a">
+            <div class="register-input-wrap">
+                <div class="input-box" style="font-size:14px;">验证码已发往{{data.cardPhone | formatPhoneMask}}，请查收</div>
+
+                <div class="input-box register-yz">
+                    <span class="info">验证码</span>
+                    <div class="zsy"><input  type="text" pattern="[0-9]*" name="sNum" class="w-input" ng-model="data.otpNum" ng-change="changeOtp()"></div>
+                    <button ng-class="data.otpButtonClass" ng-if="data.showOtpButton" ng-click="onClickOtp()">获取验证码</button>
+                    <span class="ts" ng-if="!data.showOtpButton">重新获取({{data.otpTimeout}})</span>
+                </div>
+
+                <p class="cy-tip" ng-show="data.showInputOtpTips">{{data.inputOtpTipsContent}}</p>
+            </div>
+        </section>
+
+        <div class="btn-wrap mgt20" ng-click="confirmBindBankCard()"><button ng-class="data.nextButtonController">下一步</button></div>
+
+        </ion-content>
+
+        <loading show-loading="data.showLoading"></loading>
+    </div>
+</ion-view>

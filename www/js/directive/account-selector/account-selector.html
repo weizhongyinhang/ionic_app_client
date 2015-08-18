@@ -1,0 +1,30 @@
+<!-- 请选择支付方式 -->
+<div class="pop-bg" ng-if="isShow">
+    <div class="pop bg-b">
+        <header class="hd">{{accountData.ctrlData.title}}<i class="close" ng-click="onClickClose()"></i></header>
+        <ul class="card" ng-repeat="accountItem in accountList">
+            <!--微众银行卡-->
+            <li ng-if="accountItem.type == 'webank'" ng-click="onSelectWebankAccount(accountItem.account.amount)" ng-class="onClassWebank(accountItem.account.amount)">
+                <img ng-src="{{onSrcWebank(accountItem.account.amount)}}" style="float:left;width:25px;height:25px;margin:7px 5px 0 0;">
+                <div style="float:left;">
+                    <p class="cd-name">微众卡</p>
+                    <p class="yv" ng-if="!ifHideAmount.webank">余额{{accountItem.account.amount}} 元</p>
+                </div>
+            </li>
+
+            <!--它行银行卡-->
+            <li ng-if="accountItem.type == 'otherBank'" ng-repeat="card in accountItem.account.otherAccountList" ng-class="onClassBankCard($index)" ng-click="onSelectCard(card)">
+                <img ng-src="{{card.bankImg}}" class="ci"><span>{{card.other_bank_name + ' ' + card.other_card_type}}({{ card.other_account | lastFewChars:4}})</span>
+            </li>
+            <!--理财+-->
+            <li ng-if="accountItem.type == 'currentPlus'" ng-click="onSelectCurrentPlus(accountItem.account.amount)" ng-class="onClassPlus(accountItem.account.amount)">
+                <img ng-src="{{onSrcPlus(accountItem.account.amount)}}" style="float:left;width:25px;height:25px;margin:7px 5px 0 0;">
+                <div style="float:left;">
+                    <p class="cd-name"><img ng-src="{{onSrcPlus1(accountItem.account.amount)}}" ></p>
+                    <p class="yv" ng-if="!ifHideAmount.plus">余额{{accountItem.account.amount}} 元</p>
+                </div>
+            </li>
+        </ul>
+        <footer class="ft" ng-click="onClickUseNewCard()" ng-if="accountData.ctrlData.canBindNewCard">使用新卡</footer>
+    </div>
+</div>

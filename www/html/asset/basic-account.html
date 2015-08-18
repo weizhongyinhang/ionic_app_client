@@ -1,0 +1,60 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>微众卡</title>
+    <meta name="description" content="">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+</head>
+<body>
+<div class="bac">
+<div class="menu-ba">
+    <header class="menu"><span class="menu-return" ng-click="onClickGoBack()"></span>微众卡</header>
+</div>
+
+<div class="ba-income-wrap">
+    <p class="title p-line-lr-h"><span>昨日收益(元)</span></p>
+    <p class="num">{{timeDepositLastIncome}}</p>
+    <p class="msg">预期年化收益&nbsp;&nbsp;{{currentDepositIncomeRate}}%</p>
+	<!--<i class="more"></i>-->
+</div>
+
+<div class="total-wrap flex">
+    <div class="item p-line-r" ng-click="onClickCheckTransLog()">账户金额(元)<br>{{currentDeposit}}</div>
+    <div class="item">累计收益(元)<br>{{timeDepositIncome}}</div>
+</div>
+
+<div class="plan-wrap">
+    <div class="title" ng-click="onClickAddTransInPlan()">
+        <span class="t-l">转入计划</span><span class="t-r" >+&nbsp;添加</span>
+    </div>
+    <ul class="list" ng-if="showTransInPlans">
+        <li  ng-repeat="plan in transInPlans" ng-click="onClickTransInPlan(plan)">
+            <span>{{plan.remark}}</span><span>{{plan.bank_name}}{{plan.card_no|abridgeAccountNumber}}</span><span>{{plan.next_time|formatYYYYMMDDString}}</span><span>+{{plan.amount}}</span>
+        </li>
+    </ul>
+    <p class="sm" ng-if="!showTransInPlans">定期转入工资升值，给自己涨薪</p>
+</div>
+
+<div class="plan-wrap mgt20 bbp">
+    <div class="title out" ng-click="onClickAddTransOutPlan()">
+        <span class="t-l">转出计划</span><span class="t-r"> +&nbsp;添加</span>
+    </div>
+    <p class="sm" ng-if="!showTransOutPlans">自动转出必要开支，省心省力</p>
+    <ul class="list" ng-if="showTransOutPlans">
+        <li ng-repeat="plan in transOutPlans" ng-click="onClickTransOutPlan(plan)">
+            <span>{{plan.remark}}</span><span>{{plan.bank_name}}{{plan.card_no|abridgeAccountNumber}}</span><span>{{plan.next_time|formatYYYYMMDDString}}</span><span>-{{plan.amount}}</span>
+        </li>
+        <!--<li><span>交房租</span><span>招行(3256)</span><span>每月1日</span><span>-22366</span></li>-->
+    </ul>
+</div>
+
+<ul class="ba-nav flex">
+    <li class="item" ng-click="onClickTransIn()">转入</li>
+    <li class="item" ng-click="onClickTransOut()">转出</li>
+</ul>
+</div>
+</body>
+</html>

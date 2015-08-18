@@ -1,0 +1,124 @@
+<ion-view>
+    <div class="bx">
+        <ion-header-bar>
+            <div class="menu-ba">
+                <header class="menu">
+                    <!-- <span class="menu-return" ng-click="back()"></span><span class="tt">{{data.productDetail.onSaleDesc}}({{data.productDetail.onSaleCode}})</span> -->
+                    <span class="menu-return" ng-click="back()"></span><span>{{data.productDetail.onSaleDesc | longProdName}}</span><span>({{data.productDetail.onSaleCode}})</span>
+                    <span ng-class="data.shareClass" ng-click="share()"></span>
+                </header>
+            </div>
+        </ion-header-bar>
+
+
+        <ion-content class="has-header" has-bouncing="false">
+            <div class="ba-income-wrap">
+                <p class="title p-line-lr-h"><span>今年以来涨跌幅</span></p>
+                <p class="num">{{data.incomeRate}}<span class="sub">%</span></p>
+                <p class="pq">数据更新至<span>{{data.productDetail.incomeUpdateDate.substr(0,4)}}-{{data.productDetail.incomeUpdateDate.substr(4,2)}}-{{data.productDetail.incomeUpdateDate.substr(6,2)}}</span></p>
+
+                <div class="pz-wrap flex">
+                    <div class="item">
+                        <span class="k" ng-click="onClickRealValue()">单位净值(元)</span>
+                        <span>{{data.realValue}}</span>
+                    </div>
+                    <div class="item">
+                        <span class="k" ng-click="onClickChangeRate()">日涨跌幅</span>
+                        <span class="{{data.changeRateClass}}">{{data.yesterdayChangeRate}}%</span>
+                    </div>
+                    <div class="item">
+                        <span class="k">风险等级</span>
+                        <span class="{{data.riskRateClass}}">{{data.riskDesc}}</span>
+                    </div>
+                </div>
+                <!--<i class="jsq"></i>-->
+            </div>
+
+            <div class="subnav flex px mgt20">
+                <div class="{{data.realValueMapTab}}" ng-click="onClickRealValueMap()">收益率走势</div>
+                <div class="{{data.realValueTableTab}}" ng-click="onClickRealValueTable()">历史累积净值(元)</div>
+            </div>
+
+            <div class="hs-wrap px-a" ng-show="data.showRealValueMap">
+                <p class="p-o p-line-lr-h"><span>{{data.monthStr}}<i>{{data.preRate}}%</i></span></p>
+                <div stockcharts show-chart='func.showChart' chart-options="data.chartOptions" style="width:100%; height:250px;"></div>
+                <div class="hs-q">
+                    <div class="im"><i class="a"></i>本产品</div>
+                    <div class="im" ng-click="onClickThreeeHandred()"><i class="b"></i>沪深300<span class="i"></span></div>
+                </div>
+                <ul class="hs-month">
+                    <li ng-class="onClassTime(1)" ng-click="onClickTime(1)">1月</li>
+                    <li ng-class="onClassTime(3)" ng-click="onClickTime(3)">3月</li>
+                    <li ng-class="onClassTime(6)" ng-click="onClickTime(6)">6月</li>
+                    <li ng-class="onClassTime(12)" ng-click="onClickTime(12)">1年</li>
+                </ul>
+            </div>
+
+            <div class="hs-wrap px-a" ng-hide="data.showRealValueMap">
+                <ul class="hs-list tj">
+                    <li class="flex" ng-repeat="info in data.realValueInfoList7Days">
+                        <span class="item">{{info.date.substr(0, 4)}}-{{info.date.substr(4, 2)}}-{{info.date.substr(6 ,2)}}</span>
+                        <span class="item">{{info.realValue}}</span>
+                        <span ng-class="info.class">{{info.diffRate}}%</span>
+                    </li>
+                </ul>
+                <p class="mk" ng-click="onClickViewMoreHistory()">查看更多</p>
+            </div>
+            
+            <div class="lc-wrap mgt20 px" style="padding-bottom:15px;">
+                <p class="px-b" style="padding:15px 0 8px;">交易规则</p>
+                <table class="gz-table">
+                    <tr ng-repeat="rule in data.productConfig.tradingRules">
+                        <td class="a">{{rule.name}}</td>
+                        <td><p ng-repeat="subRule in rule.contents">{{subRule}}</p></td>
+                    </tr>
+                </table>
+
+                <p ng-click="onClickMoreRules()" style="text-align:right;padding:5px 25px 0 0;">
+                    <span style="font-size:12px;color:#6298e2;">更多规则</span>
+                </p>
+            </div>
+
+            <div class="px" ng-click="onClickAssetsDetail()"><p class="jt">资产配置</p></div>
+
+            <div class="px" ng-click="onClickTransRates()"><p class="jt">交易费率</p></div>
+
+            <div class="px" ng-click="onClickProdManager()">
+                <!-- <p class="jt jo"> -->
+                    <!-- <span class="gk">基金经理</span>
+                    <span class="sk">
+                        <i>{{data.productConfig.managerName}}</i>
+                        {{data.productDetail.managerDesc}}
+                    </span> -->
+                <p class="jt"> 
+                    <span>基金经理</span>
+                    <span style="float:right;margin-right:45px;">{{data.productConfig.managerName}}</span>
+                </p>
+            </div>
+
+            <div style="padding-bottom:90px;">
+            <div class="px" ng-click="onClickMoreDetail()"><p class="jt">更多详情</p></div>
+            </div>
+
+        </ion-content>
+
+        <ion-footer-bar ng-if="data.showBuyButton && data.productDetail.status=='01'">
+            <!-- 灰化class加off -->
+            <div class="buy-btn-wrap" ng-if="data.showBuyButton">
+                <p class="g">申购费：{{data.realPurchaseFeeRate}}%<span>（原{{data.purchaseFeeRate}}%）</span></p>
+                <div class="lc-buy-btn" ng-click="onClickPurchase()">立即购买</div>
+            </div>
+        </ion-footer-bar>
+
+        <div pop-confirm out-value="data.outValue"></div>
+
+        <!--遮罩层start-->
+        <div ng-class="data.maskClass">
+            <h2>{{data.maskTitle}}</h2>
+            <p>{{data.maskDetail}}</p>
+            <div class="funcs" ng-click="onClickCancelMask()"><span class="clz">×</span></div>
+        </div>
+        <!--遮罩层end-->
+
+    </div>
+</ion-view>

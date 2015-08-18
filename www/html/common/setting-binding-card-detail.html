@@ -1,0 +1,67 @@
+<ion-view>
+    <div class="card">
+        <ion-header-bar>
+            <div class="menu-ba">
+                <header class="menu"><span class="menu-return" ng-click="back()"></span>银行卡详情<span ng-class="{'menu-more':!isBasic}"  ng-click="onClickMenu()"></span></header>
+            </div>
+        </ion-header-bar>
+        <ion-content class="has-header">
+            <ul class="cd-list" ng-if="!isBasic">
+                <li class="bg-c-1">
+                    <div class="card-wrap" ng-style="cardStyle">
+                        <div class="info-wrap">
+                            <img ng-src="{{bankImg}}" alt="">
+                            <div class="info">
+                                <p class="a" ng-bind="numberMask"></p>
+                                <p class="b" ng-bind="bankName+' '+cardType"></p>
+                            </div>
+                        </div>
+                    </div>
+                    <img ng-src="{{bankBgImg}}" class="logo">
+                </li>
+            </ul>
+
+            <div class="main-card" ng-if="isBasic">
+                <div class="info-wrap">
+                    <img src="../img/c-d@2x.png" alt="">
+                    <div class="info">
+                        <p class="a" ng-bind="mainCardInfo.number | splitAccountNumber">0000 0000 0000 0000</p>
+                        <p class="b" ng-bind="mainCardInfo.bankName"></p>
+                    </div>
+                </div>
+                <p class="c"><span ng-bind="mainCardInfo.amount | number:2">0.00</span>元</p>
+                <div class="cx-box flex">
+                    <div class="item" ng-click="queryClick()">流水</div>
+                    <div class="item" ng-click="exchangeClick()">转账</div>
+                </div>
+            </div>
+
+            <ul class="pk px" style="margin-top:10px;"  ng-if="!isBasic">
+                <li class="px-b" ng-if="singleTransactionLimit * 1">
+                    <span class="l">单笔限额</span>
+                    <span class="r" ng-bind="(singleTransactionLimit | number:2) +'元'">500000.00元</span>
+                </li>
+                <li class="px-b" ng-if="singleDayLimit * 1">
+                    <span class="l">每日限额</span>
+                    <span class="r" ng-bind="(singleDayLimit | number:2)+'元'">100000.00元</span>
+                </li>
+            </ul>
+        </ion-content>
+
+        <div class="pop-bg" ng-if="showMenu">
+            <div class="pop-qx">
+                <p class="a px-a" ng-click="onClickUnBind()">解除绑定</p>
+                <p class="b" ng-click="onClickCancelMenu()">取消</p>
+            </div>
+        </div>
+        <div pwd-input
+             ng-model="vm.formData.confirmPassword"
+             is-pwd-show="isPwdShow"
+             sig-on-pwd-commit="sigOnPwdCommit"
+             pwd-sub-title="pwdSubTitle">
+        </div>
+
+        <div pop-confirm out-value="outValue"></div>
+    </div>
+
+</ion-view>

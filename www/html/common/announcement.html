@@ -1,0 +1,36 @@
+<ion-view>
+
+
+    <div class="p-gg">
+        <ion-header-bar>
+            <div class="menu-ba">
+                <header class="menu"><span class="menu-return" ng-click="back()"></span>{{strHead}}</header>
+            </div>
+        </ion-header-bar>
+        <ion-content class="has-header" scroll="false">
+            <div class="con">
+               <div class="sw"></div>
+
+               <div class="bb-wrap">
+                   <div class="inner">
+                       <dl>
+                          <dt ng-bind="strTitle">产品特殊公告</dt>
+                          <dd class="a" ng-bind="strDate">2015-06-27 12:22</dd>
+                          <dd class="b">亲爱的用户： <br>&#12288;&#12288;{{strDesc}}</dd>
+                          <dd class="c" ng-if="pdfUrl" ng-click="onClickPdf()">点击查看公告详情</dd>
+                       </dl>
+                   </div>
+               </div>
+
+                <div class="zj-wrap">
+                    <div class="l">
+                    </div>
+                    <div class="r"></div>
+                </div>
+                <div class="yy"></div>
+            </div>
+
+            <div class="btn-wrap pd20"><button class="btn-c" ng-click="onClickKnow()">我知道了</button></div>
+        </ion-content>
+    </div>
+</ion-view>

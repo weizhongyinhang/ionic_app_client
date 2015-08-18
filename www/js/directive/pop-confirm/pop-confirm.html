@@ -1,0 +1,26 @@
+<div class="pop-bg" ng-if="outValue.showPop">
+    <div class="pop bg-b">
+        <header class="hd" ng-show="outValue.textHead" ><em ng-bind-html="outValue.textHead | toTrusted"></em><i class="close" ng-hide="outValue.hideClose" ng-click="popClose(0)"></i></header>
+
+        <div class="qx-box" ng-show="outValue.showInput">
+            <input type="text" ng-model="outValue.inputDefaultText" class="yqm"/>
+        </div>
+
+        <div class="qx-box" ng-if="outValue.oneLineTextLeft">
+            <p class="qx-v" ng-bind-html="outValue.oneLineTextLeft | toTrusted"></p>
+        </div>
+
+        <p class="qx-m" ng-show="outValue.oneLineTextMiddle" ng-bind-html="outValue.oneLineTextMiddle | toTrusted"></p>
+
+        <p class="qx-k" ng-show="outValue.oneLineTextDefault" ng-bind="outValue.oneLineTextDefault"></p>
+        <dl class="qx-box" ng-show="outValue.multiLineText">
+            <dt ng-show="outValue.multiLineText.head" ng-bind="outValue.multiLineText.head"></dt>
+            <dd ng-repeat="item in outValue.multiLineText.items">{{item.front}}:<span>{{item.desc}}</span></dd>
+        </dl>
+        <footer class="ft-a px-b" ng-show="outValue.oneButtonText" ng-bind="outValue.oneButtonText" ng-click="$parent.popClose(1)">确定</footer>
+        <footer class="qx-menu flex px-b" ng-show="outValue.twoButtonText1 && outValue.twoButtonText2">
+            <div class="item p-line-r" ng-bind="outValue.twoButtonText1" ng-click="$parent.popClose(1)"></div>
+            <div class="item" ng-bind="outValue.twoButtonText2" ng-click="$parent.popClose(2)"></div>
+        </footer>
+    </div>
+</div>

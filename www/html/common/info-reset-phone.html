@@ -1,0 +1,56 @@
+    <ion-view>
+        <div class="set rg">
+            <ion-header-bar>
+                <div class="menu-ba">
+                    <header class="menu"><span class="menu-return" ng-click="back()"></span>{{showTitle()}}</header>
+                </div>
+            </ion-header-bar>
+
+            <ion-content class="has-header">
+                <!--step1-->
+                <section class="wrap-a" ng-if="showStep(1)" style="margin-top:20px;">
+                    <div class="register-input-wrap">
+                        <div class="input-box">
+                            <span class="info">姓&#12288;名</span>
+                            <div class="zsy"><input type="text" name="fName" class="w-input" ng-model="data.regName" ng-change="changeName()" maxlength="32"></div>
+                        </div>
+                        <p class="cy-tip" ng-if="inputNameTipsContent" ng-bind="inputNameTipsContent"></p>
+                        <div class="input-box">
+                            <span class="info">身份证</span>
+                            <div class="zsy"><input type="text" name="fIDnum" class="w-input" ng-model="data.regIDCard"  ng-change="changeIDCard()" maxlength="18"></div>
+                        </div>
+                        <p class="cy-tip" ng-if="inputIDCardTipsContent" ng-bind="inputIDCardTipsContent"></p>
+                    </div>
+                </section>
+
+
+                <!--step2-->
+                <section class="wrap-a" ng-if="showStep(2)" style="margin-top:20px;">
+                    <div class="register-input-wrap">
+                        <div class="input-box">
+                            <span class="info">新手机</span>
+                            <div class="zsy"><input type="tel" name="pNum" ng-model="data.phoneNumber" class="w-input" ng-change="changePhone()" maxlength="11"></div>
+                        </div>
+                        <p class="cy-tip" ng-if="inputPhoneTipsContent">{{inputPhoneTipsContent}}</p>
+
+
+                        <div class="input-box register-yz">
+                            <span class="info">验证码</span>
+                            <div class="zsy"><input type="text" pattern="[0-9]*" name="sNum" class="w-input" ng-model="data.regPhoneCheckNumber" ng-change="changeOtp()" maxlength="6"></div>
+                            <button ng-class="classOtpBtn()" ng-if="checkTimeoutButton" ng-click="onGetOTP()">获取验证码</button>
+                            <span class="ts" ng-if="!checkTimeoutButton">重新获取({{checkNumTimeout}})</span>
+                        </div>
+                        <p class="cy-tip" ng-if="inputOtpTipsContent" ng-bind="inputOtpTipsContent"></p>
+                    </div>
+                </section>
+
+
+                <div class="btn-wrap mg20">
+                    <button ng-class="classNextBtn()"   ng-click="onClickNext()">下一步</button>
+                </div>
+            </ion-content>
+
+
+
+        </div>
+    </ion-view>

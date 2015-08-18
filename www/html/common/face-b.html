@@ -1,0 +1,37 @@
+<ion-view>
+    <div class="fc">
+        <ion-header-bar>
+            <div class="menu-ba">
+                <header class="menu"></span>人脸验证</header>
+            </div>
+        </ion-header-bar>
+
+        <ion-content class="has-header" has-bouncing="false">
+            <div class="into-logo fall">
+                <p class="a">验证失败</p>
+                <p ng-if="showTips()" style="font-size: 14px;margin: -15px 0 20px;color:#f29360;">您已尝试3次以上，银行工作人员会联系您处理</p>
+
+                <div style="text-align:left;width:60%;margin:0 auto;">
+                    <p style="font-size:16px;">可以尝试通过以下方式提高</p>
+                    <p class="c">1、保持光线充足和均匀</p>
+                    <p class="c">2、摘掉眼镜</p>
+                    <p class="c">3、露出耳朵</p>
+                    <p class="c">4、请选择安静的环境</p>
+                </div>
+            </div>
+
+            <!-- <p class="btn-p" ng-click="check_face_again()">再试一次</p> -->
+            <p style="margin:25px 0 15px;color:#3399ec;text-align:right;padding:0 30px;font-size:12px;"ng-click="call_phone()">联系客服</p>
+            <div class="btn-wrap"><button class="btn-c" ng-click="check_face_again()">再试一次</button></div>
+            <div class="btn-wrap pd20"><button class="tvb" ng-click="back()">退出验证</button></div>
+
+            <div class="pop-bg hide">
+                <div class="pop-qx">
+                    <p class="b px-a">在线客服</p>
+                    <p class="b px-a">拨打电话</p>
+                    <p class="b">取消</p>
+                </div>
+            </div>
+        </ion-content>
+    </div>
+</ion-view>

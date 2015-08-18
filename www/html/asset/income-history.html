@@ -1,0 +1,35 @@
+<ion-view>
+    <div class="ear">
+
+        <ion-header-bar>
+            <div class="menu-ba">
+                <header class="menu"><span class="menu-return" ng-click="func.back()"></span>我的收益</header>
+            </div>
+        </ion-header-bar>
+
+        <ion-content class="has-header" has-bouncing="false">
+            <div class="qx-wrap" ng-if="false">
+                <div stockcharts show-chart='func.showChart'
+                     chart-options="data.chartOptions" style="width:100%; height:150px;"></div>
+            </div>
+
+            <div class="it px-a"><span class="it-l">累计收益</span><span class="it-r" ng-bind="data.totalIncome"></span></div>
+
+            <ul class="list">
+                <li ng-repeat="historyItem in data.incomeHistory" ng-class="data.itemCls[historyItem.date]" ng-click="func.onClickHistoryItem(historyItem.date)">
+                    <div class="mg">
+                        <span class="a">{{historyItem.date|formatYYYYMMDDString}}</span>
+                        <span ng-class="data.detailCls[historyItem.date]">{{historyItem.dayIncome}}</span></div>
+                    <ol class="sub-list">
+                        <li ng-repeat="product in historyItem.products">
+                            <span class="c">{{product.prodName}}<i ng-if="product.prodType == 'HJ'"></i></span>
+                            <span class="d">{{product.income}}</span>
+                        </li>
+                    </ol>
+                </li>
+            </ul>
+        </ion-content>
+
+    </div>
+    <loading show-loading="data.showLoading"></loading>
+</ion-view>

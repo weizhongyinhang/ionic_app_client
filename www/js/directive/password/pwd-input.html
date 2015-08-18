@@ -1,0 +1,17 @@
+<div>
+    <div class="pop-bg" ng-if="isPwdShow">
+        <div class="pop bg-a">
+            <header class="hd">{{pwdTitle}}<i class="close" ng-click="onClickClose()"></i></header>
+            <p class="w-a" ng-if="pwdSubTitle" ng-bind="pwdSubTitle"></p>
+            <p class="w-b" ng-if="pwdTransDesc" ng-bind="pwdTransDesc"></p>
+            <ol class="code-list" id='pwdlist' ng-click="vm.onInputClick($event)">
+                <li ng-repeat="str in vm.displayPwd track by $index" ng-bind="str"></li>
+            </ol>
+            <div class="gh-w">
+                <span class="w-l" ng-if="payWayDesc" ng-bind="payWayDesc"></span>
+                <span class="w-r" ng-if="payWayDesc && canChangePayWay" ng-click="onClickChangePayWay()">更换</span>
+            </div>
+        </div>
+    </div>
+    <loading show-loading="isWaitingFactor"></loading>
+</div>

@@ -1,0 +1,85 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>取出计划</title>
+    <meta name="description" content="">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+</head>
+<body>
+<div class="lc">
+    <div class="menu-ba" ng-if="!hasOldPlan">
+        <header class="menu"><span class="menu-return" ng-click="back()"></span>取出计划</header>
+    </div>
+
+    <div class="menu-ba" ng-if="hasOldPlan">
+        <header class="menu"><span class="menu-return" ng-click="back()"></span>取出计划<span class="menu-wd" ng-click="onClickDeletePlan()">删除</span></header>
+    </div>
+
+    <p class="cy-wd">计划取出 {{planDesc}}</p>
+    <div>
+        <div class="cy-wrap">取出金额<div class="po"><input type="number" class="it" ng-change="checkInputAmount()" ng-model="amount"></div><!--
+        <!--&ndash;&gt;<span class="all" ng-click="onClickRedeemAll()">全部取出</span></div>-->
+        </div>
+
+        <div class="get-wrap px mgt20" ng-click="onSelectPayWay()">
+            <p>取出至卡<!--
+        --><span class="n" ng-if="webankAccount.isWebankAccountSelected">微众银行卡</span><!--
+        --><span class="n" ng-if="!webankAccount.isWebankAccountSelected">{{cardInfo.bankName }}<!--
+        -->{{cardInfo.cardType + ' '}}{{cardInfo.cardNo | abridgeAccountNumber}}</span><!--
+        --></p>
+        </div>
+
+        <div class="dq-buy-wrap">
+            <ul class="dq-o px">
+                <li ng-click="onSelectFreq()">取出频率&nbsp;&nbsp;{{freqDesc}}</li>
+                <li ng-click="onSelectDate()" class="px-b">取出日期&nbsp;&nbsp;{{dt|formatDateObjToString}}</li>
+            </ul>
+            <p class="kk">{{getTransDateDesc()}}</p>
+        </div>
+
+        <div class="btn-wrap pd20">
+            <button ng-if="!hasOldPlan" ng-class="btnCls" ng-click="onClickAddPlan()">立即添加</button>
+            <button ng-if="hasOldPlan"  ng-class="btnCls" ng-click="onClickModifyPlan()">修改</button>
+        </div>
+    </div>
+
+    <pay-way-selector
+            show-pay-way-selector="isPayWayShow"
+            pay-way-title="payWayTitle"
+            bind-card-list="bindCardList"
+            card-info="cardInfo"
+            sig-select-card="sigSelectCard"
+            bind-new-card="bindNewCard"
+            webank-account="webankAccount"
+            callback-func = "payWayCallback"
+            >
+    </pay-way-selector>
+
+    <div pwd-input
+         ng-model="vm.formData.confirmPassword"
+         is-pwd-show="isPwdShow"
+         sig-on-pwd-commit="sigOnPwdCommit"
+         pwd-sub-title="pwdSubTitle"
+         pwd-trans-desc="pwdTransDesc"
+         pay-way-desc="payWayDesc"
+         on-click-change-pay-way="onSelectPayWay"
+            >
+    </div>
+
+    <div class="pop-bg" ng-if="showSelectFreq">
+        <div class="pop bg-b">
+            <header class="hd" ng-click="onClickCloseFrequencySelector()">请选择频率<i class="close"></i></header>
+            <ul class="card"><li><p class="cd-name" ng-click="onClickOnlyOnce()">仅此一次</p></li></ul>
+            <ul class="card"><li><p class="cd-name" ng-click="onClickRepeatPerMonth()">每月一次</p></li></ul>
+        </div>
+    </div>
+
+</div>
+<loading show-loading="showLoading"></loading>
+<div pop-confirm out-value="outValue"></div>
+
+</body>
+</html>

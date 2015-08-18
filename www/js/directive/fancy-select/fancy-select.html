@@ -1,0 +1,13 @@
+<script id="fancy-select-items.html" type="text/ng-template">
+    <ion-view class="fancy-select-items modal" style="top: 60%;right: 0;bottom: 0;left: 0;overflow: visible;min-height: 200px;height: 40%;">
+        
+        <ion-content scrollbar-x="false" scrollbar-y="false">
+            <ul>
+                <!-- Single select -->
+                <li ng-repeat="item in items" ng-click='validateSingle(item,$index)' class="px-a" style="text-align:center;line-height:44px;font-size:14px;color:#a2aeca;">
+                    {{item.text}}
+                </li>
+            </ul>
+        </ion-content>
+    </ion-view>
+</script>

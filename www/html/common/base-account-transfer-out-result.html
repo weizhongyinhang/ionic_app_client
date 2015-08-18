@@ -1,0 +1,50 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>转出成功</title>
+    <meta name="description" content="">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+</head>
+<body>
+<div class="oti">
+    <div class="menu-ba">
+        <header class="menu">转出</header>
+    </div>
+
+    <!-- 成功：ok；失败：fall -->
+    <div class="into-logo ok" ng-if="isSuccShow">
+        <p class="a">转出成功</p>
+        <p class="b" ng-if="transInfo.totalAmount">微众银行卡余额：{{transInfo.totalAmount}}</p>
+    </div>
+
+    <!-- 成功：ok；失败：fall -->
+    <div class="into-logo fall" ng-if="isFailedShow">
+        <p class="a">转出失败</p>
+        <p class="c">原因:{{transInfo.failReason}}</p>
+        <p class="b" ng-if="transInfo.totalAmount">微众银行卡余额：{{transInfo.totalAmount}}</p>
+    </div>
+
+
+    <!-- 成功：ok；失败：fall -->
+    <div class="into-logo ok" ng-if="isProcShow">
+        <p class="a">交易已受理，请稍后查看</p>
+    </div>
+
+    <ul class="pb-info mgt30">
+        <li><span class="title">收款账户</span><span class="info">
+            {{transInfo.bankName}}{{transInfo.cardNo | abridgeAccountNumber}}
+        </span></li>
+        <li><span class="title">转账金额</span><span class="info">{{transInfo.transAmount}}元</span></li>
+        <li><span class="title">交易时间</span><span class="info">{{today}}</span></li>
+        <li><span class="title">备注</span><span class="info">{{transInfo.remark}}</span></li>
+    </ul>
+
+    <!--<button class="btn into-m-d" ng-click="onClickFinshBtn()">完成</button>-->
+    <div class="btn-wrap mgt30"><button class="btn-c" ng-click="onClickFinshBtn()">完成</button></div>
+</div>
+</body>
+</body>
+</html>

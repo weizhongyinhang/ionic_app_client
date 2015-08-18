@@ -1,0 +1,96 @@
+<ion-view>
+    <div class="rg">
+        <ion-header-bar>
+            <div class="menu-ba">
+                <header class="menu"><span class="menu-return" ng-click="back()"></span>开户</header>
+            </div>
+        </ion-header-bar>
+
+        <ion-content class="has-header" has-bouncing="false">
+            <ol class="register-order flex">
+                <li class="item i-r on"><div class="od"><i class="t">1</i><span>填写基本资料</span></div></li>
+                <li class="item i-q off"><div class="od"><i class="t">2</i><span>设置交易密码</span></div></li>
+                <li class="item i-l"><div class="od"><i class="t">3</i><span>绑卡验证</span></div></li>
+            </ol>
+
+            <section class="wrap-a">
+                <div class="register-input-wrap">
+                    <div class="input-box">
+                        <span class="info">姓&#12288;名</span>
+                        <div class="zsy">
+                            <input type="text" name="fName" class="w-input" ng-model="data.name" ng-change="changeName()" maxlength="32">
+                        </div>
+                    </div>
+                    <p class="cy-tip" ng-if="data.showInputNameTips">{{data.inputNameTipsContent}}</p>
+
+
+                    <div class="input-box">
+                        <span class="info">身份证</span>
+                        <div class="zsy">
+                            <input type="text" name="fIDnum" class="w-input" ng-model="data.IDCard"  ng-change="changeIDCard()" ng-blur="blurIDCard()" maxlength="18">
+                            <!--<keyboard-input-->
+                            <!--keyboard-input-data="IDCardInputData">-->
+                            <!--</keyboard-input>-->
+                        </div>
+                    </div>
+                    <p class="cy-tip" ng-if="data.showInputIDCardTips">{{data.inputIDCardTipsContent}}</p>
+
+
+                    <div class="input-box">
+                        <span class="info">手机号</span>
+                        <div class="zsy">
+                            <input type="tel" name="pNum" ng-model="data.phone" class="w-input" ng-change="changePhone()" maxlength="11">
+                        </div>
+                    </div>
+                    <p class="cy-tip" ng-if="data.showInputPhoneTips">{{data.inputPhoneTipsContent}}</p>
+
+
+                    <div class="input-box register-yz">
+                        <span class="info">验证码</span>
+                        <div class="zsy">
+                            <input type="text" pattern="[0-9]*" id="regOtpInput" name="sNum" class="w-input" ng-model="data.otpNum" ng-change="changeOtp()" maxlength="6">
+                        </div>
+                        <button ng-class="data.otpButtonClass" ng-if="data.showTimeoutButton" ng-click="onClickOtp()">获取验证码</button>
+                        <span class="ts" ng-if="!data.showTimeoutButton">重新获取({{data.timeout}})</span>
+                    </div>
+                    <p class="cy-tip" ng-if="data.showInputOtpTips">{{data.inputOtpTipsContent}}</p>
+                </div>
+            </section>
+
+            <div class="mt-a">
+                <user-agreement
+                        agreement-type="1"
+                        is-agreed="data.isAgreed"
+                        agreement-callback="agreementCallback"
+                        >
+                </user-agreement>
+            </div>
+
+            <div class="btn-wrap mgt20" ng-click="onClickRegister()"><button ng-class="data.nextButtonClass">下一步</button></div>
+        </ion-content>
+
+
+        <div pop-confirm out-value="data.outValue"></div>
+
+        <loading show-loading="data.showLoading"></loading>
+
+        <div pwd-input
+             ng-model="vm.formData.confirmPassword"
+             is-pwd-show="data.isPwdShow"
+             is-pwd-keyboard-show="data.isPwdKeyboardShow"
+             sig-on-pwd-commit="data.sigOnPwdCommit"
+                >
+        </div>
+
+        <!--遮罩层start-->
+        <div class="{{data.maskClass}}">
+            <h2>{{data.maskTitle}}</h2>
+            <h3>{{data.maskSubTitle1}}</h3>
+            <p>{{data.maskDetail1}}</p>
+            <h3>{{data.maskSubTitle2}}</h3>
+            <p>{{data.maskDetail2}}</p>
+            <div class="funcs" ng-click="onClickCancelMask()"><span class="clz">×</span></div>
+        </div>
+        <!--遮罩层end-->
+    </div>
+</ion-view>

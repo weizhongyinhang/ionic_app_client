@@ -1,0 +1,120 @@
+<ion-view>
+    <div class="lc">
+        <ion-header-bar>
+            <div class="menu-ba" ng-if="!data.hasOldPlan">
+                <header class="menu"><span class="menu-return" ng-click="func.back()"></span>存取计划</header>
+            </div>
+            <div class="menu-ba" ng-if="data.hasOldPlan">
+                <header class="menu"><span class="menu-return" ng-click="func.back()"></span>存取计划<span class="menu-wd" ng-click="func.onClickDeletePlan()">删除</span></header>
+            </div>
+        </ion-header-bar>
+
+        <ion-content>
+            <div class="cy-wrap" style="margin-top:20px;">名称<div class="po"><input type="text" placeholder="{{data.defaultName}}" class="it" ng-model="data.planName"></div></div>
+            <div class="cy-wrap" style="margin-top:20px;">金额<div class="po"><input type="number" placeholder="输入您要定时存取的金额" class="it" ng-change="func.checkInputAmount()" ng-model="data.amount"></div></div>
+
+            <div class="dq-buy-wrap">
+                <ul class="dq-o ex px">
+                    <li ng-click="func.onClickSelectRecvAccount()">收款
+                        <span class="n p-placeholder" ng-if="data.recvAccountDataOnForm.ctrlData.accountType == 0">
+                            选择您的收款账户
+                        </span>
+                        <span class="n" ng-if="data.recvAccountDataOnForm.ctrlData.accountType == 3">
+                            微众卡
+                        </span>
+                        <span class="n" ng-if="data.recvAccountDataOnForm.ctrlData.accountType == 2">
+                            <img class="hq_icon" src="../img/slice/hq@3x.png" style=" width: 51px; height: 20px; margin: 0 0 -4px 0;">
+                        </span>
+                        <span class="n" ng-if="data.recvAccountDataOnForm.ctrlData.accountType == 1">
+                            {{data.recvAccountDataOnForm.otherBankAccount.cardInfo.bankName }}
+                            {{data.recvAccountDataOnForm.otherBankAccount.cardInfo.cardType + ' '}}
+                            {{data.recvAccountDataOnForm.otherBankAccount.cardInfo.cardNo | abridgeAccountNumber}}
+                        </span>
+                    </li>
+                    <li class="px-b" ng-click="func.onClickSelectPayAccount()">付款
+                        <span class="n" ng-if="data.payAccountDataOnForm.ctrlData.accountType == 3">
+                            微众卡
+                        </span>
+                        <span class="n" ng-if="data.payAccountDataOnForm.ctrlData.accountType == 2">
+                            <img class="hq_icon" src="../img/slice/hq@3x.png"  style=" width: 51px; height: 20px; margin: 0 0 -4px 0;">
+                        </span>
+                        <span class="n" ng-if="data.payAccountDataOnForm.ctrlData.accountType == 1">
+                            {{data.payAccountDataOnForm.otherBankAccount.cardInfo.bankName }}
+                            {{data.payAccountDataOnForm.otherBankAccount.cardInfo.cardType + ' '}}
+                            {{data.payAccountDataOnForm.otherBankAccount.cardInfo.cardNo | abridgeAccountNumber}}
+                        </span>
+                        <span class="n p-placeholder" ng-if="data.payAccountDataOnForm.ctrlData.accountType == 0">
+                            选择您的付款账户
+                        </span>
+                    </li>
+                </ul>
+                <i ng-click="func.onClickExchangeAccounts()" ng-class="data.exchangeBtnClass"></i>
+            </div>
+
+            <div class="dq-buy-wrap">
+                <ul class="dq-o px">
+                    <li ng-click="func.onSelectFreq()">频率
+                        <span class="n p-placeholder" ng-if="!data.freqDesc">选择转账频率</span>
+                        <span class="n" ng-if="data.freqDesc">{{data.freqDesc}}</span>
+                    </li>
+                    <li ng-click="func.onSelectDate()" class="px-b">日期
+                        <span class="n p-placeholder" ng-if="!data.tranDateDesc">选择日期</span>
+                        <span class="n" ng-if="data.tranDateDesc">{{data.tranDateDesc}}</span>
+                    </li>
+                </ul>
+                <p class="kk">{{data.freqDetail}}</p>
+            </div>
+
+            <div class="btn-wrap pd20" style="padding:30px 0 20px;">
+                <button class="btn-c" ng-click="func.onClickConfirm()">确认</button>
+            </div>
+        </ion-content>
+
+        <!--收款账户-->
+        <account-selector
+                hide-amount=300
+                account-data="data.recvAccountData"
+                show="func.showReceivableAccountSelector"
+                hide="func.hideReceivableAccountSelector"
+                on-account-selected="func.onRecvAccountSelected"
+                bind-card="func.bindCard"
+                >
+        </account-selector>
+
+        <!--付款账户-->
+        <account-selector
+                account-data="data.payAccountData"
+                show="func.showPaymentAccountSelector"
+                hide="func.hideReceivableAccountSelector"
+                bind-card="func.bindCard"
+                on-account-selected="func.onPayAccountSelected"
+                >
+        </account-selector>
+
+        <!--密码输入-->
+        <div pwd-input
+             ng-model="vm.formData.confirmPassword"
+             is-pwd-show="data.isPwdShow"
+             sig-on-pwd-commit="sigOnPwdCommit"
+             pwd-sub-title="data.pwdSubTitle"
+             pwd-trans-desc="data.pwdTransDesc"
+             pay-way-desc="data.payWayDesc"
+             on-click-change-pay-way="func.onPwdSelectPayWay">
+        </div>
+
+    </div>
+    <div class="pop-bg" ng-if="data.showSelectFreq">
+        <div class="pop bg-b">
+            <header class="hd" ng-click="func.onClickCloseFrequencySelector()">请选择频率<i class="close"></i></header>
+            <ul class="card"><li><p class="cd-name" ng-click="func.onClickOnlyOnce()">仅此一次</p></li></ul>
+            <ul class="card"><li><p class="cd-name" ng-click="func.onClickRepeatPerMonth()">每月一次</p></li></ul>
+        </div>
+    </div>
+    <fancy-select
+            header-text="headerText"
+            callback="func.onSelectRepeatedDay"
+            show-select="func.showDaySelect">
+    </fancy-select>
+    <loading show-loading="data.showLoading"></loading>
+    <div pop-confirm out-value="data.outValue"></div>
+</ion-view>

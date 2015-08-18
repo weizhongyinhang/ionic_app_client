@@ -1,0 +1,46 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>计划</title>
+    <meta name="description" content="">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+</head>
+<body>
+<div class="plan">
+
+    <div class="menu-ba">
+        <header class="menu"><span class="menu-return" ng-click="back()"></span>定投管理</header>
+    </div>
+
+    <ul class="book">
+
+        <li ng-repeat="item in allPlans" ng-class="getPlanItemCls(item)" ng-click="onClickModifyPlan(item)">
+            <div class="k-l">{{item.bankName}}<br>{{item.cardType}}{{item.cardNo|abridgeAccountNumber}}</div>
+            <div class="k-m">
+                <span class="n">{{item.amount}}元</span>
+                <span class="im"><i></i></span>
+                <span class="dt">{{item.dateDesc}}</span>
+            </div>
+            <div class="k-r">货币基金<br>{{item.prodName}}</div>
+            <i class="h">{{item.jobTypeDesc}}</i>
+        </li>
+    </ul>
+
+    <div ng-if="showNoPlan">
+        <img src="../img/plan-more@2x.png" class="no-more">
+        <p style="line-height:24px;text-align:center;padding-top:20px;">您可以定期购买<span style="color:#3399eb;padding-left:5px;" ng-click="onClickPlanIntro()">{{planIntro}}</span><br>随存随取，近7日年化收益{{incomeRate}}%</p>
+    </div>
+
+    <loading show-loading="showLoading"></loading>
+
+    <!--<div class="hj-by-wrap flex">-->
+    <!--<div class="item" ng-click="onClickAddPurchasePlan()">添加购买计划</div>-->
+    <!--<div class="item" ng-click="onClickAddRedeemPlan()">添加取出计划</div>-->
+    <!--</div>-->
+</div>
+
+</body>
+</html>

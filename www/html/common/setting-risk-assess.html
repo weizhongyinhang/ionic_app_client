@@ -1,0 +1,63 @@
+<ion-view>
+    <div class="pc">
+        <ion-header-bar>
+            <div class="menu-ba">
+                <header class="menu"><span class="menu-return" ng-click="back()"></span>风险评估</header>
+            </div>
+        </ion-header-bar>
+
+        <ion-content class="has-header" scroll="false">
+            <!--首页说明-->
+            <div ng-if="showIndex == 0">
+                <p style="padding:30px 20px 30px 25px;color:#a2aeca;line-height:22px;">以下问题将对您进行风险承受能力评估，微众银行将根据评估结果为您更好的配置资产。<br><br>如您发生可能影响自身风险承受能力的情形，再次购买理财产品时应当主动要求重新进行风险评估。您在基金等产品购买过程中，亦请注意核对自己的风险承受能力和基金产品风险的匹配情况。<br><br>微众银行承诺对您的个人资料进行保密。</p>
+            </div>
+            <div class="bt-box" ng-if="showIndex == 0">
+                <div class="btn-wrap">
+                    <button class="btn-c" ng-click="clickBegin()">开始答题</button>
+                </div>
+            </div>
+
+            <!--评估页面-->
+            <div ng-if="showIndex>0 && showIndex<pageNum">
+                <div class="con px">
+                    <p class="px-a" ng-bind="showData.Title"></p>
+                    <ul>
+                        <li ng-class="{'on':isActive($index)}" ng-repeat="item in showData.data" ng-bind-html="item | toTrusted" ng-click="itemClick($index)"></li>
+                    </ul>
+                </div>
+                <div class="page flex">
+                    <div class="a item"><span ng-if="showIndex>1" ng-click="prevClick()">上一题</span></div>
+                    <div class="b item"><span>{{(showIndex)+"/"+(pageNum-1)}}</span></div>
+                    <div class="c item"><span ng-if="showIndex<pageNum-1 && isNextPageCheck" ng-click="nextClick()">下一题</span></div>
+                </div>
+            </div>
+            <div class="bt-box" ng-if="showIndex == pageNum-1">
+                <div class="btn-wrap">
+                    <button ng-class="submitClass" ng-click="clickSubmit()">确认并提交</button>
+                </div>
+            </div>
+
+            <!--结果页面-->
+            <div class="tc" ng-if="showIndex==pageNum">
+                <p class="p-a">您的风险评估结果</p>
+                <span class="ic"></span>
+                <p class="p-b" ng-bind="riskType">保守型</p>
+                <p class="p-a" ng-bind="riskProduct">适合投资低风险金融产品</p>
+                <div class="bt-box">
+                    <div class="btn-wrap">
+                        <button class="btn-c" ng-click="clickSeeProduct()">去看看适合我的产品</button>
+                        <button class="btn" ng-click="clickReassessment()">重新评估</button>
+                    </div>
+                </div>
+            </div>
+        </ion-content>
+
+        <div
+        pop-confirm
+        out-value = "outValue"
+        ></div>
+
+        <loading show-loading="showLoading"></loading>
+
+    </div>
+</ion-view>

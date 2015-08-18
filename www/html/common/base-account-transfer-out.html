@@ -1,0 +1,56 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>货基赎回</title>
+    <meta name="description" content="">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+</head>
+<body>
+<div class="oti">
+    <div class="menu-ba">
+        <header class="menu"><span class="menu-return" ng-click="back()"></span>转账</header>
+    </div>
+
+    <div class="out-y">
+        <span class="y-l">账户余额(元)</span>
+        <span class="y-r">{{currentDeposit}}</span>
+    </div>
+
+    <div class="gk mgt20">
+        <ul class="pb-ip-wrap">
+            <li><span>金额</span><span class="ck"><input type="number" class="i-p" ng-model="transAmount"></span><span></span></li>
+            <li ng-click="onSelectPayWay()"><span>收款帐户</span><span>{{cardInfo.bankName}}{{cardInfo.cardNo|abridgeAccountNumber}}</span><span><i class="s s-1"></i></span></li>
+            <li><span>备注</span><span class="ck"><input type="text" class="i-p" placeholder="转账" ng-model="remark"></span></li>
+        </ul>
+    </div>
+
+    <div class="btn-wrap mgt20"><button class="btn-c" ng-click="onClickRedeem($event)">立即转账</button></div>
+    <!--<button class="out-m-a btn" ng-click="onClickRedeem()">转出</button>-->
+    <pay-way-selector
+            show-pay-way-selector="isPayWayShow"
+            bind-card-list="bindCardList"
+            card-info="cardInfo"
+            sig-select-card="sigSelectCard"
+            bind-new-card="bindNewCard"
+            >
+    </pay-way-selector>
+
+    <div pwd-input
+         ng-model="vm.formData.confirmPassword"
+         is-pwd-show="isPwdShow"
+         sig-on-pwd-commit="sigOnPwdCommit"
+         pwd-sub-title="pwdSubTitle"
+         pwd-trans-desc="pwdTransDesc"
+            >
+    </div>
+
+    <loading show-loading="showLoading"></loading>
+
+    <div pop-confirm out-value="outValue"></div>
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,79 @@
+<ion-view>
+    <div class="bx">
+        <div class="menu-ba">
+            <header class="menu"><span class="menu-return" ng-click="back()"></span>{{prodName}}
+                <span ng-class="shareClass" ng-click="share()"></span>
+            </header>
+        </div>
+        <ion-content class="has-header" has-bouncing="false">
+            <div class="ba-income-wrap">
+                <p class="title p-line-lr-h"><span>近7日年化收益率</span></p>
+                <p class="num">{{incomeRate}}<span class="sub">%</span></p>
+                <!-- <p class="jx">{{productInfo.lifeTime}}天<span class="h">/</span>{{productInfo.minAmount}}元起<span class="h">/</span>{{productInfo.valueDateDesc}}</p> -->
+                <div class="pz-wrap flex">
+                    <div class="item">万份收益(元)<span>{{incomeTenThousand}}</span></div>
+                    <div class="item">投资周期<span>{{investCycle}}</span></div>
+                    <div class="item">风险等级<span>{{riskDesc}}</span></div>
+                </div>
+                <!--<i class="jsq"></i>-->
+            </div>
+
+            <div class="subnav flex px mgt20">
+                <div ng-class="incomeRateCls" ng-click="onClickIncomeRate()">7日年化收益</div>
+                <div ng-class="incomeCls" ng-click="onClickIncome()">历史万份收益(元)</div>
+            </div>
+
+            <!--万份收益-->
+            <div class="hs-wrap px-a" ng-if="!showIncomeRate">
+                <ul class="hs-list">
+                    <li ng-repeat="item in historyIncomeInfo"><!--
+                 --><span class="l">{{item.date|formatYYYYMMDDString}}</span><!--
+                 --><span class="r">{{item.incomeTenThousand}}</span></li>
+                </ul>
+                <p class="mk" ng-click="onClickViewMore()">查看更多</p>
+            </div>
+
+            <!--七日年化-->
+            <div class="hs-wrap px-a" ng-if='showIncomeRate'>
+                <div stockcharts show-chart='func.showChart' chart-options="chartOptions" style="width:100%; height:250px;"></div>
+                <p class="pk">7日年化收益与万份收益每日波动，收益将随之波动</p>
+            </div>
+
+            <div class="bx">
+                <ul class="lc-wrap mgt20 px" style="padding-bottom:10px;">
+                    <li class="px-b" style="padding:15px 0 8px;">交易规则</li>
+                    <li class="h-s" style="padding:0 0 5px 0;" ng-repeat="rule in prodDetails.tradingRulesV2">• {{rule.desc}}</li>
+                </ul>
+            </div>
+
+            <div class="bx">
+                <ul class="lc-wrap mgt20 px" style="padding-bottom:10px;">
+                    <li class="px-b" style="padding:15px 0 8px;">收益规则</li>
+                    <li class="h-s" style="padding:0 0 5px 0;">• 每天15:00前购买，第二天开始计算收益(节假日顺延)</li>
+                    <li class="h-s" style="padding:0 0 5px 0;">• 每天15:00及节假日购买，在下一个工作日的第二天开始计算收益</li>
+                    <li class="h-s" style="padding:0 0 5px 0;">• 在开始计算收益后第二天，可以查看到账收益</li>
+                    <li style="text-align:left;width:96%;color:#3399eb;padding-top:0px;padding-bottom:0px;font-size:14px;" ng-click="onClickViewMoreIncomeRule()">查看更多</li>
+                </ul>
+            </div>
+
+
+            <div style="padding-bottom:20px;"></div>
+            <ul class="lc-wrap mgt20 px">
+                <li class="px-b">推荐理由</li>
+                <li class="h-s px-b">• {{tags[0]}}&nbsp;&nbsp;&nbsp;&nbsp;• {{tags[1]}}&nbsp;&nbsp;&nbsp;&nbsp;•
+                    {{tags[2]}}</li>
+                <li class="h-s px-b" style="padding-right:25px;"><i class="i-b"></i>{{promopt}}</li>
+            </ul>
+
+            <div class="px">
+                <p class="jt" ng-click="onClickProductDetail()">更多详情</p>
+            </div>
+
+            <div style="padding-bottom:70px;"></div>
+        </ion-content>
+        <div class="hj-by-wrap flex">
+            <div class="item" ng-click="onClickMakePlan()">定投</div>
+            <div class="item" ng-click="onClickPurchase()">购买</div>
+        </div>
+    </div>
+</ion-view>

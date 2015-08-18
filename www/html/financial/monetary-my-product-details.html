@@ -1,0 +1,133 @@
+<ion-view>
+    <div class="lc bx" ng-if="func.isLogined()">
+        <ion-header-bar>
+            <div class="menu-ba">
+                <header class="menu"><span class="menu-return" ng-click="func.back()"></span>活期+
+                    <!--<span class="menu-wd" ng-click="func.onClickTransLog()">交易查询</span>-->
+                    <span ng-class="data.shareClass" ng-click="func.share()"></span>
+                </header>
+            </div>
+        </ion-header-bar>
+
+        <ion-content has-bouncing="false" class="has-header"  delegate-handle="myContent">
+            <div class="ba-income-wrap">
+                <p class="title p-line-lr-h"><span>昨日收益(元)</span></p>
+                <p class="num" ng-if="!data.showIncome" style="padding:24px 0 10px;">暂无收益</p>
+                <p class="num" ng-if="data.showIncome" style="padding:24px 0 10px;" ng-click="func.onClickYesterdayIncome()">{{data.yesterdayIncome}}</p>
+                <p style="font-size:12px;padding:0 0 10px 0;color:#98a5c4;height:20px;line-height:20px;">
+                    <span ng-if="data.valueDateDesc">{{data.valueDateDesc}}</span>
+                </p>
+                <p></p>
+                <div class="xs flex">
+                    <div class="item p-line-r" ng-click="func.onClickAsset()">持有资产(元)<span>{{data.amount}}</span></div>
+                    <div class="item" ng-click="func.onClickAccumulateIncome()">累计收益(元)<span>{{data.accumulatedIncome}}</span></div>
+                </div>
+            </div>
+
+            <!-- <p class="px-a vv" ng-if="false">您有2笔资金的收益还未到账</p> -->
+            <!--p style="line-height:45px;background-color:#fff3bc;color:#9f7f56;padding:0 0 0 15px;font-size:14px;overflow:hidden;margin-bottom:-20px;" ng-if="data.valueDateDesc">
+                {{data.valueDateDesc}}
+                <i style="float:right;width:35px;text-align:right;font-size:20px;padding-right:15px;" ng-click="func.onClickCloseValueDatePromopt()">&times;</i>
+            </p-->
+
+            <div class="subnav flex px mgt20" style="height:44px;line-height:normal;">
+                <div ng-class="data.incomeRateCls" ng-click="func.onClickIncomeRate()"><span style="font-size:12px;">{{data.monthStr}}<br>{{data.incomeRate}}%</span></div>
+                <div ng-class="data.incomeCls" ng-click="func.onClickIncome()"><span style="font-size:12px;">万份收益(元)<br>{{data.incomeTenThousand}}</span></div>
+            </div>
+
+            <!--万份收益-->
+            <div class="hs-wrap px-a" ng-if="!data.showIncomeRate" >
+                <ul class="hs-list">
+                    <li ng-repeat="item in data.historyIncomeInfo"><!--
+                 --><span class="l">{{item.date|formatYYYYMMDDString}}</span><!--
+                 --><span class="r">{{item.incomeTenThousand}}</span></li>
+                </ul>
+                <p class="mk" ng-click="func.onClickViewMore()">查看更多</p>
+            </div>
+
+            <!--七日年化-->
+            <div class="hs-wrap px-a" ng-show='data.showIncomeRate' ng-click="func.onClickIncomeRate()">
+                <div stockcharts show-chart='func.showChart' chart-options="data.chartOptions" style="width:100%; height:250px;"></div>
+                <ul class="hs-month">
+                    <li ng-class="onClassTime(7)" ng-click="onClickTime(7)">7日</li>
+                    <li ng-class="onClassTime(30)" ng-click="onClickTime(30)">1个月</li>
+                    <li ng-class="onClassTime(60)" ng-click="onClickTime(60)">2个月</li>
+                </ul>
+                <p style="padding:10px 0 18px;text-align:center;font-size:12px;color:#aab2ca;"><span style="color:#3399eb;display:block;" ng-click="func.onClickViewMoreIncomeRule()">详细介绍&gt;&gt;</span></p>
+            </div>
+        </ion-content>
+
+        <ion-footer-bar class="bar bar-footer" style="height:50px;">
+            <div class="hj-by-wrap flex">
+                <div class="item off" ng-if="func.canTransferOut()"  ng-click="func.onClickRedeem()" >转出</div>
+                <div class="item off" ng-if="!func.canTransferOut()" style="background-color: #c0c0c0" >转出</div>
+                <div class="item" ng-click="func.onClickPurchase()">转入</div>
+            </div>
+        </ion-footer-bar>
+    </div>
+
+    <div class="lc bx" ng-if="!func.isLogined()">
+        <ion-header-bar>
+            <div class="menu-ba">
+                <header class="menu"><span class="menu-return" ng-click="func.back()"></span>活期+
+                    <!--<span class="menu-wd" ng-click="func.onClickTransLog()">交易查询</span>-->
+                    <span ng-class="data.shareClass" ng-click="func.onTrigerLogin()"></span>
+                </header>
+            </div>
+        </ion-header-bar>
+
+        <ion-content has-bouncing="false" class="has-header"  delegate-handle="myContent">
+            <div class="ba-income-wrap">
+                <p class="title p-line-lr-h"><span>昨日收益(元)</span></p>
+                <p class="num" style="padding:24px 0 10px;">暂无收益</p>
+                <p style="font-size:12px;padding:0 0 10px 0;color:#98a5c4;height:20px;line-height:20px;">
+                    <span ng-if="data.valueDateDesc">{{data.valueDateDesc}}</span>
+                </p>
+                <p></p>
+                <div class="xs flex">
+                    <div class="item p-line-r" ng-click="func.onTrigerLogin()">持有资产(元)<span>0.00</span></div>
+                    <div class="item" ng-click="func.onTrigerLogin()">累计收益(元)<span>0.00</span></div>
+                </div>
+            </div>
+
+            <!-- <p class="px-a vv" ng-if="false">您有2笔资金的收益还未到账</p> -->
+            <!--p style="line-height:45px;background-color:#fff3bc;color:#9f7f56;padding:0 0 0 15px;font-size:14px;overflow:hidden;margin-bottom:-20px;" ng-if="data.valueDateDesc">
+                {{data.valueDateDesc}}
+                <i style="float:right;width:35px;text-align:right;font-size:20px;padding-right:15px;" ng-click="func.onClickCloseValueDatePromopt()">&times;</i>
+            </p-->
+
+            <div class="subnav flex px mgt20" style="height:44px;line-height:normal;">
+                <div ng-class="data.incomeRateCls" ng-click="func.onClickIncomeRate()"><span style="font-size:12px;">{{data.monthStr}}<br>{{data.incomeRate}}%</span></div>
+                <div ng-class="data.incomeCls" ng-click="func.onClickIncome()"><span style="font-size:12px;">万份收益(元)<br>{{data.incomeTenThousand}}</span></div>
+            </div>
+
+            <!--万份收益-->
+            <div class="hs-wrap px-a" ng-if="!data.showIncomeRate" >
+                <ul class="hs-list">
+                    <li ng-repeat="item in data.historyIncomeInfo"><!--
+                 --><span class="l">{{item.date|formatYYYYMMDDString}}</span><!--
+                 --><span class="r">{{item.incomeTenThousand}}</span></li>
+                </ul>
+                <p class="mk" ng-click="func.onTrigerLogin()">查看更多</p>
+            </div>
+
+            <!--七日年化-->
+            <div class="hs-wrap px-a" ng-show='data.showIncomeRate'>
+                <div stockcharts show-chart='func.showChart' chart-options="data.chartOptions" style="width:100%; height:250px;"></div>
+                <ul class="hs-month" style="padding:2px 0 0;" >
+                    <li ng-class="onClassTime(7)" ng-click="onClickTime(7)">7日</li>
+                    <li ng-class="onClassTime(30)" ng-click="onClickTime(30)">1个月</li>
+                    <li ng-class="onClassTime(60)" ng-click="onClickTime(60)">2个月</li>
+                </ul>
+                <p style="padding:10px 0 18px;text-align:center;font-size:12px;color:#aab2ca;"><span style="color:#3399eb;display:block;padding-top:5px;" ng-click="func.onClickViewMoreIncomeRule()">详细介绍&gt;&gt;</span></p>
+            </div>
+        </ion-content>
+
+        <ion-footer-bar class="bar bar-footer" style="height:50px;">
+            <div class="hj-by-wrap flex">
+                <div class="item off" ng-click="func.onTrigerLogin()" >转出</div>
+                <div class="item" ng-click="func.onTrigerLogin()">转入</div>
+            </div>
+        </ion-footer-bar>
+    </div>
+</ion-view>

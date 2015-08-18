@@ -1,0 +1,114 @@
+<ion-view>
+    <div class="lc-b">
+        <ion-header-bar>
+            <div class="menu-ba">
+                <header class="menu">
+                    <span class="menu-user" ng-if="data.isLogin" ng-click="onClickSettingsBtn()">
+                        <span class="avatar">
+                            <img ng-src="{{data.avatarUrl}}" alt="用户名">
+                        </span>
+                        <span class="reddot" ng-if="data.showMsgDot"></span>
+                    </span>
+                    <span class="menu-info" ng-if="!data.isLogin" ng-click="onClickSettingsBtn()"></span>
+                    理财
+                    <span class="menu-wd" ng-if="data.isHasAccount" ng-click="onClickTransLog()">交易查询</span>
+                </header>
+            </div>
+        </ion-header-bar>
+
+        <ion-content class="has-header" has-bouncing="false" style="bottom: 54px;" delegate-handle="myContent"">
+            <div class="con-dq px-a" style="margin-top:0;">
+                <p class="title px-a"><span class="hq"></span>随存随取</p>
+                <div class="con-wrap">
+                    <ul>
+                        <li class="px-b" ng-click="onClickMonetaryProd()">
+                            <!-- <div class="d-a">
+                                <span class="s-a"><i>{{data.monetaryProd.shortDesc}}</i></span>
+                                <span class="s-b">{{data.monetaryProd.prodName}}</span>
+                            </div> -->
+                            <div class="d-b" style="padding-top:0;">
+                                <span class="s-a"><span>{{data.monetaryProd.incomeRate.split('.')[0]}}<i>.{{data.monetaryProd.incomeRate.split('.')[1]}}%</i></span></span>
+                                <span class="s-b" style="color:#374b79;">{{data.monetaryProd.recomReason}}</span>
+                            </div>
+                            <p class="q">七日年化收益率</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="con-dq px" ng-if="data.onSaleInsurancelList.length>0">
+                <p class="title px-a"><span class="dq"></span>较低风险，稳健回报</p>
+                <div class="con-wrap">
+                    <ul>
+                        <li class="px-b" ng-repeat="prod in data.onSaleInsurancelList" ng-click="onClickInsuranceProdIntro(prod)">
+                            <div class="d-a">
+                                <span class="s-a"><i>{{prod.shortDesc}}</i></span>
+                                <span class="s-b">{{prod.prodName}}</span>
+                            </div>
+                            <div class="d-b">
+                                <span class="s-a"><span>{{prod.incomeRate.split('.')[0]}}<i>.{{prod.incomeRate.split('.')[1]}}%</i></span></span>
+                                <span class="s-b">{{prod.recomReason}}</span>
+                            </div>
+                            <p class="q">预期年化收益率</p>
+                            <div ng-if="data.isLogin && prod.tips1 && prod.tips2" ng-class="prod.tipsClass"><span>{{prod.tips1}}<br>{{prod.tips2}}</span></div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="con-dq px" ng-if="data.onSaleInsurancelList.length==0">
+                <p class="title px-a"><span class="dq"></span>较低风险，稳健回报</p>
+                <div class="con-wrap">
+                    <p class="fto"><i></i>敬请期待...</p>
+                </div>
+            </div>
+
+
+            <div class="con-gp px" ng-if="data.onSaleStockList.length>0">
+                <p class="title px-a"><span>股票基金</span>高风险，高回报</p>
+                <div class="con-wrap">
+                    <ul>
+                        <li class="px-b" ng-repeat="prod in data.onSaleStockList" ng-click="onClickStockProdIntro(prod)">
+                            <div class="d-a">
+                                <span class="s-a"><i>{{prod.shortDesc}}</i></span>
+                                <span class="s-b">{{prod.onSaleDesc}}</span>
+                            </div>
+                            <div class="d-b">
+                                <span ng-class="prod.incomeClass"><span>{{prod.incomeRate.split('.')[0]}}<i>.{{prod.incomeRate.split('.')[1]}}%</i></span></span>
+                                <span class="s-b">{{prod.recomReason}}</span>
+                            </div>
+                            <p class="q">今年以来涨跌幅</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="con-gp px" ng-if="data.onSaleStockList.length==0">
+                <p class="title"><span>股票基金</span>高风险，高回报</p>
+                <div class="con-wrap">
+                    <p class="fto"><i></i>敬请期待...</p>
+                </div>
+            </div>
+
+            <img src="../img/penguin_more@2x.png"
+                 alt=""
+                 class="f-logo"
+                 ng-if="data.showImg"
+                 style="display: block;width: 128px;height: 66px;margin: 40px auto 0;">
+
+        </ion-content>
+    </div>
+
+    <div style="height:70px;"></div>
+
+    <ion-footer-bar>
+        <div class="main-nav-wrap">
+                <ul class="main-nav flex">
+                    <li class="item i-a" ng-click="onClickHomeTab()">首页</li>
+                    <li class="item i-b i-on">理财</li>
+                    <li class="item i-c" ng-click="onClickTransferTab()">转账</li>
+                    <!--li class="item i-d" ng-click="onClickCommunity()">话题</li-->
+                </ul>
+        </div>
+    </ion-footer-bar>
+</ion-view>

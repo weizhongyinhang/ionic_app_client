@@ -1,0 +1,4 @@
+<dl class="news p-whitebox mgt20" ng-if="announceValue.list.length">
+    <dt class="px-a">{{announceValue.title}}</dt>
+    <dd ng-repeat="item in announceValue.list" ng-class="onClass($last)" ng-click="onClickItem(item)">{{item.name}}</dd>
+</dl>

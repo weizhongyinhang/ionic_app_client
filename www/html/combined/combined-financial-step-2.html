@@ -1,0 +1,128 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>组合理财</title>
+    <meta name="description" content="">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+</head>
+<body>
+<div class="hybird">
+    <div class="menu-ba">
+        <header class="menu"><span class="menu-return" ng-click="back()"></span>组合理财</header>
+    </div>
+    
+    <div style="padding:20px 0 0;">
+        <div class="cy-wrap px-b">
+            <span class="ji">理财金额</span>
+            <div class="fx"><input type="number" placeholder="5000元起" class="it" ng-focus="focusAmount()" ng-change="changeAmount()" ng-model="amount"></div>
+        </div>
+        <p class="cy-tip" ng-if="showInputAmountTips">{{inputAmountTipsContent}}</p>
+
+        <div class="card px-b" style="padding-top: 25px;">
+            <div class="cc-wrap">
+                <div class="cc-box" highcharts show-chart='showMainChart'
+                     chart-options="MainChartOptions"></div>
+                <p class="sy">预计年化收益率</p>
+                <p class="num">{{totalIncomeRate}}%</p>
+            </div>
+            <p class="sm">说明: 根据各产品过往6个月收益表现计算，仅供参考。<i class="ts" ng-click="onClickTips()"></i></p>
+
+            <ul class="hk-list px" style="margin-top:20px;">
+                <li class="px-b" ng-if="stockProductDetail">
+                    <i ng-click="onClickStockProd()" highcharts show-chart='showGJChart' chart-options="GJchartOptions" class="bx"></i>
+                    <div class="l" ng-click="onClickStockProd()">
+                        <!--<span class="ty">股票基金<i>高风险</i></span>-->
+                        <span class="ty">股票基金</span>
+                        <span class="yt">({{stockProductDetail.onSaleDesc}})</span>
+                    </div>
+                    <div class="r">
+                        <!--<span class="pro">{{stockAmountRate}}%</span>-->
+                        <select class="pro" ng-blur="blurStockSelect()" ng-model="stockAmountRate" ng-options="option.value as option.name for option in stockValueList">
+                        </select> 即 {{stockAmount}}元
+                    </div>
+                </li>
+                <li class="px-b" ng-if="insuranceProductDetail && !isSoldOut">
+                    <i ng-click="onClickInsuranceProd()" highcharts show-chart='showBXChart' chart-options="BXchartOptions" class="bx"></i>
+                    <div class="l" ng-click="onClickInsuranceProd()">
+                        <span class="ty">定期理财</span>
+                        <span class="yt">({{insuranceProductDetail.onSaleDesc}})</span>
+                    </div>
+                    <div class="r">
+                        <select class="pro" ng-blur="blurInsuranceSelect()" ng-model="insuranceAmountRate" ng-options="option.value as option.name for option in insuranceValueList">
+                        </select> 即 {{insuranceAmount}}元
+                        <!--<span class="pro">{{insuranceAmountRate}}%</span>-->
+                    </div>
+                </li>
+                <li class="px-b" ng-if="monetaryProductDetail">
+                    <i ng-click="onClickMonetaryProd()" highcharts show-chart='showHJChart' chart-options="HJchartOptions" class="bx"></i>
+                    <div class="l" ng-click="onClickMonetaryProd()">
+                        <span class="ty">货币基金</span>
+                        <span class="yt">({{monetaryProductDetail.prodName}})</span>
+                    </div>
+                    <div class="r">
+                        <span class="pro-b">{{monetaryAmountRate}}%</span> 即 {{monetaryAmount}}元
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="cy-wrap-a px" ng-click="onSelectPayWay()" style="margin-top:20px;">
+        <span class="t-l">付款账户</span>
+        <div class="t-r" ng-if="webankAccount.isWebankAccountSelected">微众银行卡
+            <span class="y">余额：{{webankAccount.amount}}元</span>
+        </div>
+        <div class="t-r" ng-if="!webankAccount.isWebankAccountSelected">{{cardInfo.bankName }}
+            <span class="y">{{cardInfo.cardType + ' '}}{{cardInfo.cardNo | abridgeAccountNumber}}</span>
+        </div>
+    </div>
+
+    <p style="color:#acb2c1;padding:5px 25px 0;font-size:12px;">注:15:00后交易，属于下一个工作日</p>
+
+    <div class="mt-b">
+        <user-agreement
+                agreement-detail = "agreementDetail"
+                agreement-desc ="agreementDesc"
+                open-pdf ="openPdf"
+                is-agreed="isAgreed">
+        </user-agreement>
+    </div>
+
+    <div class="btn-wrap pd20">
+        <button ng-class="buyButtonClass" ng-click="onClickBuy()">购买组合</button>
+    </div>
+
+    <div pop-confirm out-value="outValue"></div>
+
+    <div pwd-input
+         ng-model="vm.formData.confirmPassword"
+         is-pwd-show="isPwdShow"
+         sig-on-pwd-commit="sigOnPwdCommit"
+         pwd-sub-title="pwdSubTitle"
+         pwd-trans-desc="pwdTransDesc"
+         pay-way-desc="payWayDesc"
+         on-click-change-pay-way="onSelectPayWay"
+            >
+    </div>
+
+    <loading show-loading="showLoading"></loading>
+</div>
+<pay-way-selector
+        show-pay-way-selector="isPayWayShow"
+        bind-card-list="bindCardList"
+        card-info="cardInfo"
+        sig-select-card="sigSelectCard"
+        bind-new-card="bindNewCard"
+        webank-account="webankAccount"
+        callback-func = "payWayCallback"
+        >
+</pay-way-selector>
+<div 
+pop-confirm
+out-value = "outValue"
+></div>
+</body>
+</html>

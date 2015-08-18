@@ -1,0 +1,99 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>购买计划</title>
+    <meta name="description" content="">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+</head>
+<body>
+<div class="lc">
+    <div class="menu-ba" ng-if="!hasOldPlan">
+        <header class="menu"><span class="menu-return" ng-click="back()"></span>定期购买</header>
+    </div>
+
+    <div class="menu-ba" ng-if="hasOldPlan">
+        <header class="menu"><span class="menu-return" ng-click="back()"></span>定期购买<span class="menu-wd" ng-click="onClickDeletePlan()" style="font-size:16px;padding-top:2px;">删除</span></header>
+    </div>
+
+    <p class="cy-wd">定期购买 {{planDesc}}</p>
+    <!--
+    --><div class="cy-wrap">购买金额
+    <div class="po"><input type="number" placeholder="建议100元起" class="it" ng-model="amount" ng-change="checkInputAmount()"></div><!--
+    --><i class="del" ng-if="false" ng-click="onClickDeleteAmount()"></i><!--
+    --></div>
+    <div style="height:28px;"><p class="cy-tip" ng-if="showInputAmountTips">{{inputAmountTipsContent}}</p></div>
+
+    <div class="cy-wrap-a" ng-click="onSelectPayWay()">
+        <span class="t-l">付款账户</span>
+        <div class="t-r" ng-if="webankAccount.isWebankAccountSelected">微众银行卡
+            <span class="y">余额：{{baseAccountAmount}}元</span>
+        </div>
+        <!-- <div class="t-r" ng-if="!webankAccount.isWebankAccountSelected">{{cardInfo.bankName }}
+            <span class="y">{{cardInfo.cardType + ' '}}{{cardInfo.cardNo | abridgeAccountNumber}}</span>
+        </div> -->
+        <p class="t-m" ng-if="!webankAccount.isWebankAccountSelected">{{cardInfo.bankName }} {{cardInfo.cardType + ' '}}{{cardInfo.cardNo | abridgeAccountNumber}}</p>
+        <i class="k"></i>
+    </div>
+
+    <div class="dq-buy-wrap">
+        <ul class="dq-o px">
+            <li ng-click="onSelectFreq()">购买频率&nbsp;&nbsp;{{freqDesc}}</li>
+            <li ng-click="onSelectDate()" class="px-b">购买日期&nbsp;&nbsp;{{dt|formatDateObjToString}}</li>
+        </ul>
+        <p class="kk">{{getTransDateDesc()}}</p>
+    </div>
+
+    <div class="mt-b" ng-click="onClickAgreement()">
+        <user-agreement
+                agreement-desc ="agreementDesc"
+                agreement-callback ="agreementCallback"
+                open-pdf ="openPdf"
+                is-agreed="isAgreed"
+                >
+        </user-agreement>
+    </div>
+
+    <div class="btn-wrap pd20">
+        <button ng-if="!hasOldPlan" ng-class="btnCls" ng-click="onClickAddPlan()">定期购买</button>
+        <button ng-if="hasOldPlan"  ng-class="btnCls" ng-click="onClickModifyPlan()">修改</button>
+    </div>
+</div>
+
+<pay-way-selector
+        show-pay-way-selector="isPayWayShow"
+        bind-card-list="bindCardList"
+        card-info="cardInfo"
+        sig-select-card="sigSelectCard"
+        bind-new-card="bindNewCard"
+        webank-account="webankAccount"
+        callback-func = "payWayCallback"
+        >
+</pay-way-selector>
+
+<div pwd-input
+     ng-model="vm.formData.confirmPassword"
+     is-pwd-show="isPwdShow"
+     sig-on-pwd-commit="sigOnPwdCommit"
+     pwd-sub-title="pwdSubTitle"
+     pwd-trans-desc="pwdTransDesc"
+     pay-way-desc="payWayDesc"
+     on-click-change-pay-way="onSelectPayWay"
+        >
+</div>
+
+
+<div class="pop-bg" ng-if="showSelectFreq">
+    <div class="pop bg-b">
+        <header class="hd" ng-click="onClickCloseFrequencySelector()">请选择频率<i class="close"></i></header>
+        <ul class="card"><li><p class="cd-name" ng-click="onClickOnlyOnce()">仅此一次</p></li></ul>
+        <ul class="card"><li><p class="cd-name" ng-click="onClickRepeatPerMonth()">每月一次</p></li></ul>
+    </div>
+</div>
+
+<loading show-loading="showLoading"></loading>
+<div pop-confirm out-value="outValue"></div>
+</body>
+</html>

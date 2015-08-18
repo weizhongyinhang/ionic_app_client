@@ -1,0 +1,112 @@
+<ion-view>
+    <div class="lc">
+        <ion-header-bar>
+            <div class="menu-ba">
+                <header class="menu">
+                    <span class="menu-return" ng-click="back()"></span>
+                    {{data.productDetail.onSaleDesc | longProdName}}({{data.productDetail.onSaleCode}})
+                    <span ng-class="data.shareClass" ng-click="share()"></span>
+                </header>
+            </div>
+        </ion-header-bar>
+
+        <ion-content class="has-header" has-bouncing="false">
+            <div class="ba-income-wrap">
+                <p class="title p-line-lr-h"><span>昨日盈亏(元)</span></p>
+                <p class="num">{{data.income}}</p>
+                <p class="pq">累计盈亏(元) <span>{{data.accumulatedIncome}}</span></p>
+                <div class="xs flex">
+                    <div class="item p-line-r">持有市值(元)<i ng-click="onClickWealth()"></i><span>{{data.amount}}</span></div>
+                    <div class="item">持有份额(份)<i ng-click="onClickShare()"></i><span>{{data.share}}</span></div>
+                </div>
+            </div>
+
+            <div class="gk-wrap flex px-a">
+                <div class="item p-line-r">日涨跌幅<span ng-class="data.changeRateClass">{{data.yesterdayChangeRange}}%</span></div>
+                <div class="item">单位净值(元)<span>{{data.realValue}}</span></div>
+            </div>
+
+            <div class="px-a" ng-click="onClickConfirmDetail('purchase')" ng-if="data.purchaseCount>0">
+            <p class="nv" ng-if="!data.purchaseFinishDateHide">您有{{data.purchaseCount}}笔资金待确认份额，预计{{data.purchaseFinishDate | formatDateObjToCNString}}完成</p>
+            <p class="nv" ng-if="data.purchaseFinishDateHide">您有{{data.purchaseCount}}笔资金待确认份额，完成时间请查看详情</p>
+            </div>
+
+            <div class="px-a" ng-click="onClickConfirmDetail('redeem')" ng-if="data.redeemCount>0">
+            <p class="nv" ng-if="!data.redeemFinishDateHide">您有{{data.redeemCount}}笔资金正在赎回中，预计{{data.redeemFinishDate | formatDateObjToCNString}}到账</p>
+            <p class="nv" ng-if="data.redeemFinishDateHide">您有{{data.redeemCount}}笔资金正在赎回中，到账时间请查看详情</p>
+            </div>
+
+            <div class="fh-p px mgt20" ng-click="onClickBonusType()" ng-if="data.share > 0"><span class="l">分红方式</span><span class="r">{{data.bonusTypeString}}</span></div>
+
+            <div class="lc-wrap mgt20 px" style="padding-bottom:15px;">
+                <p class="px-b" style="padding:15px 0 8px;">交易规则</p>
+                <table class="gz-table">
+                    <tr ng-repeat="rule in data.productConfig.tradingRules">
+                        <td class="a">{{rule.name}}</td>
+                        <td><p ng-repeat="subRule in rule.contents">{{subRule}}</p></td>
+                    </tr>
+                </table>
+
+                <p ng-click="onClickMoreRules()" style="text-align:right;padding:5px 25px 0 0;">
+                    <span style="font-size:12px;color:#6298e2;">更多规则</span>
+                </p>
+            </div>
+
+            <!--<div class="px"><p class="jt">交易费率</p></div>-->
+
+            <!--<div class="px"><p class="jt jo"><span class="gk">基金经理</span><span class="sk"><i>{{productDetail.managerName}}</i>{{productDetail.managerDesc}}</span></p></div>-->
+
+            <div style="padding-bottom:50px;">
+            <div class="px" ng-click="onClickProductDetail()"><p class="jt">查看产品详情</p></div>
+            </div>
+        </ion-content>
+
+        <ion-footer-bar>
+            <div class="hj-by-wrap">
+                <p class="g">申购费：{{data.realPurchaseFeeRate}}%（<span>原{{data.purchaseFeeRate}}%</span>）</p>
+                <div class="flex">
+                    <div class="item" ng-if="data.amount>0" ng-click="onClickRedeem()">赎回</div>
+                    <div class="item" ng-if="data.productDetail.status=='01'" ng-click="onClickPurchase()">继续购买</div>
+                </div>
+            </div>
+        </ion-footer-bar>
+
+
+        <div pwd-input
+             ng-model="data.vm.formData.confirmPassword"
+             is-pwd-show="data.isPwdShow"
+             sig-on-pwd-commit="data.sigOnPwdCommit"
+             pwd-sub-title="data.pwdSubTitle"
+                >
+        </div>
+
+        <div class="pop-bg" ng-if="data.showBonusType">
+            <div class="pop bg-b">
+                <header class="hd">请选择分红方式<i class="close" ng-click="onClickBonusTypeClose()"></i></header>
+                <ul class="card">
+                    <li ng-click="onSelectBonusMoney()" ng-class="data.bonusMoneyClass">
+                        <p class="cd-name">{{data.bonusMoneyName}}</p>
+                        <p class="yv">红利将发放至您的微众银行卡中</p>
+                    </li>
+                </ul>
+                <ul class="card">
+                    <li ng-click="onSelectBonusStock()" ng-class="data.bonusStockClass">
+                        <p class="cd-name">{{data.bonusStockName}}</p>
+                        <p class="yv">红利将用于继续购买该基金</p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div pop-confirm out-value="data.outValue"></div>
+
+        <!--遮罩层start-->
+        <div ng-class="data.maskClass">
+            <h2>{{data.maskTitle}}</h2>
+            <p>{{data.maskDetail}}</p>
+            <div class="funcs" ng-click="onClickCancelMask()"><span class="clz">×</span></div>
+        </div>
+        <!--遮罩层end-->
+
+    </div>
+</ion-view>

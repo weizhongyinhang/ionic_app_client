@@ -1,0 +1,21 @@
+<ion-view>
+    <div class="oti">
+
+        <ion-header-bar>
+            <div class="menu-ba">
+                <header class="menu">出错了</header>
+            </div>
+        </ion-header-bar>
+
+        <ion-content class="has-header" has-bouncing="false">
+            <div class="into-logo fall" ng-if="!isSuccShow && !isProcessing">
+                <p class="a">出错了</p>
+                <!--<p class="b">原因:这里是出错的原因</p>-->
+                <p class="c">{{errMsg}}</p>
+            </div>
+
+            <div class="btn-wrap mgt40"><button class="btn-c" ng-click="func.onClickBackHome()">返回首页</button></div>
+            <div style="height:20px;"></div>
+        </ion-content>
+    </div>
+</ion-view>

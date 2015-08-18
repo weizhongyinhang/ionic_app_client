@@ -1,0 +1,27 @@
+<ion-view>
+    <div class="oti">
+        <ion-header-bar>
+            <div class="menu-ba">
+                <header class="menu" >详情</header>
+            </div>
+        </ion-header-bar>
+
+        <ion-content class="has-header" has-bouncing="false">
+            <div class="into-logo ok" ng-if="data.obj.isSuccess">
+                <p class="a">撤销成功</p>
+                <p class="b" ng-if="data.showType1">如果您用活期+账户购买，资金将退回到您的活期+账户。如果您用银行卡或微众卡购买，则资金将退回到您的微众卡</p>
+                <p class="b" ng-if="data.showType2">您的持有份额已恢复</p>
+            </div>
+
+            <div class="into-logo fall" ng-if="!data.obj.isSuccess">
+                <p class="a">撤销失败</p>
+                <p class="c">原因：{{data.obj.reason}}</p>
+            </div>
+
+
+            <div class="btn-wrap mgt20"><button class="btn-c" ng-if="data.obj.isSuccess && data.showType1" ng-click="onClickTranLog()">查看交易记录</button></div>
+            <div class="btn-wrap mgt20"><button class="btn-c" ng-if="data.obj.isSuccess && data.showType2" ng-click="onClickStockMyProd()">查看产品详情</button></div>
+            <div class="btn-wrap mgt20"><button class="tph" ng-click="onClickBack()">返回</button></div>
+        </ion-content>
+    </div>
+</ion-view>

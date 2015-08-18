@@ -1,0 +1,30 @@
+<ion-view>
+	<link rel="stylesheet" href="../help.css">
+	<ion-header-bar>
+		<div class="menu-ba">
+			<header class="menu"><span class="menu-return" ng-click="back()"></span>帮助中心</header>
+		</div>
+	</ion-header-bar>
+
+	<ion-content has-bouncing="true" class="has-header" >
+		<div class="hp_list_block ">
+			<ul>
+				<li ng-repeat="item in srcData">
+					<a class="item-link" ng-click="onClickItem($index)">
+					<div class="hp_item_content">
+					  <div class="hp_item-inner">
+						<div class="hp_item-title" ng-bind="item.title"></div>
+					  </div>
+					</div>
+				  </a>
+				</li>
+
+			</ul>
+		</div>
+
+	</ion-content>
+	<div class="hp_bottom_block" ng-if="ifPhone">
+		<!--div class="hp_customer hp_bottom_item hp_bottom_left_item" style="width:100%"><a href="#"><i class="hp_icon hp_icon_customer"></i><span>在线客服</span></a></div-->
+		<div class="hp_phone hp_bottom_item"  style="width:100%" ng-click="onClickPhone()"><a href="#"><i class="hp_icon hp_icon_phone"></i><span>电话客服</span></a></div>
+	</div>
+</ion-view>

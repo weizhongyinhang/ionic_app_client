@@ -1,0 +1,174 @@
+<ion-view>
+    <div class="bx">
+        <ion-header-bar>
+            <div class="menu-ba">
+                <header class="menu"><span class="menu-return" ng-click="back()"></span>{{data.productInfo.onSaleDesc}}
+                    <span ng-class="data.shareClass" ng-click="share()"></span>
+                </header>
+            </div>
+        </ion-header-bar>
+
+        <ion-content class="has-header" has-bouncing="false">
+            <div class="ba-income-wrap">
+                <p class="title p-line-lr-h"><span>预期年化收益率</span></p>
+                <p class="num">{{data.productInfo.incomeRate}}<span class="sub">%</span></p>
+                <div class="pz-wrap flex">
+                    <div class="item">起购金额(元)<span>{{data.productInfo.minAmount}}</span></div>
+                    <div class="item">投资期限(天)<span>{{data.productInfo.lifeTime}}</span></div>
+                    <div class="item">风险等级<span>{{data.riskDesc}}</span></div>
+                </div>
+                <!--<i class="jsq"></i>-->
+            </div>
+
+            <div class="djs-box px-a" ng-if="data.isTodayInSale|| data.isInSale || (data.isSaleOut && data.nextProd)">
+                <!--售完并且找到下期产品-->
+                <div ng-if="data.isSaleOut && data.nextProd">
+                    <p class="p-a">下期<span class="s">{{data.nextProd.startBuyDate.substr(4,2)}}月{{data.nextProd.startBuyDate.substr(6,2)}}日<i ng-if="data.DateShowTips">{{data.DateShowTipsContent}}</i> {{data.nextProd.startBuyTime}}</span>起售</p>
+                    <p class="p-b">产品额度 {{data.nextProd.totalAmount}}</p>
+                </div>
+
+                <div class="djs-con" ng-if="data.isTodayInSale|| data.isInSale">
+                    <div class="j-l" >
+                        <p>剩余可买 {{data.remainPct}}%</p>
+                        <p class="x">剩余额度 {{data.remainAmount | formatMoneyShort}}</p>
+                        <p>产品额度 {{data.productInfo.totalAmount | formatMoneyShort}}</p>
+                    </div>
+                    <div class="j-r">
+                        <p ng-if="data.isTodayInSale">距本期申购截至还有</p><p ng-if="!data.isTodayInSale">本期申购截至于</p>
+                        <!-- 倒计时 -->
+                        <div class="countdown" ng-if="data.isTodayInSale">
+                            <div class="bloc-time hours" data-init-value="{{data.countdownHour}}">
+                                <div class="figure hours hours-1">
+                                    <span class="top">0</span>
+                                    <span class="top-back"><span>0</span></span>
+                                    <span class="bottom">0</span>
+                                    <span class="bottom-back"><span>0</span></span>
+                                </div>
+                                <div class="figure hours hours-2">
+                                    <span class="top">0</span>
+                                    <span class="top-back"><span>0</span></span>
+                                    <span class="bottom">0</span>
+                                    <span class="bottom-back"><span>0</span></span>
+                                </div>
+                            </div>
+
+                            <i class="mh">:</i>
+
+                            <div class="bloc-time min" data-init-value="{{data.countdownMinute}}">
+                                <div class="figure min min-1">
+                                    <span class="top">0</span>
+                                    <span class="top-back"><span>0</span></span>
+                                    <span class="bottom">0</span>
+                                    <span class="bottom-back"><span>0</span></span>
+                                </div>
+                                <div class="figure min min-2">
+                                    <span class="top">0</span>
+                                    <span class="top-back"><span>0</span></span>
+                                    <span class="bottom">0</span>
+                                    <span class="bottom-back"><span>0</span></span>
+                                </div>
+                            </div>
+
+                            <i class="mh">:</i>
+
+                            <div class="bloc-time sec" data-init-value="{{data.countdownSecond}}">
+                                <div class="figure sec sec-1">
+                                    <span class="top">0</span>
+                                    <span class="top-back"><span>0</span></span>
+                                    <span class="bottom">0</span>
+                                    <span class="bottom-back"><span>0</span></span>
+                                </div>
+                                <div class="figure sec sec-2">
+                                    <span class="top">0</span>
+                                    <span class="top-back"><span>0</span></span>
+                                    <span class="bottom">0</span>
+                                    <span class="bottom-back"><span>0</span></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 截至时间 -->
+                        <div class="countdown cd-b" ng-if="data.isInSale">
+                            <div class="bloc-time hours">
+                                <div class="figure hours hours-1">
+                                    <span class="top">{{data.productInfo.endBuyDate.substr(4,2)}}</span>
+                                    <span class="bottom">{{data.productInfo.endBuyDate.substr(4,2)}}</span>
+                                </div>
+                                <span class="wd">月</span>
+                                <div class="figure hours hours-2">
+                                    <span class="top">{{data.productInfo.endBuyDate.substr(6,2)}}</span>
+                                    <span class="bottom">{{data.productInfo.endBuyDate.substr(6,2)}}</span>
+                                </div>
+                                <span class="wd">日</span>
+                                <span class="dt">{{data.productInfo.endBuyTime.substr(0,5)}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <p class="kk px-b">购买成功后，{{data.valueDate | formatDateObjToCNString}}({{data.valueDate | formatWeekdayFormDate}})开始产生收益；<br>预计{{data.valueEndDate | formatDateObjToCNString}}({{data.valueEndDate| formatWeekdayFormDate}})到期，{{data.redeemDate | formatDateObjToCNString}}({{data.redeemDate | formatWeekdayFormDate}})资金到账</p>
+            </div>
+
+            <div ng-bind-html="data.sectionHtml"></div>
+
+            <ul class="lc-wrap mgt20 px">
+                <li class="px-b">产品特点</li>
+                <li class="h-s px-b">• {{data.productInfo.tags[0]}}&nbsp;&nbsp;&nbsp;&nbsp;• {{data.productInfo.tags[1]}}&nbsp;&nbsp;&nbsp;&nbsp;• {{data.productInfo.tags[2]}}</li>
+                <li class="h-s px-b"><i class="i-b"></i>{{data.productInfo.promopt}}</li>
+            </ul>
+
+            <!-- <div class="db-box mgt20 px">
+                <p class="t px-a">与其他产品收益对比({{today | formatDateObjToYMString}})</p>
+                <div class="db-wrap">
+                    <ul class="line">
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                    </ul>
+                    <div class="zt-box flex">
+                        <div class="z-a item">
+                            <div class="s-b" style="height:40%;">
+                                <span class="s-a">{{productInfo.productCompare[0].income_rate}}%</span>
+                            </div>
+                            <span class="s-c">{{productInfo.productCompare[0].product_name}}</span>
+                        </div>
+                        <div class="z-b item">
+                            <div class="s-b" style="height:60%;">
+                                <span class="s-a">{{monetaryIncomeRate}}%</span>
+                            </div>
+                            <span class="s-c">货基-众钱得钱</span>
+                        </div>
+                        <div class="z-c item">
+                            <div class="s-b" style="height:100%;">
+                                <span class="s-a fg">{{productInfo.incomeRate}}%</span>
+                            </div>
+                            <span class="s-c">本产品</span>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+
+            <div class="px">
+                <p class="jt" ng-click="onClickProductIntroduction()">更多详情</p>
+            </div>
+
+            <div style="padding-bottom:70px;"></div>
+        </ion-content>
+
+        <ion-footer-bar ng-if="data.showBuyButton">
+            <!-- 灰化class加off -->
+            <div class="buy-btn-wrap" ng-if="data.showBuyButton && !data.isSaleOut" ng-click="onClickContinueBuy()">
+                <div class="lc-buy-btn">立即购买</div>
+            </div>
+            <div class="buy-btn-wrap" ng-if="data.showBuyButton && data.isSaleOut">
+                <div class="lc-buy-btn off">今日已售完</div>
+            </div>
+        </ion-footer-bar>
+
+
+        <div pop-confirm out-value="data.outValue"></div>
+    </div>
+</ion-view>

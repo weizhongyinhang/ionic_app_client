@@ -1,0 +1,64 @@
+<ion-view >
+    <div class="index-b" ng-if="data.showFlag">
+        <ion-header-bar>
+            <div class="menu-ba">
+                <header class="menu">
+                    <span class="menu-user" ng-if="data.isLogin" ng-click="onClickSettingsBtn()">
+                        <span class="avatar">
+                            <img ng-src="{{data.avatarUrl}}" alt="用户名">
+                        </span>
+                    </span>
+                    <span class="menu-info" ng-if="!data.isLogin" ng-click="onClickSettingsBtn()"></span>
+                        微众银行
+                </header>
+            </div>
+        </ion-header-bar>
+
+        <ion-content class="has-header" has-bouncing="false">
+            <div class="hd-wrap">
+                <!-- 未登录，已开户class加v -->
+                <span class="{{data.logoClass}}"></span>
+                <button class="kh-btn" ng-click="go()">{{data.buttonDesc}}</button>
+            </div>
+
+            <div class="bd-card-wrap">
+                <div class="bd-card a" ng-click="onClickMonetaryProduct()">
+                    <div class="d-a">
+                        <i class="i-a"></i>
+                        <p class="a">▪ 随存随取</p>
+                        <p class="b">▪ 实时到账</p>
+                    </div>
+                    <p class="c p-a"><span class="o">{{data.incomeRate}}%</span>七日年化收益率</p>
+                </div>
+
+                <div class="bd-card b" ng-click="onClickInsuranceProduct()">
+                    <div class="d-a">
+                        <i class="i-b"></i>
+                        <p class="a">▪ 精选最优产品</p>
+                        <p class="b">▪ 追求更高收益</p>
+                    </div>
+                    <p class="c p-b">
+                        <span class="x">{{data.insuranceName}}</span>
+                        <span class="o">{{data.insuranceIncomeRate}}%</span>
+                        <span>预期年化收益率</span>
+                    </p>
+                </div>
+            </div>
+            <div style="height:20px;"></div>
+        </ion-content>
+    </div>
+
+    <ion-footer-bar>
+        <div class="main-nav-wrap">
+                <ul class="main-nav flex">
+                    <li class="item i-a i-on">首页</li>
+                    <li class="item i-b" ng-click="onClickFinancialTab()">理财</li>
+                    <li class="item i-c" ng-click="onClickTransferTab()">转账</li>
+                    <!--li class="item i-d" ng-click="onClickCommunity()">话题</li-->
+                </ul>
+        </div>
+    </ion-footer-bar>
+
+    <loading show-loading="data.showLoading"></loading>
+
+</ion-view>

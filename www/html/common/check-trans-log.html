@@ -1,0 +1,74 @@
+<ion-view>
+    <div class="jy">
+        <div class="menu-ba" >
+            <header class="menu"><span class="menu-return" ng-click="back()"></span>交易查询</header>
+        </div>
+        <ion-content class="has-header">
+            <ul class="jy-time-wrap">
+                <li ng-click="onSelectDateStart($event)"><span>开始时间</span><span>{{dtStart | formatDateObjToString}}</span><span><i class="s"></i></span></li>
+                <li ng-click="onSelectDateEnd($event)"><span>结束时间</span><span>{{dtEnd | formatDateObjToString}}</span><span><i class="s"></i></span></li>
+            </ul>
+
+            <!-- <ul class="jy-nav flex">
+                <li class="item" ng-class="clsAll" ng-click="onClickAll()"><span>全部</span></li>
+                <li class="item" ng-class="clsPurchase" ng-click="onClickPurchase()"><span>转入</span></li>
+                <li class="item" ng-class="clsRedeem" ng-click="onClickRedeem()"><span>转出</span></li>
+            </ul> -->
+
+            <div class="subnav px flex" ng-if="showFinancial">
+                <span class="item on" ng-class="clsAll" ng-click="onClickAll()">全部</span>
+                <span class="item" ng-class="clsPurchase" ng-click="onClickPurchase()">购买</span>
+                <span class="item" ng-class="clsRedeem" ng-click="onClickRedeem()">赎回</span>
+            </div>
+
+            <div class="subnav px flex" ng-if="!showFinancial">
+                <span class="item on" ng-class="clsAll" ng-click="onClickAll()">全部</span>
+                <span class="item" ng-class="clsPurchase" ng-click="onClickPurchase()">收入</span>
+                <span class="item" ng-class="clsRedeem" ng-click="onClickRedeem()">支出</span>
+            </div>
+
+
+            <ul class="jy-list" ng-if="clsAll === 'on' ">
+                <li ng-repeat="info in orderList">
+                    <!-- <div class="d-l"><span class="d-a">{{info.remark}}</span><span class="d-b">{{info.date|formatYYYYMMDDString}}</span></div>
+                    <div class="d-r"><span class="d-a">{{info.amount}}</span><span class="d-b">{{info.bankDesc}}</span></div> -->
+                    <div style="overflow:hidden;"><!--
+                        --><span class="d-a d-l">{{info.remark}}</span><!--
+                        --><span class="d-a d-l " ng-if="info.status == '处理中'" style="color: #ff9353;">&nbsp;&nbsp;{{info.status}}</span><!--
+                        --><span class="d-a d-l " ng-if="info.status == '失败'" style="color: #989898;">&nbsp;&nbsp;{{info.status}}</span><!--
+                        --><span class="d-a d-r">{{info.amount}}</span></div>
+                    <div style="overflow:hidden;padding-top:5px;"><span class="d-b d-l">{{info.date|formatYYYYMMDDString}}</span><span class="d-b d-r">{{info.bankDesc}}</span></div>
+                </li>
+            </ul>
+
+            <ul class="jy-list" ng-if="clsPurchase==='on' ">
+                <li ng-repeat="info in purchaseOrderList">
+                    <!-- <div class="d-l"><span class="d-a">{{info.remark}}</span><span class="d-b">{{info.date|formatYYYYMMDDString}}</span></div>
+                    <div class="d-r"><span class="d-a">{{info.amount}}</span><span class="d-b">{{info.bankDesc}}</span></div> -->
+                    <div style="overflow:hidden;"><!--
+                    --><span class="d-a d-l">{{info.remark}}</span><!--
+                    --><span class="d-a d-l " ng-if="info.status == '处理中'" style="color: #ff9353;">&nbsp;&nbsp;{{info.status}}</span><!--
+                    --><span class="d-a d-l " ng-if="info.status == '失败'" style="color: #989898;">&nbsp;&nbsp;{{info.status}}</span><!--
+                    --><span class="d-a d-r">{{info.amount}}</span></div>
+                    <div style="overflow:hidden;padding-top:5px;"><span class="d-b d-l">{{info.date|formatYYYYMMDDString}}</span><span class="d-b d-r">{{info.bankDesc}}</span></div>
+                </li>
+            </ul>
+
+            <ul class="jy-list" ng-if="clsRedeem === 'on' ">
+                <li ng-repeat="info in redeemOrderList">
+                    <!-- <div class="d-l"><span class="d-a">{{info.remark}}</span><span class="d-b">{{info.date|formatYYYYMMDDString}}</span></div>
+                    <div class="d-r"><span class="d-a">{{info.amount}}</span><span class="d-b">{{info.bankDesc}}</span></div> -->
+                    <div style="overflow:hidden;"><!--
+                    --><span class="d-a d-l">{{info.remark}}</span><!--
+                    --><span class="d-a d-l " ng-if="info.status == '处理中'" style="color: #ff9353;">&nbsp;&nbsp;{{info.status}}</span><!--
+                    --><span class="d-a d-l " ng-if="info.status == '失败'" style="color: #989898;">&nbsp;&nbsp;{{info.status}}</span><!--
+                    --><span class="d-a d-r">{{info.amount}}</span></div>
+                    <div style="overflow:hidden;padding-top:5px;"><span class="d-b d-l">{{info.date|formatYYYYMMDDString}}</span><span class="d-b d-r">{{info.bankDesc}}</span></div>
+                </li>
+            </ul>
+
+            <img src="../img/jy-more@2x.png" class="no-more" ng-if="!hasLog()">
+            <loading show-loading="showLoading"></loading>
+        </ion-content>
+    </div>
+</ion-view>

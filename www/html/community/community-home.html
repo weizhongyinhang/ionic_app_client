@@ -1,0 +1,101 @@
+
+<div class="cty" style="height:100%;">
+    <!-- <div class="menu-ba"><header class="menu"><span class="menu-info" ng-click="onClickSettingsBtn()"></span>今日话题</header></div> -->
+
+    <div class="index-wrap-hd">
+        <div class="title-wrap">
+            <!-- class加msg显示小红点 -->
+            <span class="title-avatar" ng-class="classRedPoint" ng-click="onClickSettingsBtn()"><i class="title-avatar-tip"></i></span>
+            <span class="title-con">今日话题</span>
+        </div>
+    </div>
+
+    <loading show-loading="showLoading"></loading>
+
+    <!--div class="main" scroll-animate
+        scrolling = 'scrolling'
+        scroll-refresh = 'scrollRefresh' 
+        on-touch-end = 'onTouchEnd'
+        ng-show="showMain"-->
+    <ion-content  has-bouncing="true" class="has-header" ng-show="showMain" delegate-handle="mainScroll" style="bottom:57px;">
+        <ion-refresher
+                pulling-text="Pull to refresh..."
+                on-refresh="initPage()"
+                spinner="ios"
+                >
+
+        </ion-refresher>
+            <div>
+            
+                <div class="ht-wrap" ng-style="{'background-image': 'url('+topicData.imgUrl +')'}">
+                    <div class="tt" ng-click="onClickViewThread()">
+                        <p class="p-a">{{topicData.articleTitle}}</p>
+                        <p class="p-b" ng-bind-html="topicData.articleContext"></p>
+                        <p class="p-c">{{topicData.commentCount}}条评论</p>
+                    </div>
+                    <span class="wd" ng-click="onClickMore()">更多话题 ></span>
+                    <span class="btn" ng-click="onClickWantReply()"></span>
+                </div>
+            
+                <p class="jk-p">精彩评论</p>
+
+                <ul class="pl-list px-a"   ng-show="topicData.hotCommentList.length">
+                    <li ng-repeat="commentInfo in topicData.hotCommentList">
+                        <div class="avatar"><img ng-src="{{commentInfo.avatarUrl}}" alt="" class="a-i"></div>
+                        <div class="con px-a">
+                            <div class="n-wrap"><span class="name">{{commentInfo.userName}}</span><span class="b b-1" ng-show="commentInfo.verifiedUid">理财规划师</span></div>
+                            <p class="time" ng-bind-html="commentInfo.position+' · '+commentInfo.time"></p>
+                            <p class="nr" ng-bind-html="commentInfo.context"></p>
+                            <div class="like on">{{commentInfo.likeCount}}<i class="io" ng-show="commentInfo.mylike==false" ng-click="onClickLike(commentInfo.pid,topicData.formHash)"></i><i class="io on" ng-show="commentInfo.mylike==true" ng-click="onClickLike(commentInfo.pid,topicData.formHash)"></i></div>
+                        </div>
+                    </li>
+                </ul>
+
+                <p class="jk-p">全部评论</p>
+
+                <ul class="pl-list">
+                    <li ng-repeat="commentInfo in topicData.allCommentList">
+                        <div class="avatar"><img ng-src="{{commentInfo.avatarUrl}}" alt="" class="a-i"></div>
+                        <div class="con px-a">
+                            <div class="n-wrap"><span class="name">{{commentInfo.userName}}</span><span class="b b-1" ng-show="commentInfo.verifiedUid">理财规划师</span></div>
+                            <p class="time" ng-bind-html="commentInfo.position+' · '+commentInfo.time"></p>
+                            <p class="nr" ng-bind-html="commentInfo.context"></p>
+                            <div class="like on">{{commentInfo.likeCount}}<i class="io" ng-show="commentInfo.mylike==false" ng-click="onClickLike(commentInfo.pid,topicData.formHash)"></i><i class="io on" ng-show="commentInfo.mylike==true" ng-click="onClickLike(commentInfo.pid,topicData.formHash)"></i></div>
+                        </div>
+                    </li>
+                </ul>
+            
+            </div>
+
+        <ion-infinite-scroll
+                on-infinite="loadMoreData()"
+                distance="1%"
+                spinner="ios"
+                >
+        </ion-infinite-scroll>
+    </ion-content>
+    <!--/div-->
+    <div id='overlay' ng-style ="{'display': 'block','width': '100%','height': '100%','position': 'fixed',  'top': '0','left': '0', 'background': 'black', 'opacity': '0.2','z-index': '2'}" ng-show="showSendBox" ng-click="showSendBox=false;restoreWindowScroll();"></div>
+    
+    <div class="comment-wrap" ng-if="showSendBox">
+        <div class="wp">
+            <textarea name="t-con" id="comment_text" rows="4" class="ta" focus-flag="showSendBox" placeholder="" ng-model="data.commentReply" ng-blur="restoreWindowScroll()"></textarea>
+            <div class="op">
+                <span class="nm" ng-show="nmFlag" ng-click="onClickPane()">匿</span>
+                <span class="nm off" ng-show="!nmFlag" ng-click="onClickPane()">匿</span>
+                <span class="send" ng-click="onClickReply()">发送</span></div>
+        </div>
+    </div>
+</div>
+
+    <div class="main-nav-wrap" style="position:fixed;">
+        <ul class="main-nav flex">
+            <!--<li class="item i-a   i-on">资产</li>-->
+            <li class="item i-a" ng-click="onClickAssetTab()">首页</li>
+            <li class="item i-b" ng-click="onClickFinancialTab()">理财</li>
+            <li class="item i-c" ng-click="onClickTransferTab()">转账</li>
+            <li class="item i-d i-on" ng-click="onClickCommunity()">话题</li>
+        </ul>
+    </div>
+
+<div pop-confirm out-value="outValue"></div>

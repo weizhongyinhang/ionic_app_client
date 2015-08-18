@@ -1,0 +1,74 @@
+<ion-view>
+    <div class="rg">
+        <ion-header-bar>
+            <div class="menu-ba">
+                <header class="menu"><span class="menu-return" ng-click="back()"></span>开户</header>
+            </div>
+        </ion-header-bar>
+
+        <ion-content class="has-header" has-bouncing="false">
+            <ol class="register-order flex">
+                <li class="item i-r on"><div class="od"><i class="t">1</i><span>填写基本资料</span></div></li>
+                <li class="item i-q on"><div class="od"><i class="t">2</i><span>设置交易密码</span></div></li>
+                <li class="item i-l on"><div class="od"><i class="t">3</i><span>绑卡验证</span></div></li>
+            </ol>
+
+            <section class="wrap-a">
+                <div class="register-input-wrap">
+                    <div class="input-box">
+                        <span class="info">持卡人</span>
+                        <div class="zsy">
+                            <input readonly="readonly" type="text" nema="fName" class="w-input" ng-model="data.name"  style="color:#acb2c1;">
+                        </div>
+                    </div>
+
+                    <div class="input-box">
+                        <span class="info">卡&#12288;号</span>
+                        <div class="zsy">
+                            <input type="tel" nema="fName" class="w-input" placeholder="输入他行储蓄卡号" ng-model="data.card" ng-change="changeBankCard()" maxlength="20">
+                        </div>
+                        <i class="tz" ng-click="onClickTips()"></i>
+                    </div>
+                </div>
+                <p class="cy-tip" ng-show="data.showInputBankCardTips">{{data.inputBankCardTipsContent}}</p>
+            </section>
+            <p class="b-card" ng-show="data.showBankIcon"><img class="i" ng-src="{{data.bankImg}}">{{data.bankName}} {{data.cardType}}</p>
+
+            <p class="c-card">请输入银行预留手机号</p>
+            <section class="wrap-a">
+                <div class="register-input-wrap">
+                    <div class="input-box">
+                        <span class="info">手机号</span>
+                        <div class="zsy">
+                            <input type="tel" ng-model="data.phone" nema="" class="w-input" ng-change="changePhone()">
+                        </div>
+                    </div>
+                </div>
+                <p class="cy-tip" ng-show="data.showInputPhoneTips">{{data.inputTelTipsContent}}</p>
+            </section>
+
+            <div class="mt-a">
+                <user-agreement
+                        agreement-type="2"
+                        is-agreed="data.isAgreed"
+                        agreement-callback="agreementCallback"
+                        >
+                </user-agreement>
+            </div>
+
+            <div class="btn-wrap mgt20" ng-click="onClickNextStep()"><button ng-class="data.nextButtonController">下一步</button></div>
+        </ion-content>
+
+        <div pop-confirm out-value="data.outValue"></div>
+
+        <loading show-loading="data.showLoading"></loading>
+
+        <!--遮罩层start-->
+        <div ng-class="data.maskClass">
+            <h2>{{data.maskTitle}}</h2>
+            <p>{{data.maskDetail}}</p>
+            <div class="funcs" ng-click="onClickCancelMask()"><span class="clz">×</span></div>
+        </div>
+        <!--遮罩层end-->
+    </div>
+</ion-view>

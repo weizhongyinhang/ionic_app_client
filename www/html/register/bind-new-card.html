@@ -1,0 +1,88 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>绑定银行卡</title>
+    <meta name="description" content="">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+</head>
+<body>
+<div class="rg">
+<div class="menu-ba">
+    <header class="menu"><span class="menu-return" ng-click="back()"></span>绑定银行卡</header>
+</div>
+
+<div ng-if="step==1">
+    <section class="wrap-a">
+        <div class="register-input-wrap">
+            <div class="input-box">
+                <span class="info">持卡人</span>
+                <div class="zsy"><input readonly="readonly" type="text" class="w-input" ng-model="data.userName" style="color:#acb2c1;"></div>
+            </div>
+
+            <div class="input-box">
+                <span class="info">卡&#12288;号</span>
+                <div class="zsy"><input type="tel" class="w-input" placeholder="输入他行储蓄卡号" ng-model="data.bankCard" ng-change="changeBankCard()" ng-blur="blurBankCard()" maxlength="20"></div>
+                <i class="tz" ng-click="onClickTips()"></i>
+            </div>
+        </div>
+        <p class="cy-tip" ng-if="showInputBankCardTips">{{inputBankCardTipsContent}}</p>
+    </section>
+    <p class="b-card" ng-if="showBankIcon"><img class="i" ng-src="{{bankImg}}">{{bankName}} {{cardType}}</p>
+
+    <p class="c-card">请输入银行预留手机号</p>
+    <section class="wrap-a">
+        <div class="register-input-wrap">
+            <div class="input-box">
+                <span class="info">手机号</span>
+                <div class="zsy"><input type="tel" ng-model="data.bindPhoneNumber" nema="" class="w-input" ng-change="changePhone()" ng-blur="blurPhone()"></div>
+            </div>
+        </div>
+        <p class="cy-tip" ng-if="showInputPhoneTips">{{inputTelTipsContent}}</p>
+    </section>
+
+    <div class="mt-a">
+        <user-agreement
+                agreement-type="2"
+                is-agreed="isAgreed"
+                >
+        </user-agreement>
+    </div>
+
+    <div pop-confirm out-value="outValue"></div>
+
+    <div class="btn-wrap mgt20" ng-click="onClickStep2()"><button class={{step2ButtonController}}>下一步</button></div>
+</div>
+
+
+
+<div ng-if="step==2">
+    <section class="wrap-a">
+        <div class="register-input-wrap">
+            <div class="input-box" style="font-size:14px;">验证码已发往{{data.bindPhoneNumber | formatPhoneMask}}，请查收</div>
+            <div class="input-box register-yz">
+                <span class="info">验证码</span>
+                <div class="zsy"><input  type="text" pattern="[0-9]*" name="sNum" class="w-input" ng-model="data.otpNum" ng-change="changeOtp()" maxlength="6"></div>
+                <button class={{OtpButtonController}} ng-if="checkTimeoutButton" ng-click="onClickOtp()">获取验证码</button>
+                <span class="ts" ng-if="!checkTimeoutButton">重新获取({{checkNumTimeout}})</span>
+            </div>
+        </div>
+    </section>
+
+    <div class="btn-wrap mgt20" ng-click="confirmBindBankCard()"><button class={{step3ButtonController}}>下一步</button></div>
+</div>
+
+<!--遮罩层start-->
+<div ng-class="data.maskClass">
+    <h2>{{data.maskTitle}}</h2>
+    <p>{{data.maskDetail}}</p>
+    <div class="funcs" ng-click="onClickCancelMask()"><span class="clz">×</span></div>
+</div>
+<!--遮罩层end-->
+
+
+</div>
+</body>
+</html>

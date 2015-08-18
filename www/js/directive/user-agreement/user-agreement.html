@@ -1,0 +1,12 @@
+<p class="tip">
+    <span ng-class="checkClass()"  ng-click="onClickCheckBox()"></span>
+    <label for="rule-a" data-tap-disabled="true"><i ng-click="onClickCheckBox()">同意</i><span ng-repeat="item in agreementDescArr" ng-click="onClickAgreement($index)" ng-bind="item"></span>
+    </label>
+</p>
+
+<div class="pop-bg" ng-if="showPanel">
+    <div class="pop-qx">
+        <p class="a px-a" ng-repeat="item in items.name  track by $index" ng-click="onClickItem($index)" ng-bind="item"></p>
+        <p class="b" ng-click="onClickCancel()">取消</p>
+    </div>
+</div>

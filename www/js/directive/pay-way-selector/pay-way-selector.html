@@ -1,0 +1,24 @@
+<!-- 请选择支付方式 -->
+<div class="pop-bg" ng-if="isShow">
+    <div class="pop bg-b">
+        <header class="hd">{{payWayTitle}}<i class="close" ng-click="onClickClose()"></i></header>
+        <ul class="card">
+            <!--微众银行卡-->
+            <!--<li class="jc on">-->
+            <li ng-if="webankAccount.isShow" ng-click="onSelectWebankAccount()" ng-class="showSelectWebankFlag">
+                <img src="../img/bankHead/yh-0@2x.png" style="float:left;width:25px;height:25px;margin:7px 5px 0 0;">
+                <div style="float:left;">
+                    <p class="cd-name">微众卡</p>
+                    <p class="yv">余额{{webankAccount.amount}} 元</p>
+                </div>
+            </li>
+        </ul>
+        <ul class="card">
+            <!--它行银行卡-->
+            <li ng-repeat="card in bindCardList" ng-class="card.showSelectBankFlag" ng-click="onSelectCard(card)">
+                <img ng-src="{{card.bankImg}}" class="ci"><span>{{card.other_bank_name + ' ' + card.other_card_type}}({{ card.other_account | lastFewChars:4}})</span>
+            </li>
+        </ul>
+        <footer class="ft" ng-click="onClickUseNewCard()">使用新卡</footer>
+    </div>
+</div>

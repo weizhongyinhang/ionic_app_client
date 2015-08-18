@@ -1,0 +1,92 @@
+<ion-view>
+    <div class="lc">
+        <ion-header-bar>
+            <div class="menu-ba">
+                <header class="menu"><span class="menu-return" ng-click="back()"></span>购买</header>
+            </div>
+        </ion-header-bar>
+
+        <ion-content class="has-header" has-bouncing="false">
+            <p class="cy-wd">
+                <span class="l">现在买入 {{data.productDetail.onSaleDesc}}</span>
+                <span ng-click="onClickProdDetail()" class="r">查看产品详情</span>
+            </p>
+
+            <div class="cy-wrap">买入金额<div class="po"><input type="number" placeholder="{{data.minAmount}}元起购，{{data.incAmount}}元递增" class="it" ng-model="data.amount" ng-blur="blurInput()" ng-focus="focusInput()" ng-change="changeInput()"></div>
+                <i class="act" ng-if="data.showInputAct"></i></div>
+            <p class="cy-tip" ng-if="data.showInputAmountTips">{{data.inputAmountTipsContent}}</p>
+            <p class="cy-ws"><span ng-if="data.showInputResult">大写：{{data.amountCN}}，预估申购手续费<i style="text-decoration:line-through;padding:0 4px;">{{data.cost}}元</i><i style="color:#f39360;">{{data.realCost}}元</i></span></p>
+
+            <div class="cy-wrap-a" ng-click="onSelectPayWay()">
+                <span class="t-l">付款账户</span>
+                <p class="t-m" ng-if="isCurrentPlus()">
+                    <img class="hq_icon" src="../img/slice/hq@3x.png">
+                </p>
+                <p class="t-m" ng-if="isWeBankAccount()">
+                    <img class="hq_ib" src="../img/bankHead/yh-0@2x.png">微众卡
+                </p>
+                <p class="t-m" ng-if="isOtherBank()">
+                    {{data.AccountData.otherBankAccount.cardInfo.bankName + ' ' }}
+                    {{data.AccountData.otherBankAccount.cardInfo.cardType}}
+                    {{data.AccountData.otherBankAccount.cardInfo.cardNo | abridgeAccountNumber}}
+                </p>
+                <i class="k"></i>
+            </div>
+
+            <p class="cy-tip" ng-if="data.showNeedBindCard">请绑定一张银行卡</p>
+
+            <!--<p class="tip-k">注: 15:00后交易，属于下一工作日</p>-->
+
+            <div class="mt-b">
+                <user-agreement
+                        agreement-code = "data.agreementCode"
+                        agreement-detail = "data.agreementDetail"
+                        agreement-desc ="data.agreementDesc"
+                        open-pdf ="openPdf"
+                        is-agreed="data.isAgreed">
+                </user-agreement>
+            </div>
+
+            <dl class="sm-k" style="padding-top:15px;">
+                <dt>说明</dt>
+                <dd ng-if="data.showTipsFlag == 0">15:00前购买，预计{{data.confirmDate | formatDateObjToCNString}}确认份额</dd>
+                <dd ng-if="data.showTipsFlag == 1">15:00后购买，预计{{data.confirmDate | formatDateObjToCNString}}确认份额</dd>
+                <dd ng-if="data.showTipsFlag == 2">预计{{data.confirmDate | formatDateObjToCNString}}确认份额</dd>
+                <dd>确认份额后的下1日可查看首笔盈亏</dd>
+                <dd>确认份额后的下1工作日起，可随时赎回，预计{{data.redeemDay}}个工作日内到账（节假日顺延）</dd>
+            </dl>
+            <p style="color:#3399eb;font-size:12px;padding:10px 0 0 40px;" ng-click="onClickRules()"><span>查看购买及赎回规则</span></p>
+
+            <div class="btn-wrap pd20">
+                <button class="{{data.ButtonClass}}" ng-click="onClickPurchase()">立即购买</button>
+            </div>
+        </ion-content>
+
+
+        <account-selector
+                input-amount="data.amount"
+                account-data="data.AccountData"
+                show="data.showAccountSelector"
+                hide="data.hideAccountSelector"
+                bind-card="bindCard"
+                on-account-selected="onAccountSelected"
+                >
+        </account-selector>
+
+        <div pwd-input
+             ng-model="data.vm.formData.confirmPassword"
+             is-pwd-show="data.isPwdShow"
+             sig-on-pwd-commit="data.sigOnPwdCommit"
+             pwd-sub-title="data.pwdSubTitle"
+             pwd-trans-desc="data.pwdTransDesc"
+             pay-way-desc="data.payWayDesc"
+             on-click-change-pay-way="onSelectPayWay"
+                >
+        </div>
+
+        <div pop-confirm out-value = "data.outValue"></div>
+
+        <loading show-loading="data.showLoading"></loading>
+
+    </div>
+</ion-view>

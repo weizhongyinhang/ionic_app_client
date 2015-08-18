@@ -1,0 +1,42 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>转入成功</title>
+    <meta name="description" content="">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+</head>
+<body>
+<div class="oti">
+    <div class="menu-ba">
+        <header class="menu">{{result.typeDesc}}定期购买</header>
+    </div>
+    <!-- 成功：ok；失败：fall -->
+    <div class="into-logo ok" ng-if="result.status === 'success'">
+        <!--<p class="a">{{result.typeDesc}}计划{{result.actionType}}成功</p>-->
+        <p class="a">定期购买成功</p>
+    </div>
+
+    <!-- 成功：ok；失败：fall -->
+    <div class="into-logo fall" ng-if="result.status === 'failed'">
+        <p class="a">定期购买失败</p>
+        <p class="c">{{result.msg}}</p>
+    </div>
+
+    <ul class="pb-info mgt30">
+        <li><span class="title">{{result.typeDesc}}金额</span><span class="info">{{result.amount}}元</span></li>
+        <!--付款、收款-->
+        <li><span class="title">{{result.typeDesc}}账户</span><span class="info">{{result.bankName +' ' + result.cardType}}{{result.cardNo|abridgeAccountNumber }}</span></li>
+        <!--区分频率-->
+        <!--<li ng-if="result.status === 'success'"><span class="title">{{result.typeDesc}}日期</span><span class="info">{{result.nextDate|formatYYYYMMDDString}}</span></li>-->
+        <li ng-if="result.status === 'success'"><span class="title">{{result.typeDesc}}日期</span><span class="info">{{freqDesc}}{{result.typeDesc}}</span></li>
+    </ul>
+
+
+    <div class="btn-wrap mgt30"><button class="btn-c" ng-click="onClickFinshBtn()">完成</button></div>
+    <div style="height:20px;"></div>
+</div>
+</body>
+</html>

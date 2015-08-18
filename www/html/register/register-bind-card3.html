@@ -1,0 +1,24 @@
+<ion-view>
+    <div class="rg">
+        <ion-header-bar>
+            <div class="menu-ba">
+                <header class="menu">开户</header>
+            </div>
+        </ion-header-bar>
+
+        <ion-content class="has-header" has-bouncing="false">
+            <div class="into-logo ok">
+                <p class="a">开户成功</p>
+            </div>
+
+            <ul class="pb-info mgt30">
+                <li><span class="title">绑定账号</span><span class="info">{{data.nickName}}</span></li>
+                <li><span class="title">绑定银行卡</span><span class="info">{{data.bankName + ' '}}{{data.cardType}}</span></li>
+                <li><span class="title">绑定银行卡号</span><span class="info">{{data.card}}</span></li>
+            </ul>
+
+            <div class="btn-wrap mgt20"><button class="btn-c" ng-click="onClickFinish()">完成</button></div>
+        </ion-content>
+
+    </div>
+</ion-view>

@@ -1,0 +1,69 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>存工资</title>
+    <meta name="description" content="">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="../zdj.css">
+</head>
+<body>
+    <div class="oti">
+        <div class="menu-ba">
+            <header class="menu">存工资</header>
+        </div>
+        <div class="into-logo ok" ng-show="data.isProcessing">
+            <p class="a">计划设定成功</p>
+        </div>
+        <!--<div class="into-logo ok" ng-show="data.isSuccShow">
+            <p class="a">购买申请已受理</p>
+            <p class="b">需要与基金公司确认购买结果，可在首页查看进展</p>
+        </div>
+        <div class="into-logo fall" ng-show="data.isFailedShow">
+            <p class="a">购买申请未受理</p>
+            <p class="c">原因：{{data.resultMsg}}</p>
+            <p class="b">资金已返还到您的微众基础账户</p>
+        </div>-->
+        <div class="white-box flex mgt20">
+            <span class="item card">招商银行<br>储蓄卡 (4235)</span>
+            <span class="item toright">
+                <span class="p-c-lorange num">3000.00元</span><br>
+                <span class="p-c-gray">每月1日</span>
+            </span>
+            <span class="item plus">
+                <i class="cplus">活期+</i>
+            </span>
+        </div>
+        <!--<div class="white-box flex mgt20">
+            <span class="item plus">
+                <i class="cplus">活期+</i>
+            </span>
+            <span class="item toright">
+                <span class="p-c-lorange num">3000.00元</span><br>
+                <span class="p-c-gray">每月1日</span>
+            </span>
+            <span class="item card">招商银行<br>储蓄卡 (4235)</span>
+        </div>-->
+        <div class="date-list-wrap">
+            <ul class="date-list">
+                <li class="o"><i></i>06-10 今天 计划设定成功</li>
+                <li class="sx o"><i></i></li>
+                <li><i></i>07-11 23:59前 执行第一期</li>
+                <li class="sx"><i></i></li>
+                <li><i></i>08-11 23:59前 执行第二期</li>
+                <li class="sx do"><i></i></li>
+            </ul>
+        </div>
+        <div class="p-clear"></div>
+        <p class="gray-tip p-c-gray mgt20">每期执行前可随时修改或删除该计划</p>
+        <div class="btn-wrap mg20"><button class="btn-c">完成</button></div>
+        <!--<div class="btn-wrap mgt20"><button class="tph"   ng-show="data.isSuccShow" ng-click="onClickRecom()">继续理财</button></div>
+        <div class="btn-wrap mgt20"><button class="btn-c"   ng-show="data.isProcessing" ng-click="onClickViewProcess()">查看处理进度</button></div>
+        <div class="btn-wrap mgt20"><button class="tph"   ng-show="data.isProcessing" ng-click="onClickRecom()">继续理财</button></div>
+        <div class="btn-wrap mgt20"><button class="btn-c"   ng-show="!data.isSuccShow && !data.isProcessing" ng-click="onClickRecom()">继续理财</button></div>
+        <div class="btn-wrap mgt20"><button class="tph"   ng-show="!data.isSuccShow && !data.isProcessing" ng-click="onClickHome()">返回首页</button></div>-->
+    </div>
+</body>
+</html>

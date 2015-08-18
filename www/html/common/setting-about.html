@@ -1,0 +1,28 @@
+
+<div class="set">
+    <ion-header-bar>
+        <div class="menu-ba">
+            <header class="menu"><span class="menu-return" ng-click="back()"></span>关于我们</header>
+        </div>
+    </ion-header-bar>
+    <ion-content class="has-header">
+        <div class="ot-box" ng-click="onClickWeBank()">微众银行{{nativeVersion}}({{H5Version}})</div>
+
+        <ul class="set-list mgt20" ng-if="showAdvice">
+        <!--li ng-click="onClickScore()"><span class="a">去评分</span></li-->
+            <!--todo 注释掉欢迎页-->
+            <!--<li ng-click="onClickWelcome()"><span class="a">欢迎页</span></li>-->
+            <li ng-click="onClickWelcome2()"><span class="a">欢迎页</span></li>
+        <li ng-click="onClickAdvice()" ng-if="showAdvice"><span class="a">反馈建议</span></li>
+         <!--<li ng-click="onClickAdvice()" ng-if="showAdvice" class="px-b"><span class="a">欢迎页</span></li>-->
+        <!--li ng-click="onClickUpdate()"><span class="a">版本更新</span><span class="b">V1.2</span></li-->
+        </ul>
+
+        <div ng-repeat="info in data.traceLog">
+            <span style="font-size:10px">{{info}}</span>
+        </div>
+
+    </ion-content>
+    <p class="ot-t"><span style="color:#3399eb;" ng-click="onClickAgreement()">微众银行服务协议</span><br>Copyright © 2014 - 2015 Webank. All Rights Reserved.</p>
+
+</div>

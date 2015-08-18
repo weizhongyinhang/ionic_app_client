@@ -1,0 +1,37 @@
+<ion-view>
+    <div class="ef p-c-blue">
+        <ion-header-bar>
+            <div class="menu-ba">
+                <header class="menu">
+                    <span class="menu-return" ng-click="back()"></span>
+                    交易规则
+                </header>
+            </div>
+        </ion-header-bar>
+
+        <ion-content class="has-header" has-bouncing="false">
+            <div class="subnav flex px-a">
+                <div ng-class="data.tabClass1" ng-click="onClickTab1()">买入规则</div>
+                <div ng-class="data.tabClass2" ng-click="onClickTab2()">赎回规则</div>
+            </div>
+
+            <section ng-class="data.sectionClass1">
+                <div ng-bind-html="data.sectionHtml1"></div>
+            </section>
+
+            <section ng-class="data.sectionClass2">
+                <div ng-bind-html="data.sectionHtml2"></div>
+            </section>
+
+        </ion-content>
+        <!---->
+        <!--<div class="main-nav-wrap">-->
+            <!--<ul class="main-nav flex">-->
+                <!--<li class="item i-a">首页</li>-->
+                <!--<li class="item i-b i-on">理财</li>-->
+                <!--<li class="item i-a">转账</li>-->
+                <!--<li class="item i-c">话题</li>-->
+            <!--</ul>-->
+        <!--</div>-->
+    </div>
+</ion-view>

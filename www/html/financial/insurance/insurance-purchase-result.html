@@ -1,0 +1,48 @@
+<ion-view>
+    <div class="oti">
+        <ion-header-bar>
+            <div class="menu-ba">
+                <header class="menu">购买</header>
+            </div>
+        </ion-header-bar>
+
+        <ion-content class="has-header" has-bouncing="false">
+            <div class="into-logo ok" ng-if="data.isSuccShow && !data.isProcessing">
+                <p class="a">购买申请已受理</p>
+                <p class="b">需要与保险公司确认购买结果，可在首页查看进展</p>
+            </div>
+
+            <div class="into-logo fall" ng-if="data.isSuccShow && data.isProcessing">
+                <p class="a">交易处理中</p>
+                <p class="b">请勿重复操作，处理结果可在交易记录中查询</p>
+            </div>
+
+            <div class="into-logo fall" ng-if="!data.isSuccShow">
+                <p class="a">购买申请未受理</p>
+                <p class="c">原因：{{data.resultMsg}}</p>
+                <!--<p class="b">资金已返还到您的微众基础账户</p>-->
+            </div>
+
+            <div class="date-list-wrap">
+                <ul class="date-list" ng-if="data.isSuccShow && !data.isProcessing">
+                    <li class="o"><i></i>{{data.today.getMonth()+1}}-{{data.today.getDate()}} 今天 认购{{data.transInfo.transAmount}}元</li>
+                    <li class="sx o"><i></i></li>
+                    <li><i></i>{{data.confirmDate.getMonth()+1}}-{{data.confirmDate.getDate()}} {{data.confirmDate | formatWeekdayFormDate}} 反馈购买结果</li>
+                    <li class="sx"><i></i></li>
+                    <li><i></i>{{data.showDate.getMonth()+1}}-{{data.showDate.getDate()}} {{data.showDate | formatWeekdayFormDate}} 可查看首笔预估收益</li>
+                    <li class="sx do"><i></i>封闭 {{data.lifeTime}}天</li>
+                    <li><i></i>{{data.endDate.getMonth()+1}}-{{data.endDate.getDate()}} {{data.endDate | formatWeekdayFormDate}} 产品到期</li>
+                    <li class="sx"><i></i></li>
+                    <li><i></i>{{data.redeemDate.getMonth()+1}}-{{data.redeemDate.getDate()}} {{data.redeemDate | formatWeekdayFormDate}} 本金及收益到账</li>
+                </ul>
+            </div>
+
+            <div class="btn-wrap mgt40" ng-if="data.isSuccShow && !data.isProcessing"><button class="btn-c" ng-click="onClickDetail()">查看已购详情</button></div>
+            <div class="btn-wrap mgt40" ng-if="data.isSuccShow && data.isProcessing"><button class="btn-c" ng-click="onClickTranLog()">查看交易记录</button></div>
+            <div class="btn-wrap mgt20" ng-if="data.isSuccShow"><button class="tph" ng-click="onClickFinancialRecom()">继续理财</button></div>
+            <div class="btn-wrap mgt40" ng-if="!data.isSuccShow"><button class="btn-c" ng-click="onClickFinancialRecom()">继续理财</button></div>
+            <div class="btn-wrap mgt20" ng-if="!data.isSuccShow"><button class="tph" ng-click="onClickHome()">返回首页</button></div>
+        </ion-content>
+    </div>
+    <!--<div style="height:20px;"></div>-->
+</ion-view>

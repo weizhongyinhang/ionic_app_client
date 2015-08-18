@@ -1,0 +1,39 @@
+<ion-view>
+    <div class="set">
+        <ion-header-bar>
+            <div class="menu-ba">
+                <header class="menu"><span class="menu-return" ng-click="back()"></span>消息<span class="menu-wd" ng-if="messageList.length" ng-click="clearAll()">清空</span></header>
+            </div>
+        </ion-header-bar>
+
+        <ion-content class="has-header" has-bouncing="true" delegate-handle="mainScroll" >
+            <div>
+                <ul class="mes-list px-a" ng-if="messageList.length">
+                    <li  ng-repeat="item in messageList" ng-click="clickMsg(item)" class="px-b">
+                        <!-- <p class="title"><span class="s" ng-bind="item.label"></span>{{item.title}}</p> -->
+                        <p ng-class="getClass(item)" ng-style="getStyle(item)">{{item.title}}</p>
+                        <p class="c">{{item.brief}}<span class="time" ng-bind="item.create_time"></span></p>
+                    </li>
+                    <!--li>
+                        <p class="title"><span class="s">理财</span>系统维护公告</p>
+                        <p class="c">微众管家将于4月5日0点-3点对系统进行 升级，给您带来不便，敬请谅解。<span class="time">2015-04-06 14:00</span></p>
+                    </li-->
+
+                </ul>
+            </div>
+            <img ng-if="showEmpty || !messageList.length " src="../img/mes-more@2x.png" class="no-more">
+            <ion-infinite-scroll
+                    ng-if="!noMoreData"
+                    on-infinite="loadMoreData()"
+                    distance="1%"
+                    spinner="ios"
+                    >
+            </ion-infinite-scroll>
+
+        </ion-content>
+        <!-- 提示框 -->
+        <div pop-confirm out-value = "outValue"></div>
+        <loading show-loading="showLoading"></loading>
+
+    </div>
+</ion-view>

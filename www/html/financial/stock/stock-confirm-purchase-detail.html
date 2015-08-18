@@ -1,0 +1,72 @@
+
+<ion-view>
+    <div class="stock">
+        <ion-header-bar>
+            <div class="menu-ba">
+                <header class="menu"><span class="menu-return" ng-click="back()"></span>详情</header>
+            </div>
+        </ion-header-bar>
+
+        <ion-content class="has-header" has-bouncing="false">
+            <div ng-repeat="obj in data.list">
+                <h2 class="tip">预计{{obj.confirmDate | formatDateObjToCNString}}完成</h2>
+                <ul class="xq px">
+                    <li>
+                        <span class="l">产品名称</span>
+                        <span class="r">{{data.productDetail.onSaleDesc}}</span>
+                    </li>
+                    <li>
+                        <span class="l">买入时间</span>
+                        <span class="r">{{obj.buyDate | formatDateObjToString}} {{obj.buyTime.substr(0,2)}}:{{obj.buyTime.substr(2,2)}}:{{obj.buyTime.substr(4,2)}}</span>
+                    </li>
+                    <li>
+                        <span class="l">买入方式</span>
+                        <span class="r" ng-if="obj.pay_flag!=2">{{obj.bank_name}} {{obj.card_type}}({{obj.acct_no | lastFewChars:4}})</span>
+                        <span class="r" ng-if="obj.pay_flag==2">活期+</span>
+                    </li>
+                    <li>
+                        <span class="l">当前状态</span>
+                        <span class="r">待确认份额，预计{{obj.confirmDate | formatDateObjToCNString}}完成</span>
+                    </li>
+                    <li>
+                        <span class="l">浮动盈亏</span>
+                        <span class="r">预计{{obj.showDate | formatDateObjToCNString}}可查盈亏</span>
+                    </li>
+                    <li>
+                        <span class="l">单位净值</span>
+                        <span class="r">{{obj.confirmDate | formatDateObjToCNString}}可见</span>
+                    </li>
+                    <!--<li>-->
+                        <!--<span class="l">确认金额</span>-->
+                        <!--<span class="r">913.23</span>-->
+                    <!--</li>-->
+                    <li>
+                        <span class="l">申购费用(预估)</span>
+                        <span class="r">{{obj.realCost}}元</span>
+                    </li>
+                    <li>
+                        <span class="l">买入金额</span>
+                        <span class="r o">{{obj.amount.split('.')[0]}}.<i>{{obj.amount.split('.')[1]}}元</i></span>
+                    </li>
+                    <li class="has-btn" ng-if="obj.showCancel">
+                        <div class="btn-wrap" ng-click="onClickCancel(obj)"><button class="btn-c">撤销购买</button></div>
+                        <p class="z">{{obj.cancelDate | formatDateObjToCNString}} 15:00前可以撤销购买</p>
+                    </li>
+                </ul>
+            </div>
+        </ion-content>
+
+        <div pwd-input
+             ng-model="vm.formData.confirmPassword"
+             is-pwd-show="data.isPwdShow"
+             sig-on-pwd-commit="data.sigOnPwdCommit"
+             pwd-sub-title="data.pwdSubTitle"
+             pwd-trans-desc="data.pwdTransDesc"
+             pay-way-desc="data.payWayDesc"
+             on-click-change-pay-way="onSelectPayWay"
+                >
+        </div>
+
+        <div pop-confirm out-value = "data.outValue"></div>
+    </div>
+</ion-view>

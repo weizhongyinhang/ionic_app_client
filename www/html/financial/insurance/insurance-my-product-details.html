@@ -1,0 +1,96 @@
+<ion-view>
+    <div class="lc">
+        <ion-header-bar>
+            <div class="menu-ba">
+                <header class="menu"><span class="menu-return" ng-click="back()"></span>{{data.productInfo.onSaleDesc}}({{data.productInfo.valueDate.substr(4, 4)}})
+                    <span ng-class="data.shareClass" ng-click="share()"></span>
+                </header>
+            </div>
+        </ion-header-bar>
+
+        <ion-content class="has-header" has-bouncing="false">
+            <div class="ba-income-wrap">
+                <p class="title p-line-lr-h"><span>预估昨日收益(元)</span></p>
+                <p class="num" ng-if="data.showIncome">{{data.yestodayIncome}}</p>
+                <p class="num" ng-if="!data.showIncome">暂无收益</p>
+                <!-- <p class="msg" ng-if="data.showIncome">预估昨日总收益(元)</p> -->
+                <div class="xs flex">
+                    <div class="item p-line-r">持有本金(元)<br>{{data.amount}}</div>
+                    <div class="item">预估累计收益(元)<br>{{data.accumulateIncome}}</div>
+                </div>
+            </div>
+
+            <ul class="lc-wrap no-t px-a">
+                <li class="pd-a">
+                    <div class="wd-wrap" ng-if="data.isValueDateStart && data.amount>0">
+                        <span class="w-l" ng-if="data.gainedValueDays <= data.productInfo.lifeTime">已获得<span class="o">{{data.gainedValueDays}}</span>天收益</span>
+                        <span class="w-r" ng-if="data.gainedValueDays <= data.productInfo.lifeTime">距本期结束还有<span class="o">{{data.remainValueDays}}</span>天</span>
+                        <span class="w-l" ng-if="data.gainedValueDays > data.productInfo.lifeTime">资金赎回中</span>
+                    </div>
+                    <div class="wd-wrap" ng-if="!data.isValueDateStart && data.amount>0">
+                        <span class="w-l">还有<span class="o">{{data.daysBeforeValueDate}}</span>天开始赚钱</span>
+                    </div>
+                    <div class="wd-wrap" ng-if="data.amount==0">
+                        <span class="w-l">您有{{data.confirmAmount}}元待确认购买结果，预计{{data.confirmDate | formatDateObjToCNString}}完成</span>
+                    </div>
+
+
+                    <div class="pcs-wrap">
+                        <div class="pcs-inner" style="width:{{data.valuePct}}%;"></div>
+                    </div>
+                    <div class="wd-wrap r-a">
+                        <span class="w-l">{{data.productInfo.valueDate | formatDateToCNWithoutYear}}起息</span><span class="w-r">{{data.endDate |formatDateObjToCNString}}到期</span>
+                    </div>
+                </li>
+
+                <div class="cy-wrap" ng-click="onClickDstSelect()" ng-if="data.amount>0" style="padding:12px 25px 12px 0;"><p class="gu">到期后{{data.dstString}}</p></div>
+            </ul>
+
+            <div class="db-box mgt20">
+                <p class="o-a">预估到期收益(元) {{data.totalIncome}}</p>
+                <p class="o-b">预期年化收益率{{data.productInfo.incomeRate}}%。预期到期收益按照预期收益率及产品期限等要素计算所得，仅作参考。实际收益以产品到期兑付为准。</p>
+            </div>
+
+            <div class="px" style="margin-bottom: 70px;">
+                <p class="jt" ng-click="onClickProductDetail()">最新产品详情</p>
+            </div>
+        </ion-content>
+
+
+        <div class="pop-bg" ng-if="data.showDst">
+            <div class="pop bg-b">
+                <header class="hd">请选择到期安排<i class="close" ng-click="onClickDstClose()"></i></header>
+                <ul class="card" style="padding-bottom:5px;">
+                    <li ng-click="onSelectDstHJ()" ng-class="data.HJClass">
+                        <p class="cd-name">自动购买活期+</p>
+                        <p class="yv" style="padding-right:30px;">到期后，本金及收益自动购买货币基金，享受货币基金收益，使用时可随时取出</p>
+                    </li>
+                    <li ng-click="onSelectDstNext()" ng-class="data.weBankCardClass">
+                        <p class="cd-name">赎回到微众卡</p>
+                        <p class="yv" style="padding-right:30px;">到期后，本金及收益自动取出到微众卡，可马上投资其他理财产品</p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <ion-footer-bar>
+            <div class="buy-btn-wrap" ng-if="data.isSoldOut">
+                <div class="lc-buy-btn off">今日已售完</div>
+            </div>
+
+            <div class="buy-btn-wrap" ng-click="onClickContinueBuy()" ng-if="!data.isSoldOut">
+                <div class="lc-buy-btn">继续购买</div>
+            </div>
+        </ion-footer-bar>
+
+        <div pwd-input
+             ng-model="data.vm.formData.confirmPassword"
+             is-pwd-show="data.isPwdShow"
+             sig-on-pwd-commit="data.sigOnPwdCommit"
+             pwd-sub-title="data.pwdSubTitle"
+                >
+        </div>
+
+        <div pop-confirm out-value="data.outValue"></div>
+    </div>
+</ion-view>

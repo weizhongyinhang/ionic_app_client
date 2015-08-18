@@ -1,0 +1,82 @@
+<ion-view>
+    <div class="trf p-c-blue">
+
+        <ion-header-bar>
+            <div class="menu-ba" ng-if="!data.hasOldPlan">
+                <header class="menu"><span class="menu-return" ng-click="func.back()"></span>还房贷</header>
+            </div>
+            <div class="menu-ba" ng-if="data.hasOldPlan">
+                <header class="menu"><span class="menu-wd" ng-click="func.back()">取消</span>还房贷<span class="menu-wd" ng-click="func.onClickDeletePlan()">删除</span></header>
+            </div>
+        </ion-header-bar>
+
+        <ion-content class="has-header" has-bouncing="false">
+            <section class="path-money p-bgc-blue">
+                <div class="white-box flex">
+                    <span class="item plus">
+                        <i class="cplus">活期+</i>
+                    </span>
+                    <span class="item toright p-c-gray">
+                        <span ng-if="!data.amount">每月还多少</span>
+                        <span class="p-c-lorange num" ng-if="data.amount">{{data.amount}}元</span><br>
+                        <span ng-if="data.dt == undefined">几号还房贷</span>
+                        <span ng-if="data.dt">{{data.tranDateDesc}}</span>
+                    </span>
+                    <span class="item iconcard" ng-if="!data.recvAccountData.otherBankAccount.cardInfo.cardNo"><i>工资卡</i></span>
+                    <span class="item card" ng-if="data.recvAccountData.otherBankAccount.cardInfo.cardNo"><i>{{data.recvAccountData.otherBankAccount.cardInfo.bankName}}<br>{{data.recvAccountData.otherBankAccount.cardInfo.cardType}}{{data.recvAccountData.otherBankAccount.cardInfo.cardNo|abridgeAccountNumber}}</i></span>
+                </div>
+            </section>
+
+            <ul class="formlike mgt20">
+                <li class="flex p-bgc-fff px" ng-click="func.onClickMyCard()">
+                    <div class="item left" >我的房贷卡</div>
+                    <div class="allow-enter item right">
+                        {{data.recvAccountData.otherBankAccount.cardInfo.bankName + ' ' }}
+                        {{data.recvAccountData.otherBankAccount.cardInfo.cardType}}
+                        {{data.recvAccountData.otherBankAccount.cardInfo.cardNo | abridgeAccountNumber}}
+                    </div>
+                </li>
+                <li class="flex p-bgc-fff mgt20 px" ng-click="func.onClickDate()">
+                    <div class="item left">几号还房贷</div>
+                    <div class="allow-enter item right">{{data.tranDateDesc}}</div>
+                </li>
+                <li class="hint p-c-lgray">{{data.tranDateDetailDesc}}</li>
+                <li class="has-input flex p-bgc-fff mgt10 px">
+                    <div class="item left">每月还多少</div>
+                    <div class="item right"><input type="text" placeholder="" ng-model="data.amount"></div>
+                </li>
+                <li class="has-btn-block mgt30"><button class="p-btn p-btn-block" ng-disabled='!func.canCommit()' ng-click="func.onClickConfirm()">确定</button></li>
+            </ul>
+        </ion-content>
+    </div>
+
+    <!--收款账户-->
+    <account-selector
+            hide-amount=300
+            account-data="data.recvAccountData"
+            show="func.showReceivableAccountSelector"
+            hide="func.hideReceivableAccountSelector"
+            on-account-selected="func.onRecvAccountSelected"
+            bind-card="func.bindCard"
+            >
+    </account-selector>
+
+    <div pwd-input
+         ng-model="vm.formData.confirmPassword"
+         is-pwd-show="data.isPwdShow"
+         sig-on-pwd-commit="sigOnPwdCommit"
+         pwd-sub-title="data.pwdSubTitle"
+         pwd-trans-desc="data.pwdTransDesc"
+         pay-way-desc="data.payWayDesc"
+         on-click-change-pay-way="func.onPwdSelectPayWay">
+    </div>
+
+    <fancy-select
+            header-text="headerText"
+            callback="func.onSelectNumber"
+            show-select="func.showSelect">
+    </fancy-select>
+
+    <loading show-loading="data.showLoading"></loading>
+    <div pop-confirm out-value="data.outValue"></div>
+</ion-view>

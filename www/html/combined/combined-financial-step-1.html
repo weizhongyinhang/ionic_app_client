@@ -1,0 +1,64 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>组合理财推荐</title>
+    <meta name="description" content="">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+</head>
+<body>
+<div class="hybird">
+    <div class="menu-ba">
+        <header class="menu"><span class="menu-return" ng-click="back()"></span >组合理财</header>
+    </div>
+        
+        <p class="gj">70%{{cardPageDesc}}用户采用如下方案：</p>
+
+        <div class="card px" style="padding-top: 38px;">
+            <i class="tip-o">{{cardPageDesc}}</i>
+            <!--<p class="num-z">理财金额(元){{amount}}</p>-->
+            <div class="cc-wrap">
+                <div class="cc-box" highcharts show-chart='showMainChart'
+                     chart-options="MainChartOptions"></div>
+                <p class="sy">过往半年收益率</p>
+                <p class="num">{{totalIncomeRate}}%</p>
+            </div>
+            <p class="sm">说明: 根据各产品过往6个月收益表现计算，仅供参考。<i class="ts" ng-click="onClickTips()"></i></p>
+            <ul class="hu-list">
+                <li class="px-b">
+                    <span class="pv p-c">1</span><!-- 
+                 --><span class="l">货币基金</span>
+                    <i highcharts show-chart='showHJChart' chart-options="HJchartOptions" class="bx"></i>
+                </li>
+                <li class="px-b">
+                    <span class="pv p-b">2</span><!-- 
+                 --><span class="l">定期理财</span>
+                    <i highcharts show-chart='showBXChart' chart-options="BXchartOptions" class="bx"></i>
+                </li>
+                <li class="px-b">
+                    <span class="pv p-a">3</span><!-- 
+                 --><span class="l">股票基金<i class="ti">高风险</i></span>
+                    <i highcharts show-chart='showGJChart' chart-options="GJchartOptions" class="bx" ></i>
+                </li>
+            </ul>
+        </div>
+
+    <div pop-confirm out-value="outValue"></div>
+
+    <!-- <div class="page-nav">
+        <span class="tz"  ng-click="onClickNextStep2()">不满意，去调整</span>
+    </div> -->
+
+    <div class="btn-wrap pd20">
+        <button class="btn-c" ng-click="onClickNextStep3()">感兴趣，试试看</button>
+    </div>
+</div>
+
+<div pop-confirm out-value="loginDialog"></div>
+
+<div pop-confirm out-value="regDialog"></div>
+
+</body>
+</html>

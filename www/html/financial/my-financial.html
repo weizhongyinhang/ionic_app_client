@@ -1,0 +1,84 @@
+<ion-view>
+    <div class="lc">
+        <ion-header-bar>
+            <div class="menu-ba">
+                <header class="menu"><span class="menu-return" ng-click="func.back()"></span>理财资产<span class="menu-wd" ng-click="func.onCheckTransLog()">交易查询</span></header>
+            </div>
+        </ion-header-bar>
+        <ion-content has-bouncing="false" class="has-header"  delegate-handle="myContent">
+            <div class="lc-hd-wrap">
+                <div class="total-num">
+                    <span class="t">理财总额（元）</span>
+                    <!--<span class="num">986,456.<i class="s">83</i></span>-->
+                    <span class="num">{{data.totalAmount}}</span>
+                </div>
+                <div class="sp-num">
+                    <span class="k">定期理财&#12288;<i class="v">{{data.totalBXAmount}}</i></span>
+                    <span class="k">股票基金&#12288;<i class="v">{{data.totalGJAmount}}</i></span>
+                </div>
+            </div>
+
+            <div class="subnav flex px-a">
+                <div ng-class="data.financialTabCls" ng-click="func.onClickFinancialTab()"><i class="dq"></i>（{{data.insuranceCount}}个）</div>
+                <div ng-class="data.stockTabCls" ng-click="func.onClickStockTab()">股票基金（{{data.stockCount}}个）</div>
+            </div>
+
+            <!-- 稳赢理财 -->
+            <div ng-if="data.tabIdx == 0">
+                <ul class="lc-card-list dq">
+                    <li ng-repeat="(k,v) in data.insuranceList" ng-click="func.onClickInsurance(k)">
+                        <div class="hd">
+                            <span class="name">定期-{{v.prodName}}</span>
+                            <span class="msg">{{v.descTop}}</span>
+                            <!--<div class="cd-wrap" style="width:50%;"></div>-->
+                            <div class="cd-wrap" style="width:0%;"></div>
+                        </div>
+                        <div class="bd">
+                            <div class="con">
+                                <div class="l">
+                                    <!--<div class="sy">昨日<span class="up"><span class="fz">68.<i>00</i></span></span></div>-->
+                                    <!--<div class="wt hide">等待收益</div>-->
+                                    <div class="sy" ng-if="v.isMakingValue">昨日<span class="up"><span class="fz">{{v.lastIncome}}</span></span></div>
+                                    <div class="wt" ng-if="!v.isMakingValue">{{v.stateDesc}}</div>
+                                </div>
+                                <span class="r">已购 <span>{{v.amount}}元</span></span>
+                            </div>
+                            <p class="wd" ng-if="v.descBottom.length > 0">{{v.descBottom}}</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- 股票基金 -->
+            <div ng-if="data.tabIdx == 1">
+                <ul class="lc-card-list gp">
+                    <li ng-repeat="(k,v) in data.stockList" ng-click="func.onClickStock(k)">
+                        <div class="hd">
+                            <span class="name">{{v.prodName}}</span>
+                            <span class="msg">{{v.descTop}}</span>
+                            <div class="cd-wrap" style="width:0%;"></div>
+                        </div>
+                        <div class="bd">
+                            <div class="con">
+                                <div class="l">
+                                    <!--<div class="sy">昨日<span class="up"><span class="fz">68.<i>00</i></span></span></div>-->
+                                    <!--<div class="wt hide">等待收益</div>-->
+                                    <div class="sy" ng-if="v.state == 0">昨日<span ng-class="v.cls"><span class="fz">{{v.yesterdayIncome}}</span></span></div>
+                                    <div class="wt" ng-if="v.state != 0">{{v.stateDesc}}</div>
+
+                                </div>
+                                <span class="r">已购 <span>{{v.amount}}元</span><i ng-if="v.redeemShare > 0">({{v.redeemShare}}份赎回中)</i></span>
+                            </div>
+                            <p class="wd" ng-if="v.onWayDescList.length > 0">
+                                <span ng-repeat="desc in v.onWayDescList">{{desc}}</span>
+                            </p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <img src="../img/fc-more@2x.png" alt="" style="display: block;width: 176px;height: 96px;margin: 40px auto 0;" ng-if="func.isNoProductShown()">
+        </ion-content>
+    </div>
+    <loading show-loading="data.showLoading"></loading>
+    <div pop-confirm out-value="data.outValue"></div>
+</ion-view>

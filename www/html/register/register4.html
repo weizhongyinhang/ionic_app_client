@@ -1,0 +1,36 @@
+<ion-view>
+    <div class="rg">
+        <ion-header-bar>
+            <div class="menu-ba">
+                <header class="menu"><span class="menu-return" ng-click="back()"></span>修改交易密码</header>
+            </div>
+        </ion-header-bar>
+
+        <ion-content class="has-header" has-bouncing="false">
+            <div class="code-box" ng-if="data.step == 2">
+                <p class="wd">请设置交易密码</p>
+                <ol class="code"><li ng-repeat="str in data.pwdDisplay track by $index">{{str}}</li></ol>
+            </div>
+
+            <div class="code-box" ng-if="data.step == 3">
+                <p class="wd">请再次输入</p>
+                <ol class="code"><li ng-repeat="str in data.pwdDisplay track by $index">{{str}}</li></ol>
+            </div>
+        </ion-content>
+
+        <div pwd-input
+             ng-model="vm.formData.confirmPassword"
+             is-pwd-show="data.isPwdShow"
+             is-pwd-keyboard-show="data.isPwdKeyboardShow"
+             sig-on-pwd-commit="data.sigOnPwdCommit"
+             pwd-sub-title="data.pwdSubTitle"
+             pwd-display= 'data.pwdDisplay'
+             is-factor-needed="data.isFactorNeeded"
+                >
+        </div>
+
+        <div pop-confirm out-value="data.outValue"></div>
+
+        <loading show-loading="data.showLoading"></loading>
+    </div>
+</ion-view>
